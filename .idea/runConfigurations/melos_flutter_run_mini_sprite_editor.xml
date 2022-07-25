@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Flutter Run -&gt; 'mini_sprite_editor'" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="filePath" value="$PROJECT_DIR$/packages/mini_sprite_editor/lib/main.dart" />
+    <method v="2" />
+  </configuration>
+</component>

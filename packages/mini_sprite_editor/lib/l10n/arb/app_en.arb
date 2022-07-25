@@ -1,0 +1,43 @@
+{
+    "@@locale": "en",
+    "zoomIn": "Zoom In",
+    "@zoomIn": {
+        "description": "Zoom In tooltip"
+    },
+    "zoomOut": "Zoom Out",
+    "@zoomOut": {
+        "description": "Zoom Out tooltip"
+    },
+    "copyToClipboard": "Copy to clipboard",
+    "@copyToClipboard": {
+        "description": "Copy to clipboard label"
+    },
+    "copiedWithSuccess": "Data copied to clipboard",
+    "@copiedWithSuccess": {
+        "description": "Message of data copied to clipboard"
+    },
+    "importFromClipBoard": "Import from clipboard",
+    "@importFromClipBoard": {
+        "description": "Import from clipboard label"
+    },
+    "importSuccess": "Data imported from clipboard",
+    "@importSuccess": {
+        "description": "Message of data imported to clipboard"
+    },
+    "brush": "Brush",
+    "@brush": {
+        "description": "Brush label"
+    },
+    "eraser": "Eraser",
+    "@eraser": {
+        "description": "Eraser label"
+    },
+    "bucket": "Fill",
+    "@bucket": {
+        "description": "Fill label"
+    },
+    "bucketEraser": "Unfill",
+    "@bucketEraser": {
+        "description": "Unfill label"
+    }
+}
