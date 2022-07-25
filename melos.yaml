@@ -1,0 +1,5 @@
+name: mini_sprite
+repository: https://github.com/bluefireteam/mini_sprite
+packages:
+  - packages/**
+  - .

@@ -1,0 +1,13 @@
+name: mini_sprite
+description: A simple sprite format for building 1bit styled graphics.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dev_dependencies:
+  coverage: ^1.1.0
+  mocktail: ^0.3.0
+  test: ^1.19.2
+  very_good_analysis: ^3.0.0
