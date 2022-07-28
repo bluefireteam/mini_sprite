@@ -133,4 +133,20 @@ class SpriteCubit extends Cubit<SpriteState> {
     emit(state.copyWith(toolActive: false));
     _processTool();
   }
+
+  void setSize(int x, int y) {
+    final newPixels = [
+      ...List.generate(y, (i) => List.generate(x, (j) => false)),
+    ];
+
+    for (var y = 0; y < state.pixels.length; y++) {
+      for (var x = 0; x < state.pixels[y].length; x++) {
+        if (y < newPixels.length && x < newPixels[y].length) {
+          newPixels[y][x] = state.pixels[y][x];
+        }
+      }
+    }
+
+    emit(state.copyWith(pixels: newPixels));
+  }
 }

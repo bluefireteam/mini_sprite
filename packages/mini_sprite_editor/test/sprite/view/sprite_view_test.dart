@@ -276,6 +276,48 @@ void main() {
           },
         );
       });
+
+      testWidgets('opens the resize dialog', (tester) async {
+        _mockState(SpriteState.initial());
+        await tester.pumpTest(cubit: cubit);
+
+        await tester.tap(find.byKey(const Key('resize_sprite_key')));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(SpriteSizeDialog), findsOneWidget);
+      });
+
+      testWidgets('can resize the sprite', (tester) async {
+        _mockState(SpriteState.initial());
+        await tester.pumpTest(cubit: cubit);
+
+        await tester.tap(find.byKey(const Key('resize_sprite_key')));
+        await tester.pumpAndSettle();
+
+        await tester.enterText(find.byKey(Key('width_text_field_key')), '2');
+        await tester.enterText(find.byKey(Key('height_text_field_key')), '2');
+
+        await tester.tap(find.text('Confirm'));
+        await tester.pump();
+
+        verify(() => cubit.setSize(2, 2)).called(1);
+      });
+
+      testWidgets('does nothing when cancel the resizing', (tester) async {
+        _mockState(SpriteState.initial());
+        await tester.pumpTest(cubit: cubit);
+
+        await tester.tap(find.byKey(const Key('resize_sprite_key')));
+        await tester.pumpAndSettle();
+
+        await tester.enterText(find.byKey(Key('width_text_field_key')), '2');
+        await tester.enterText(find.byKey(Key('height_text_field_key')), '2');
+
+        await tester.tap(find.text('Cancel'));
+        await tester.pump();
+
+        verifyNever(() => cubit.setSize(any(), any()));
+      });
     });
   });
 }

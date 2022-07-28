@@ -92,7 +92,55 @@ class SpriteView extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 32,
+            top: 8,
+            right: 32,
+            left: 32,
+            child: Card(
+              child: Row(
+                children: [
+                  IconButton(
+                    key: const Key('resize_sprite_key'),
+                    onPressed: () async {
+                      final cubit = context.read<SpriteCubit>();
+                      final value = await SpriteSizeDialog.show(context);
+                      if (value != null) {
+                        cubit.setSize(
+                          value.dx.toInt(),
+                          value.dy.toInt(),
+                        );
+                      }
+                    },
+                    tooltip: l10n.spriteSizeTitle,
+                    icon: const Icon(Icons.iso_sharp),
+                  ),
+                  IconButton(
+                    key: const Key('copy_to_clipboard_key'),
+                    onPressed: () {
+                      context.read<SpriteCubit>().copyToClipboard();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(l10n.copiedWithSuccess)),
+                      );
+                    },
+                    tooltip: l10n.copyToClipboard,
+                    icon: const Icon(Icons.download),
+                  ),
+                  IconButton(
+                    key: const Key('import_from_clipboard_key'),
+                    onPressed: () {
+                      context.read<SpriteCubit>().importFromClipboard();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(l10n.importSuccess)),
+                      );
+                    },
+                    tooltip: l10n.importFromClipBoard,
+                    icon: const Icon(Icons.import_export),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 64,
             right: 32,
             child: Card(
               child: Column(
@@ -160,29 +208,6 @@ class SpriteView extends StatelessWidget {
                     },
                     tooltip: l10n.zoomOut,
                     icon: const Icon(Icons.zoom_out),
-                  ),
-                  const Divider(),
-                  IconButton(
-                    key: const Key('copy_to_clipboard_key'),
-                    onPressed: () {
-                      context.read<SpriteCubit>().copyToClipboard();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(l10n.copiedWithSuccess)),
-                      );
-                    },
-                    tooltip: l10n.copyToClipboard,
-                    icon: const Icon(Icons.download),
-                  ),
-                  IconButton(
-                    key: const Key('import_from_clipboard_key'),
-                    onPressed: () {
-                      context.read<SpriteCubit>().importFromClipboard();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(l10n.importSuccess)),
-                      );
-                    },
-                    tooltip: l10n.importFromClipBoard,
-                    icon: const Icon(Icons.import_export),
                   ),
                 ],
               ),
