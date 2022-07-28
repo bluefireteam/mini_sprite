@@ -7,6 +7,8 @@ extension PumpApp on WidgetTester {
   Future<void> pumpApp(Widget widget) {
     return pumpWidget(
       MaterialApp(
+        theme: ThemeData(),
+        darkTheme: ThemeData.dark(),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

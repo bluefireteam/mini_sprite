@@ -396,5 +396,41 @@ void main() {
         );
       });
     });
+
+    group('sprite resize', () {
+      blocTest<SpriteCubit, SpriteState>(
+        'resizes the sprite',
+        build: SpriteCubit.new,
+        act: (cubit) => cubit..setSize(2, 2),
+        expect: () => [
+          SpriteState.initial().copyWith(
+            pixels: [
+              [false, false],
+              [false, false],
+            ],
+          ),
+        ],
+      );
+
+      blocTest<SpriteCubit, SpriteState>(
+        'resizes the sprite keep any data possible',
+        build: SpriteCubit.new,
+        seed: () => SpriteState.initial().copyWith(
+          pixels: [
+            [true],
+            [false],
+          ],
+        ),
+        act: (cubit) => cubit..setSize(2, 2),
+        expect: () => [
+          SpriteState.initial().copyWith(
+            pixels: [
+              [true, false],
+              [false, false],
+            ],
+          ),
+        ],
+      );
+    });
   });
 }

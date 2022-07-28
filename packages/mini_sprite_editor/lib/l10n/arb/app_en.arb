@@ -39,5 +39,29 @@
     "bucketEraser": "Unfill",
     "@bucketEraser": {
         "description": "Unfill label"
+    },
+    "width": "Width",
+    "@width": {
+        "description": "Label for width"
+    },
+    "height": "Height",
+    "@height": {
+        "description": "Label for height"
+    },
+    "greaterThanZero": "Must be greater than zero",
+    "@greaterThanZero": {
+        "description": "Error message for values that must be greated than zero."
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+        "description": "Confirm label"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Cancel label"
+    },
+    "spriteSizeTitle": "Edit sprite size",
+    "@spriteSizeTitle": {
+        "description": "Title for the sprite size dialog"
     }
 }
