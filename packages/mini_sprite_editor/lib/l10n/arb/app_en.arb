@@ -75,5 +75,9 @@
     "clearSprite": "Clear sprite",
     "@clearSprite": {
         "description": "Label for clearing the sprite"
+    },
+    "toogleGrid": "Toogle grid",
+    "@toogleGrid": {
+        "description": "Label for the grid toogling"
     }
 }

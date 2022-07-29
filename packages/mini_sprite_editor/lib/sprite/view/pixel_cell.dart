@@ -6,18 +6,18 @@ class PixelCell extends StatelessWidget {
     required this.selected,
     required this.hovered,
     required this.pixelSize,
+    required this.hasBorder,
   });
 
   final bool selected;
   final bool hovered;
   final int pixelSize;
+  final bool hasBorder;
 
   @override
   Widget build(BuildContext context) {
     final selectedColor =
         Theme.of(context).textTheme.bodySmall?.color ?? Colors.black;
-
-    final unselectedColor = Theme.of(context).scaffoldBackgroundColor;
 
     return Container(
       width: pixelSize.toDouble(),
@@ -27,9 +27,13 @@ class PixelCell extends StatelessWidget {
             ? selectedColor
             : hovered
                 ? selectedColor.withOpacity(.2)
-                : unselectedColor,
+                : Colors.transparent,
         border: Border.all(
-          color: selectedColor,
+          color: hasBorder
+              ? selectedColor
+              : selected
+                  ? selectedColor
+                  : Colors.transparent,
         ),
       ),
     );

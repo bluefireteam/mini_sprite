@@ -16,6 +16,7 @@ class SpriteState extends Equatable {
     required this.cursorPosition,
     required this.tool,
     required this.toolActive,
+    required this.gridActive,
   });
 
   SpriteState.initial()
@@ -28,6 +29,7 @@ class SpriteState extends Equatable {
           cursorPosition: const Offset(-1, -1),
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: true,
         );
 
   final int pixelSize;
@@ -35,6 +37,7 @@ class SpriteState extends Equatable {
   final Offset cursorPosition;
   final SpriteTool tool;
   final bool toolActive;
+  final bool gridActive;
 
   SpriteState copyWith({
     int? pixelSize,
@@ -42,6 +45,7 @@ class SpriteState extends Equatable {
     Offset? cursorPosition,
     SpriteTool? tool,
     bool? toolActive,
+    bool? gridActive,
   }) {
     return SpriteState(
       pixelSize: pixelSize ?? this.pixelSize,
@@ -49,6 +53,7 @@ class SpriteState extends Equatable {
       cursorPosition: cursorPosition ?? this.cursorPosition,
       tool: tool ?? this.tool,
       toolActive: toolActive ?? this.toolActive,
+      gridActive: gridActive ?? this.gridActive,
     );
   }
 
@@ -59,5 +64,6 @@ class SpriteState extends Equatable {
         cursorPosition,
         tool,
         toolActive,
+        gridActive,
       ];
 }

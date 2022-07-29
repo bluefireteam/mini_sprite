@@ -452,5 +452,16 @@ void main() {
         ),
       ],
     );
+
+    blocTest<SpriteCubit, SpriteState>(
+      'can toogle the grid',
+      build: SpriteCubit.new,
+      act: (cubit) => cubit.toogleGrid(),
+      expect: () => [
+        SpriteState.initial().copyWith(
+          gridActive: false,
+        ),
+      ],
+    );
   });
 }

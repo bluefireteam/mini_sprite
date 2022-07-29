@@ -11,7 +11,12 @@ void main() {
     testWidgets('renders correctly when selected', (tester) async {
       await tester.pumpApp(
         Scaffold(
-          body: PixelCell(selected: true, hovered: false, pixelSize: 50),
+          body: PixelCell(
+            selected: true,
+            hovered: false,
+            pixelSize: 50,
+            hasBorder: true,
+          ),
         ),
       );
 
@@ -24,7 +29,12 @@ void main() {
     testWidgets('renders correctly when hovered', (tester) async {
       await tester.pumpApp(
         Scaffold(
-          body: PixelCell(selected: false, hovered: true, pixelSize: 50),
+          body: PixelCell(
+            selected: false,
+            hovered: true,
+            pixelSize: 50,
+            hasBorder: true,
+          ),
         ),
       );
 
@@ -39,13 +49,39 @@ void main() {
       (tester) async {
         await tester.pumpApp(
           Scaffold(
-            body: PixelCell(selected: false, hovered: false, pixelSize: 50),
+            body: PixelCell(
+              selected: false,
+              hovered: false,
+              pixelSize: 50,
+              hasBorder: true,
+            ),
           ),
         );
 
         await expectLater(
           find.byType(Scaffold),
           matchesGoldenFile('goldens/pixel_cell_empty.png'),
+        );
+      },
+    );
+
+    testWidgets(
+      'renders correctly when there is no grid active',
+      (tester) async {
+        await tester.pumpApp(
+          Scaffold(
+            body: PixelCell(
+              selected: false,
+              hovered: false,
+              pixelSize: 50,
+              hasBorder: false,
+            ),
+          ),
+        );
+
+        await expectLater(
+          find.byType(Scaffold),
+          matchesGoldenFile('goldens/pixel_cell_no_border.png'),
         );
       },
     );
