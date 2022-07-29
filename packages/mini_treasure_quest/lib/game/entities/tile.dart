@@ -30,7 +30,11 @@ class Tile extends BodyComponent<MiniTreasureQuest> {
 
     return world.createBody(bodyDef)
       ..createFixtureFromShape(
-        PolygonShape()..setAsBoxXY(tileSize / 2, tileSize / 2),
+        PolygonShape()
+          ..setAsBoxXY(
+            (tileSize / 2) * 0.8,
+            (tileSize / 2) * 0.8,
+          ),
       );
   }
 }
