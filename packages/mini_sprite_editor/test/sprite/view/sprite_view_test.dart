@@ -363,6 +363,19 @@ void main() {
           verifyNever(cubit.clearSprite);
         },
       );
+
+      testWidgets(
+        'toogles the grid',
+        (tester) async {
+          _mockState(SpriteState.initial());
+          await tester.pumpTest(cubit: cubit);
+
+          await tester.tap(find.byKey(const Key('toogle_grid_key')));
+          await tester.pumpAndSettle();
+
+          verify(cubit.toogleGrid).called(1);
+        },
+      );
     });
   });
 }

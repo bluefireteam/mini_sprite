@@ -13,6 +13,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: true,
         ),
         isNotNull,
       );
@@ -26,6 +27,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: true,
         ),
         equals(
           SpriteState(
@@ -34,6 +36,7 @@ void main() {
             cursorPosition: Offset.zero,
             tool: SpriteTool.brush,
             toolActive: false,
+            gridActive: true,
           ),
         ),
       );
@@ -45,6 +48,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: true,
         ),
         isNot(
           equals(
@@ -54,6 +58,7 @@ void main() {
               cursorPosition: Offset.zero,
               tool: SpriteTool.brush,
               toolActive: false,
+              gridActive: true,
             ),
           ),
         ),
@@ -66,6 +71,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: true,
         ),
         isNot(
           equals(
@@ -77,6 +83,7 @@ void main() {
               cursorPosition: Offset.zero,
               tool: SpriteTool.brush,
               toolActive: false,
+              gridActive: true,
             ),
           ),
         ),
@@ -89,6 +96,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: true,
         ),
         isNot(
           equals(
@@ -98,6 +106,7 @@ void main() {
               cursorPosition: Offset(1, 1),
               tool: SpriteTool.brush,
               toolActive: false,
+              gridActive: true,
             ),
           ),
         ),
@@ -110,6 +119,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: true,
         ),
         isNot(
           equals(
@@ -119,6 +129,7 @@ void main() {
               cursorPosition: Offset.zero,
               tool: SpriteTool.eraser,
               toolActive: false,
+              gridActive: true,
             ),
           ),
         ),
@@ -131,6 +142,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: true,
         ),
         isNot(
           equals(
@@ -140,6 +152,30 @@ void main() {
               cursorPosition: Offset.zero,
               tool: SpriteTool.brush,
               toolActive: true,
+              gridActive: true,
+            ),
+          ),
+        ),
+      );
+
+      expect(
+        SpriteState(
+          pixelSize: 10,
+          pixels: const [],
+          cursorPosition: Offset.zero,
+          tool: SpriteTool.brush,
+          toolActive: true,
+          gridActive: true,
+        ),
+        isNot(
+          equals(
+            SpriteState(
+              pixelSize: 10,
+              pixels: const [],
+              cursorPosition: Offset.zero,
+              tool: SpriteTool.brush,
+              toolActive: true,
+              gridActive: false,
             ),
           ),
         ),
@@ -154,6 +190,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: false,
         ).copyWith(pixelSize: 11),
         equals(
           SpriteState(
@@ -162,6 +199,7 @@ void main() {
             cursorPosition: Offset.zero,
             tool: SpriteTool.brush,
             toolActive: false,
+            gridActive: false,
           ),
         ),
       );
@@ -173,6 +211,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: false,
         ).copyWith(
           pixels: [
             [true]
@@ -187,6 +226,7 @@ void main() {
             cursorPosition: Offset.zero,
             tool: SpriteTool.brush,
             toolActive: false,
+            gridActive: false,
           ),
         ),
       );
@@ -198,6 +238,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: false,
         ).copyWith(cursorPosition: Offset(1, 1)),
         equals(
           SpriteState(
@@ -206,6 +247,7 @@ void main() {
             cursorPosition: Offset(1, 1),
             tool: SpriteTool.brush,
             toolActive: false,
+            gridActive: false,
           ),
         ),
       );
@@ -217,6 +259,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: false,
         ).copyWith(tool: SpriteTool.eraser),
         equals(
           SpriteState(
@@ -225,6 +268,7 @@ void main() {
             cursorPosition: Offset.zero,
             tool: SpriteTool.eraser,
             toolActive: false,
+            gridActive: false,
           ),
         ),
       );
@@ -236,6 +280,7 @@ void main() {
           cursorPosition: Offset.zero,
           tool: SpriteTool.brush,
           toolActive: false,
+          gridActive: false,
         ).copyWith(toolActive: true),
         equals(
           SpriteState(
@@ -244,6 +289,28 @@ void main() {
             cursorPosition: Offset.zero,
             tool: SpriteTool.brush,
             toolActive: true,
+            gridActive: false,
+          ),
+        ),
+      );
+
+      expect(
+        SpriteState(
+          pixelSize: 10,
+          pixels: const [],
+          cursorPosition: Offset.zero,
+          tool: SpriteTool.brush,
+          toolActive: false,
+          gridActive: false,
+        ).copyWith(gridActive: true),
+        equals(
+          SpriteState(
+            pixelSize: 10,
+            pixels: const [],
+            cursorPosition: Offset.zero,
+            tool: SpriteTool.brush,
+            toolActive: false,
+            gridActive: true,
           ),
         ),
       );

@@ -1,3 +1,4 @@
+import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
@@ -25,6 +26,7 @@ class SpriteView extends StatelessWidget {
     final pixels = state.pixels;
     final cursorPosition = state.cursorPosition;
     final tool = state.tool;
+    final gridActive = state.gridActive;
 
     final pixelSize = state.pixelSize;
 
@@ -60,7 +62,10 @@ class SpriteView extends StatelessWidget {
                               .read<SpriteCubit>()
                               .cursorHover(event.localPosition);
                         },
-                        child: SizedBox(
+                        child: Container(
+                          color: Theme.of(context)
+                              .scaffoldBackgroundColor
+                              .darken(0.1),
                           key: const Key('board_key'),
                           width: spriteWidth.toDouble(),
                           height: spriteHeight.toDouble(),
@@ -73,6 +78,7 @@ class SpriteView extends StatelessWidget {
                                       PixelCell(
                                         pixelSize: pixelSize,
                                         selected: pixels[y][x],
+                                        hasBorder: gridActive,
                                         hovered: cursorPosition ==
                                             Offset(
                                               x.toDouble(),
@@ -124,6 +130,16 @@ class SpriteView extends StatelessWidget {
                     },
                     tooltip: l10n.clearSprite,
                     icon: const Icon(Icons.delete),
+                  ),
+                  IconButton(
+                    key: const Key('toogle_grid_key'),
+                    onPressed: () async {
+                      context.read<SpriteCubit>().toogleGrid();
+                    },
+                    tooltip: l10n.toogleGrid,
+                    icon: Icon(
+                      gridActive ? Icons.grid_on : Icons.grid_off,
+                    ),
                   ),
                   IconButton(
                     key: const Key('copy_to_clipboard_key'),

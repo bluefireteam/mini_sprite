@@ -160,4 +160,8 @@ class SpriteCubit extends Cubit<SpriteState> {
 
     emit(state.copyWith(pixels: newPixels));
   }
+
+  void toogleGrid() {
+    emit(state.copyWith(gridActive: !state.gridActive));
+  }
 }
