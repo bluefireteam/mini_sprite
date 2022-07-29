@@ -71,6 +71,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.1"
+  flame_mini_sprite:
+    dependency: "direct main"
+    description:
+      path: "../flame_mini_sprite"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -123,6 +130,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  mini_sprite:
+    dependency: "direct main"
+    description:
+      path: "../mini_sprite"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   ordered_set:
     dependency: transitive
     description:

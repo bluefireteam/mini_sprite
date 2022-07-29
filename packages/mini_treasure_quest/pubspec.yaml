@@ -12,8 +12,10 @@ dependencies:
   flame: 1.2.1
   flame_behaviors: ^0.1.1
   flame_forge2d: ^0.12.1
+  flame_mini_sprite: 1.0.0+1
   flutter:
     sdk: flutter
+  mini_sprite: 1.0.0+1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

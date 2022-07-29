@@ -3,7 +3,7 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
-class Player extends BodyComponent {
+class Player extends BodyComponent<MiniTreasureQuest> {
   Player({
     required this.initialPosition,
   });
@@ -13,9 +13,19 @@ class Player extends BodyComponent {
   static const double speed = 6;
   static const double jumpForce = 8;
 
+  late SpriteComponent sprite;
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+
+    await add(
+      sprite = SpriteComponent(
+        sprite: gameRef.gameSprites['PLAYER'],
+        size: Vector2.all(tileSize),
+        anchor: Anchor.center,
+      ),
+    );
 
     await add(
       KeyboardListenerComponent(
@@ -43,12 +53,18 @@ class Player extends BodyComponent {
     if (body.linearVelocity.x > -speed) {
       body.applyLinearImpulse(Vector2(-speed, 0));
     }
+    if (!sprite.isFlippedHorizontally) {
+      sprite.flipHorizontally();
+    }
     return true;
   }
 
   bool _startMovingRight(_) {
     if (body.linearVelocity.x < speed) {
       body.applyLinearImpulse(Vector2(speed, 0));
+    }
+    if (sprite.isFlippedHorizontally) {
+      sprite.flipHorizontally();
     }
     return true;
   }
@@ -60,7 +76,7 @@ class Player extends BodyComponent {
 
   @override
   Body createBody() {
-    renderBody = true;
+    renderBody = false;
     final bodyDef = BodyDef(
       userData: this,
       type: BodyType.dynamic,

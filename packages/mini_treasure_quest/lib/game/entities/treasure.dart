@@ -1,5 +1,5 @@
+import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flutter/material.dart';
 import 'package:mini_treasure_quest/game/entities/entities.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
@@ -9,9 +9,21 @@ class Treasure extends BodyComponent<MiniTreasureQuest> with ContactCallbacks {
   final Vector2 initialPosition;
 
   @override
+  Future<void> onLoad() async {
+    await super.onLoad();
+
+    await add(
+      SpriteComponent(
+        sprite: gameRef.gameSprites['TREASURE${gameRef.rng.nextInt(1)}'],
+        size: Vector2.all(tileSize),
+        anchor: Anchor.center,
+      ),
+    );
+  }
+
+  @override
   Body createBody() {
-    renderBody = true;
-    paint = Paint()..color = Colors.yellow;
+    renderBody = false;
 
     final bodyDef = BodyDef(
       userData: this,
