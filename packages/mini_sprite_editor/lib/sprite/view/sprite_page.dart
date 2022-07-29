@@ -114,6 +114,18 @@ class SpriteView extends StatelessWidget {
                     icon: const Icon(Icons.iso_sharp),
                   ),
                   IconButton(
+                    key: const Key('clear_sprite_key'),
+                    onPressed: () async {
+                      final cubit = context.read<SpriteCubit>();
+                      final value = await ConfirmDialog.show(context);
+                      if (value ?? false) {
+                        cubit.clearSprite();
+                      }
+                    },
+                    tooltip: l10n.clearSprite,
+                    icon: const Icon(Icons.delete),
+                  ),
+                  IconButton(
                     key: const Key('copy_to_clipboard_key'),
                     onPressed: () {
                       context.read<SpriteCubit>().copyToClipboard();

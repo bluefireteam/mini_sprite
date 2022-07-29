@@ -318,6 +318,51 @@ void main() {
 
         verifyNever(() => cubit.setSize(any(), any()));
       });
+
+      testWidgets(
+        'opens the confirm dialog when clearing the sprite',
+        (tester) async {
+          _mockState(SpriteState.initial());
+          await tester.pumpTest(cubit: cubit);
+
+          await tester.tap(find.byKey(const Key('clear_sprite_key')));
+          await tester.pumpAndSettle();
+
+          expect(find.byType(ConfirmDialog), findsOneWidget);
+        },
+      );
+
+      testWidgets(
+        'clears the sprite upon confirmation',
+        (tester) async {
+          _mockState(SpriteState.initial());
+          await tester.pumpTest(cubit: cubit);
+
+          await tester.tap(find.byKey(const Key('clear_sprite_key')));
+          await tester.pumpAndSettle();
+
+          await tester.tap(find.text('Confirm'));
+          await tester.pumpAndSettle();
+
+          verify(cubit.clearSprite).called(1);
+        },
+      );
+
+      testWidgets(
+        'does nothing when cancel the clearing',
+        (tester) async {
+          _mockState(SpriteState.initial());
+          await tester.pumpTest(cubit: cubit);
+
+          await tester.tap(find.byKey(const Key('clear_sprite_key')));
+          await tester.pumpAndSettle();
+
+          await tester.tap(find.text('Cancel'));
+          await tester.pumpAndSettle();
+
+          verifyNever(cubit.clearSprite);
+        },
+      );
     });
   });
 }

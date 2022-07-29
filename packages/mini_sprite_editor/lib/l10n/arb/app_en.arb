@@ -63,5 +63,17 @@
     "spriteSizeTitle": "Edit sprite size",
     "@spriteSizeTitle": {
         "description": "Title for the sprite size dialog"
+    },
+    "confirmation": "Confirmation",
+    "@confirmation": {
+        "description": "Title used on confirmation dialogs"
+    },
+    "confirmationMessage": "Are you sure?",
+    "@confirmationMessage": {
+        "description": "Message used on confirmation dialogs"
+    },
+    "clearSprite": "Clear sprite",
+    "@clearSprite": {
+        "description": "Label for clearing the sprite"
     }
 }

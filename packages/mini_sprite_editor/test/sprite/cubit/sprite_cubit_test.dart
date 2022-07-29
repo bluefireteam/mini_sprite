@@ -432,5 +432,25 @@ void main() {
         ],
       );
     });
+
+    blocTest<SpriteCubit, SpriteState>(
+      'clears the sprite',
+      build: SpriteCubit.new,
+      seed: () => SpriteState.initial().copyWith(
+        pixels: [
+          [true],
+          [true],
+        ],
+      ),
+      act: (cubit) => cubit.clearSprite(),
+      expect: () => [
+        SpriteState.initial().copyWith(
+          pixels: [
+            [false],
+            [false],
+          ],
+        ),
+      ],
+    );
   });
 }

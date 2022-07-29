@@ -149,4 +149,15 @@ class SpriteCubit extends Cubit<SpriteState> {
 
     emit(state.copyWith(pixels: newPixels));
   }
+
+  void clearSprite() {
+    final newPixels = [
+      ...List.generate(
+        state.pixels.length,
+        (i) => List.generate(state.pixels[0].length, (j) => false),
+      ),
+    ];
+
+    emit(state.copyWith(pixels: newPixels));
+  }
 }
