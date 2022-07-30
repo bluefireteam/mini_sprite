@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/game/entities/entities.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
@@ -14,7 +15,8 @@ class Treasure extends BodyComponent<MiniTreasureQuest> with ContactCallbacks {
 
     await add(
       SpriteComponent(
-        sprite: gameRef.gameSprites['TREASURE${gameRef.rng.nextInt(1)}'],
+        sprite:
+            Assets.instance.gameSprites['TREASURE${gameRef.rng.nextInt(1)}'],
         size: Vector2.all(tileSize),
         anchor: Anchor.center,
       ),

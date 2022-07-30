@@ -25,18 +25,22 @@ class StagesView extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(32),
-        child: GridView.count(
-          crossAxisCount: 10,
+        child: Wrap(
           children: [
             for (var i = 0; i < stages.length; i++)
               InkWell(
                 onTap: () {
                   Navigator.of(context).push(GamePage.route(i));
                 },
-                child: Card(
-                  child: Center(
-                    child: Text(
-                      'Stage ${i + 1}',
+                child: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: Card(
+                    child: Center(
+                      child: Text(
+                        '${i + 1}',
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
                     ),
                   ),
                 ),

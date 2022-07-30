@@ -12,8 +12,8 @@ class WinDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       child: SizedBox(
-        width: 300,
-        height: 150,
+        width: 450,
+        height: 200,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -21,7 +21,7 @@ class WinDialog extends StatelessWidget {
               'Stage clear!',
               style: Theme.of(context).textTheme.headline4,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 32),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

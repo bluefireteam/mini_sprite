@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/services.dart';
+import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
 class Player extends BodyComponent<MiniTreasureQuest> {
@@ -21,7 +22,7 @@ class Player extends BodyComponent<MiniTreasureQuest> {
 
     await add(
       sprite = SpriteComponent(
-        sprite: gameRef.gameSprites['PLAYER'],
+        sprite: Assets.instance.gameSprites['PLAYER'],
         size: Vector2.all(tileSize),
         anchor: Anchor.center,
       ),
