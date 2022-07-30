@@ -15,6 +15,7 @@ dependencies:
   flame_mini_sprite: 1.0.0+1
   flutter:
     sdk: flutter
+  google_fonts: ^3.0.1
   mini_sprite: 1.0.0+1
 
 dev_dependencies:
@@ -22,3 +23,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   very_good_analysis: ^3.0.1
+
+flutter:
+  assets:
+    - google_fonts/

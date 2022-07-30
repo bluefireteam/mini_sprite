@@ -2,42 +2,21 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/input.dart';
-import 'package:flame/sprite.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flame_mini_sprite/flame_mini_sprite.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_treasure_quest/game/entities/entities.dart';
 import 'package:mini_treasure_quest/game/stages.dart';
 import 'package:mini_treasure_quest/game/views/view.dart';
-import 'package:mini_treasure_quest/sprites.dart';
 
 const double tileSize = 2;
 
 class MiniTreasureQuest extends Forge2DGame with HasKeyboardHandlerComponents {
   MiniTreasureQuest({required this.stage});
 
-  late Map<String, Sprite> gameSprites;
   final rng = Random(10);
 
   @override
   Future<void> onLoad() async {
-    final entries = await Future.wait(
-      sprites.entries.map((entry) async {
-        return MapEntry(
-          entry.key,
-          await MiniSprite.fromDataString(entry.value).toSprite(
-            color: Colors.white,
-            pixelSize: 1,
-          ),
-        );
-      }).toList(),
-    );
-
-    gameSprites = {
-      for (final entry in entries) entry.key: entry.value,
-    };
-
     await loadStage(stages[stage]);
   }
 

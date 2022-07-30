@@ -1,4 +1,6 @@
+import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/stages/stages.dart';
 
 class TitlePage extends StatelessWidget {
@@ -27,11 +29,21 @@ class TitleView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 300,
+              width: 400,
               height: 300,
-              color: Colors.blue,
+              padding: const EdgeInsets.all(32),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.white,
+                  width: 4,
+                ),
+              ),
+              child: SpriteWidget(
+                // TODO(erickzanardo): A MiniSpriteWidget is a good idea.
+                sprite: Assets.instance.gameSprites['LOGO']!,
+              ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 64),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(StagesPage.route());

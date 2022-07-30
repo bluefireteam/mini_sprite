@@ -35,8 +35,8 @@ extension FlameMiniSpriteX on MiniSprite {
     }
 
     final image = await recorder.endRecording().toImage(
-          pixels.length * pixelSize.toInt(),
           pixels[0].length * pixelSize.toInt(),
+          pixels.length * pixelSize.toInt(),
         );
 
     return Sprite(image);
