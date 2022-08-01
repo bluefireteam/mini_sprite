@@ -45,10 +45,18 @@ class TitleView extends StatelessWidget {
             ),
             const SizedBox(height: 64),
             ElevatedButton(
+              autofocus: true,
               onPressed: () {
                 Navigator.of(context).push(StagesPage.route());
               },
               child: const Text('Play'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                //
+              },
+              child: const Text('Credits'),
             )
           ],
         ),

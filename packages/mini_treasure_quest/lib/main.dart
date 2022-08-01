@@ -52,6 +52,17 @@ void main() async {
     MaterialApp(
       theme: _buildTheme(Brightness.dark),
       home: const TitleView(),
+      shortcuts: {
+        ...WidgetsApp.defaultShortcuts,
+        const SingleActivator(LogicalKeyboardKey.arrowRight):
+            const NextFocusIntent(),
+        const SingleActivator(LogicalKeyboardKey.arrowLeft):
+            const PreviousFocusIntent(),
+        const SingleActivator(LogicalKeyboardKey.arrowDown):
+            const NextFocusIntent(),
+        const SingleActivator(LogicalKeyboardKey.arrowUp):
+            const PreviousFocusIntent(),
+      },
     ),
   );
 }

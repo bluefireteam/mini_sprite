@@ -28,19 +28,18 @@ class StagesView extends StatelessWidget {
         child: Wrap(
           children: [
             for (var i = 0; i < stages.length; i++)
-              InkWell(
-                onTap: () {
+              ElevatedButton(
+                onPressed: () {
                   Navigator.of(context).push(GamePage.route(i));
                 },
+                autofocus: i == stages.length - 1,
                 child: SizedBox(
                   width: 100,
                   height: 100,
-                  child: Card(
-                    child: Center(
-                      child: Text(
-                        '${i + 1}',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
+                  child: Center(
+                    child: Text(
+                      '${i + 1}',
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                   ),
                 ),

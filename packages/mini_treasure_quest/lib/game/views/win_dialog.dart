@@ -26,6 +26,7 @@ class WinDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
+                  autofocus: stage + 1 == stages.length,
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
                       StagesPage.route(),
@@ -35,6 +36,7 @@ class WinDialog extends StatelessWidget {
                 ),
                 if (stage + 1 < stages.length)
                   ElevatedButton(
+                    autofocus: true,
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
                         GamePage.route(stage + 1),
