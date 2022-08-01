@@ -3,6 +3,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
@@ -376,6 +377,64 @@ void main() {
           verify(cubit.toogleGrid).called(1);
         },
       );
+
+      group('tools shortcuts', () {
+        testWidgets(
+          'b selects brush',
+          (tester) async {
+            _mockState(SpriteState.initial());
+            await tester.pumpTest(cubit: cubit);
+
+            await tester.sendKeyDownEvent(LogicalKeyboardKey.keyB);
+            await tester.sendKeyUpEvent(LogicalKeyboardKey.keyB);
+            await tester.pump();
+
+            verify(() => cubit.selectTool(SpriteTool.brush)).called(1);
+          },
+        );
+
+        testWidgets(
+          'e selects eraser',
+          (tester) async {
+            _mockState(SpriteState.initial());
+            await tester.pumpTest(cubit: cubit);
+
+            await tester.sendKeyDownEvent(LogicalKeyboardKey.keyE);
+            await tester.sendKeyUpEvent(LogicalKeyboardKey.keyE);
+            await tester.pump();
+
+            verify(() => cubit.selectTool(SpriteTool.eraser)).called(1);
+          },
+        );
+
+        testWidgets(
+          'f selects bucket',
+          (tester) async {
+            _mockState(SpriteState.initial());
+            await tester.pumpTest(cubit: cubit);
+
+            await tester.sendKeyDownEvent(LogicalKeyboardKey.keyF);
+            await tester.sendKeyUpEvent(LogicalKeyboardKey.keyF);
+            await tester.pump();
+
+            verify(() => cubit.selectTool(SpriteTool.bucket)).called(1);
+          },
+        );
+
+        testWidgets(
+          'd selects bucket eraser',
+          (tester) async {
+            _mockState(SpriteState.initial());
+            await tester.pumpTest(cubit: cubit);
+
+            await tester.sendKeyDownEvent(LogicalKeyboardKey.keyD);
+            await tester.sendKeyUpEvent(LogicalKeyboardKey.keyD);
+            await tester.pump();
+
+            verify(() => cubit.selectTool(SpriteTool.bucketEraser)).called(1);
+          },
+        );
+      });
     });
   });
 }
