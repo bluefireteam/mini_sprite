@@ -2,6 +2,7 @@ import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
+import 'package:mini_sprite_editor/sprite/cubit/tools_cubit.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
 
 class SpritePage extends StatelessWidget {
@@ -9,8 +10,15 @@ class SpritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => SpriteCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SpriteCubit>(
+          create: (context) => SpriteCubit(),
+        ),
+        BlocProvider<ToolsCubit>(
+          create: (context) => ToolsCubit(),
+        ),
+      ],
       child: const SpriteView(),
     );
   }
@@ -22,13 +30,15 @@ class SpriteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final state = context.watch<SpriteCubit>().state;
-    final pixels = state.pixels;
-    final cursorPosition = state.cursorPosition;
-    final tool = state.tool;
-    final gridActive = state.gridActive;
+    final spriteState = context.watch<SpriteCubit>().state;
+    final toolsState = context.watch<ToolsCubit>().state;
 
-    final pixelSize = state.pixelSize;
+    final pixels = spriteState.pixels;
+    final cursorPosition = spriteState.cursorPosition;
+
+    final tool = toolsState.tool;
+    final gridActive = toolsState.gridActive;
+    final pixelSize = toolsState.pixelSize;
 
     final spriteHeight = pixelSize * pixels.length;
     final spriteWidth = pixelSize * pixels[0].length;
@@ -45,23 +55,29 @@ class SpriteView extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: MouseRegion(
                         onHover: (event) {
-                          context
-                              .read<SpriteCubit>()
-                              .cursorHover(event.localPosition);
+                          context.read<SpriteCubit>().cursorHover(
+                                event.localPosition,
+                                pixelSize.toDouble(),
+                                tool,
+                              );
                         },
                         child: GestureDetector(
                           onPanStart: (event) {
-                            context
-                                .read<SpriteCubit>()
-                                .cursorDown(event.localPosition);
+                            context.read<SpriteCubit>().cursorDown(
+                                  event.localPosition,
+                                  pixelSize.toDouble(),
+                                  tool,
+                                );
                           },
                           onPanEnd: (event) {
-                            context.read<SpriteCubit>().cursorUp();
+                            context.read<SpriteCubit>().cursorUp(tool);
                           },
                           onPanUpdate: (event) {
-                            context
-                                .read<SpriteCubit>()
-                                .cursorHover(event.localPosition);
+                            context.read<SpriteCubit>().cursorHover(
+                                  event.localPosition,
+                                  pixelSize.toDouble(),
+                                  tool,
+                                );
                           },
                           child: Container(
                             color: Theme.of(context)
@@ -135,7 +151,7 @@ class SpriteView extends StatelessWidget {
                     IconButton(
                       key: const Key('toogle_grid_key'),
                       onPressed: () async {
-                        context.read<SpriteCubit>().toogleGrid();
+                        context.read<ToolsCubit>().toogleGrid();
                       },
                       tooltip: l10n.toogleGrid,
                       icon: Icon(
@@ -180,7 +196,7 @@ class SpriteView extends StatelessWidget {
                           ? null
                           : () {
                               context
-                                  .read<SpriteCubit>()
+                                  .read<ToolsCubit>()
                                   .selectTool(SpriteTool.brush);
                             },
                       tooltip: l10n.brush,
@@ -192,7 +208,7 @@ class SpriteView extends StatelessWidget {
                           ? null
                           : () {
                               context
-                                  .read<SpriteCubit>()
+                                  .read<ToolsCubit>()
                                   .selectTool(SpriteTool.eraser);
                             },
                       tooltip: l10n.eraser,
@@ -204,7 +220,7 @@ class SpriteView extends StatelessWidget {
                           ? null
                           : () {
                               context
-                                  .read<SpriteCubit>()
+                                  .read<ToolsCubit>()
                                   .selectTool(SpriteTool.bucket);
                             },
                       tooltip: l10n.bucket,
@@ -216,7 +232,7 @@ class SpriteView extends StatelessWidget {
                           ? null
                           : () {
                               context
-                                  .read<SpriteCubit>()
+                                  .read<ToolsCubit>()
                                   .selectTool(SpriteTool.bucketEraser);
                             },
                       tooltip: l10n.bucketEraser,
@@ -225,7 +241,7 @@ class SpriteView extends StatelessWidget {
                     IconButton(
                       key: const Key('zoom_in_key'),
                       onPressed: () {
-                        context.read<SpriteCubit>().zoomIn();
+                        context.read<ToolsCubit>().zoomIn();
                       },
                       tooltip: l10n.zoomIn,
                       icon: const Icon(Icons.zoom_in),
@@ -233,7 +249,7 @@ class SpriteView extends StatelessWidget {
                     IconButton(
                       key: const Key('zoom_out_key'),
                       onPressed: () {
-                        context.read<SpriteCubit>().zoomOut();
+                        context.read<ToolsCubit>().zoomOut();
                       },
                       tooltip: l10n.zoomOut,
                       icon: const Icon(Icons.zoom_out),

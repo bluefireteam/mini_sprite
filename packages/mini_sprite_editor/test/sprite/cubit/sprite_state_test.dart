@@ -8,12 +8,8 @@ void main() {
     test('can be instantiated', () {
       expect(
         SpriteState(
-          pixelSize: 10,
           pixels: const [],
           cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: true,
         ),
         isNotNull,
       );
@@ -22,68 +18,29 @@ void main() {
     test('supports equality', () {
       expect(
         SpriteState(
-          pixelSize: 10,
           pixels: const [],
           cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: true,
         ),
         equals(
           SpriteState(
-            pixelSize: 10,
             pixels: const [],
             cursorPosition: Offset.zero,
-            tool: SpriteTool.brush,
-            toolActive: false,
-            gridActive: true,
           ),
         ),
       );
 
       expect(
         SpriteState(
-          pixelSize: 10,
           pixels: const [],
           cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: true,
         ),
         isNot(
           equals(
             SpriteState(
-              pixelSize: 11,
-              pixels: const [],
-              cursorPosition: Offset.zero,
-              tool: SpriteTool.brush,
-              toolActive: false,
-              gridActive: true,
-            ),
-          ),
-        ),
-      );
-
-      expect(
-        SpriteState(
-          pixelSize: 10,
-          pixels: const [],
-          cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: true,
-        ),
-        isNot(
-          equals(
-            SpriteState(
-              pixelSize: 10,
               pixels: const [
                 [true]
               ],
               cursorPosition: Offset.zero,
-              tool: SpriteTool.brush,
-              toolActive: false,
-              gridActive: true,
             ),
           ),
         ),
@@ -91,91 +48,14 @@ void main() {
 
       expect(
         SpriteState(
-          pixelSize: 10,
           pixels: const [],
           cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: true,
         ),
         isNot(
           equals(
             SpriteState(
-              pixelSize: 10,
               pixels: const [],
-              cursorPosition: Offset(1, 1),
-              tool: SpriteTool.brush,
-              toolActive: false,
-              gridActive: true,
-            ),
-          ),
-        ),
-      );
-
-      expect(
-        SpriteState(
-          pixelSize: 10,
-          pixels: const [],
-          cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: true,
-        ),
-        isNot(
-          equals(
-            SpriteState(
-              pixelSize: 10,
-              pixels: const [],
-              cursorPosition: Offset.zero,
-              tool: SpriteTool.eraser,
-              toolActive: false,
-              gridActive: true,
-            ),
-          ),
-        ),
-      );
-
-      expect(
-        SpriteState(
-          pixelSize: 10,
-          pixels: const [],
-          cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: true,
-        ),
-        isNot(
-          equals(
-            SpriteState(
-              pixelSize: 10,
-              pixels: const [],
-              cursorPosition: Offset.zero,
-              tool: SpriteTool.brush,
-              toolActive: true,
-              gridActive: true,
-            ),
-          ),
-        ),
-      );
-
-      expect(
-        SpriteState(
-          pixelSize: 10,
-          pixels: const [],
-          cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: true,
-          gridActive: true,
-        ),
-        isNot(
-          equals(
-            SpriteState(
-              pixelSize: 10,
-              pixels: const [],
-              cursorPosition: Offset.zero,
-              tool: SpriteTool.brush,
-              toolActive: true,
-              gridActive: false,
+              cursorPosition: Offset(1, 0),
             ),
           ),
         ),
@@ -185,33 +65,8 @@ void main() {
     test('copyWith returns a new isntance with the field updated', () {
       expect(
         SpriteState(
-          pixelSize: 10,
           pixels: const [],
           cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: false,
-        ).copyWith(pixelSize: 11),
-        equals(
-          SpriteState(
-            pixelSize: 11,
-            pixels: const [],
-            cursorPosition: Offset.zero,
-            tool: SpriteTool.brush,
-            toolActive: false,
-            gridActive: false,
-          ),
-        ),
-      );
-
-      expect(
-        SpriteState(
-          pixelSize: 10,
-          pixels: const [],
-          cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: false,
         ).copyWith(
           pixels: [
             [true]
@@ -219,98 +74,23 @@ void main() {
         ),
         equals(
           SpriteState(
-            pixelSize: 10,
             pixels: const [
               [true]
             ],
             cursorPosition: Offset.zero,
-            tool: SpriteTool.brush,
-            toolActive: false,
-            gridActive: false,
           ),
         ),
       );
 
       expect(
         SpriteState(
-          pixelSize: 10,
           pixels: const [],
           cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: false,
         ).copyWith(cursorPosition: Offset(1, 1)),
         equals(
           SpriteState(
-            pixelSize: 10,
             pixels: const [],
             cursorPosition: Offset(1, 1),
-            tool: SpriteTool.brush,
-            toolActive: false,
-            gridActive: false,
-          ),
-        ),
-      );
-
-      expect(
-        SpriteState(
-          pixelSize: 10,
-          pixels: const [],
-          cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: false,
-        ).copyWith(tool: SpriteTool.eraser),
-        equals(
-          SpriteState(
-            pixelSize: 10,
-            pixels: const [],
-            cursorPosition: Offset.zero,
-            tool: SpriteTool.eraser,
-            toolActive: false,
-            gridActive: false,
-          ),
-        ),
-      );
-
-      expect(
-        SpriteState(
-          pixelSize: 10,
-          pixels: const [],
-          cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: false,
-        ).copyWith(toolActive: true),
-        equals(
-          SpriteState(
-            pixelSize: 10,
-            pixels: const [],
-            cursorPosition: Offset.zero,
-            tool: SpriteTool.brush,
-            toolActive: true,
-            gridActive: false,
-          ),
-        ),
-      );
-
-      expect(
-        SpriteState(
-          pixelSize: 10,
-          pixels: const [],
-          cursorPosition: Offset.zero,
-          tool: SpriteTool.brush,
-          toolActive: false,
-          gridActive: false,
-        ).copyWith(gridActive: true),
-        equals(
-          SpriteState(
-            pixelSize: 10,
-            pixels: const [],
-            cursorPosition: Offset.zero,
-            tool: SpriteTool.brush,
-            toolActive: false,
-            gridActive: true,
           ),
         ),
       );

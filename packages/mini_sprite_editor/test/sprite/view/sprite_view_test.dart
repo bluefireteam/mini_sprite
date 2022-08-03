@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mini_sprite_editor/sprite/cubit/tools_cubit.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -13,12 +14,24 @@ import '../../helpers/helpers.dart';
 
 class _MockSpriteCubit extends Mock implements SpriteCubit {}
 
+class _MockToolsCubit extends Mock implements ToolsCubit {}
+
 extension TestWidgetText on WidgetTester {
-  Future<void> pumpTest({SpriteCubit? cubit}) async {
+  Future<void> pumpTest({
+    SpriteCubit? spriteCubit,
+    ToolsCubit? toolsCubit,
+  }) async {
     await pumpApp(
-      BlocProvider<SpriteCubit>.value(
-        value: cubit ?? _MockSpriteCubit(),
-        child: SpriteView(),
+      MultiBlocProvider(
+        providers: [
+          BlocProvider<SpriteCubit>.value(
+            value: spriteCubit ?? _MockSpriteCubit(),
+          ),
+          BlocProvider<ToolsCubit>.value(
+            value: toolsCubit ?? _MockToolsCubit(),
+          ),
+        ],
+        child: const SpriteView(),
       ),
     );
   }
@@ -26,7 +39,8 @@ extension TestWidgetText on WidgetTester {
 
 void main() {
   group('SpriteView', () {
-    late SpriteCubit cubit;
+    late SpriteCubit spriteCubit;
+    late ToolsCubit toolsCubit;
 
     setUpAll(() {
       registerFallbackValue(SpriteTool.brush);
@@ -34,43 +48,85 @@ void main() {
     });
 
     setUp(() {
-      cubit = _MockSpriteCubit();
+      spriteCubit = _MockSpriteCubit();
+      toolsCubit = _MockToolsCubit();
     });
 
-    void _mockState(SpriteState state) {
+    void _mockState({
+      required SpriteState spriteState,
+      required ToolsState toolsState,
+    }) {
       whenListen(
-        cubit,
-        Stream.fromIterable([state]),
-        initialState: state,
+        spriteCubit,
+        Stream.fromIterable([spriteState]),
+        initialState: spriteState,
+      );
+      whenListen(
+        toolsCubit,
+        Stream.fromIterable([toolsState]),
+        initialState: toolsState,
       );
     }
 
     testWidgets('emits cursor down on pan start', (tester) async {
-      when(() => cubit.cursorDown(any())).thenAnswer((_) {});
-      _mockState(SpriteState.initial());
-      await tester.pumpTest(cubit: cubit);
+      when(() => spriteCubit.cursorDown(any(), any(), any()))
+          .thenAnswer((_) {});
+      _mockState(
+        spriteState: SpriteState.initial(),
+        toolsState: ToolsState.initial(),
+      );
+      await tester.pumpTest(
+        spriteCubit: spriteCubit,
+        toolsCubit: toolsCubit,
+      );
 
       await tester.drag(find.byKey(const Key('board_key')), Offset(30, 30));
       await tester.pump();
 
-      verify(() => cubit.cursorDown(any())).called(1);
+      verify(
+        () => spriteCubit.cursorDown(
+          any(),
+          any(),
+          any(),
+        ),
+      ).called(1);
     });
 
     testWidgets('emits cursor hover on pan update', (tester) async {
-      when(() => cubit.cursorHover(any())).thenAnswer((_) {});
-      _mockState(SpriteState.initial());
-      await tester.pumpTest(cubit: cubit);
+      when(() => spriteCubit.cursorHover(any(), any(), any()))
+          .thenAnswer((_) {});
+      _mockState(
+        spriteState: SpriteState.initial(),
+        toolsState: ToolsState.initial(),
+      );
+      await tester.pumpTest(
+        spriteCubit: spriteCubit,
+        toolsCubit: toolsCubit,
+      );
 
       await tester.drag(find.byKey(const Key('board_key')), Offset(30, 30));
       await tester.pump();
 
-      verify(() => cubit.cursorHover(any())).called(2);
+      verify(
+        () => spriteCubit.cursorHover(
+          any(),
+          any(),
+          any(),
+        ),
+      ).called(2);
     });
 
     testWidgets('emits cursor hover on hover', (tester) async {
-      when(() => cubit.cursorHover(any())).thenAnswer((_) {});
-      _mockState(SpriteState.initial());
-      await tester.pumpTest(cubit: cubit);
+      when(() => spriteCubit.cursorHover(any(), any(), any()))
+          .thenAnswer((_) {});
+      _mockState(
+        spriteState: SpriteState.initial(),
+        toolsState: ToolsState.initial(),
+      );
+      await tester.pumpTest(
+        spriteCubit: spriteCubit,
+        toolsCubit: toolsCubit,
+      );
 
       final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
       await gesture.addPointer(location: Offset.zero);
@@ -83,18 +139,25 @@ void main() {
       );
       await tester.pump();
 
-      verify(() => cubit.cursorHover(any())).called(1);
+      verify(() => spriteCubit.cursorHover(any(), any(), any())).called(1);
     });
 
     testWidgets('emits cursor up on pan up', (tester) async {
-      when(() => cubit.cursorHover(any())).thenAnswer((_) {});
-      _mockState(SpriteState.initial());
-      await tester.pumpTest(cubit: cubit);
+      when(() => spriteCubit.cursorHover(any(), any(), any()))
+          .thenAnswer((_) {});
+      _mockState(
+        spriteState: SpriteState.initial(),
+        toolsState: ToolsState.initial(),
+      );
+      await tester.pumpTest(
+        spriteCubit: spriteCubit,
+        toolsCubit: toolsCubit,
+      );
 
       await tester.drag(find.byKey(const Key('board_key')), Offset(30, 30));
       await tester.pump();
 
-      verify(() => cubit.cursorUp()).called(1);
+      verify(() => spriteCubit.cursorUp(any())).called(1);
     });
 
     group('tools', () {
@@ -102,22 +165,35 @@ void main() {
         testWidgets(
           'selects the tool when tapped',
           (tester) async {
-            _mockState(SpriteState.initial().copyWith(tool: SpriteTool.eraser));
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState:
+                  ToolsState.initial().copyWith(tool: SpriteTool.eraser),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(find.byKey(const Key('brush_key')));
             await tester.pump();
-            verify(() => cubit.selectTool(SpriteTool.brush)).called(1);
+            verify(() => toolsCubit.selectTool(SpriteTool.brush)).called(1);
           },
         );
 
         testWidgets(
           'does nothing when it is already selected',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(find.byKey(const Key('brush_key')));
             await tester.pump();
-            verifyNever(() => cubit.selectTool(any()));
+            verifyNever(() => toolsCubit.selectTool(any()));
           },
         );
       });
@@ -126,22 +202,35 @@ void main() {
         testWidgets(
           'selects the tool when tapped',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(find.byKey(const Key('eraser_key')));
             await tester.pump();
-            verify(() => cubit.selectTool(SpriteTool.eraser)).called(1);
+            verify(() => toolsCubit.selectTool(SpriteTool.eraser)).called(1);
           },
         );
 
         testWidgets(
           'does nothing when it is already selected',
           (tester) async {
-            _mockState(SpriteState.initial().copyWith(tool: SpriteTool.eraser));
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState:
+                  ToolsState.initial().copyWith(tool: SpriteTool.eraser),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(find.byKey(const Key('eraser_key')));
             await tester.pump();
-            verifyNever(() => cubit.selectTool(any()));
+            verifyNever(() => toolsCubit.selectTool(any()));
           },
         );
       });
@@ -150,22 +239,35 @@ void main() {
         testWidgets(
           'selects the tool when tapped',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(find.byKey(const Key('bucket_key')));
             await tester.pump();
-            verify(() => cubit.selectTool(SpriteTool.bucket)).called(1);
+            verify(() => toolsCubit.selectTool(SpriteTool.bucket)).called(1);
           },
         );
 
         testWidgets(
           'does nothing when it is already selected',
           (tester) async {
-            _mockState(SpriteState.initial().copyWith(tool: SpriteTool.bucket));
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState:
+                  ToolsState.initial().copyWith(tool: SpriteTool.bucket),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(find.byKey(const Key('bucket_key')));
             await tester.pump();
-            verifyNever(() => cubit.selectTool(any()));
+            verifyNever(() => toolsCubit.selectTool(any()));
           },
         );
       });
@@ -174,11 +276,18 @@ void main() {
         testWidgets(
           'selects the tool when tapped',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(find.byKey(const Key('bucket_eraser_key')));
             await tester.pump();
-            verify(() => cubit.selectTool(SpriteTool.bucketEraser)).called(1);
+            verify(() => toolsCubit.selectTool(SpriteTool.bucketEraser))
+                .called(1);
           },
         );
 
@@ -186,12 +295,18 @@ void main() {
           'does nothing when it is already selected',
           (tester) async {
             _mockState(
-              SpriteState.initial().copyWith(tool: SpriteTool.bucketEraser),
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial().copyWith(
+                tool: SpriteTool.bucketEraser,
+              ),
             );
-            await tester.pumpTest(cubit: cubit);
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(find.byKey(const Key('bucket_eraser_key')));
             await tester.pump();
-            verifyNever(() => cubit.selectTool(any()));
+            verifyNever(() => toolsCubit.selectTool(any()));
           },
         );
       });
@@ -199,46 +314,70 @@ void main() {
       testWidgets(
         'zooms in',
         (tester) async {
-          _mockState(SpriteState.initial());
-          await tester.pumpTest(cubit: cubit);
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+          );
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+          );
           await tester.tap(find.byKey(const Key('zoom_in_key')));
           await tester.pump();
-          verify(cubit.zoomIn).called(1);
+          verify(toolsCubit.zoomIn).called(1);
         },
       );
 
       testWidgets(
         'zooms out',
         (tester) async {
-          _mockState(SpriteState.initial());
-          await tester.pumpTest(cubit: cubit);
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+          );
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+          );
           await tester.tap(find.byKey(const Key('zoom_out_key')));
           await tester.pump();
-          verify(cubit.zoomOut).called(1);
+          verify(toolsCubit.zoomOut).called(1);
         },
       );
 
       group('copy to clipboard', () {
         setUp(() {
-          when(cubit.copyToClipboard).thenAnswer((_) async {});
+          when(spriteCubit.copyToClipboard).thenAnswer((_) async {});
         });
 
         testWidgets(
           'copies to the clipboard',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(find.byKey(const Key('copy_to_clipboard_key')));
             await tester.pump();
-            verify(cubit.copyToClipboard).called(1);
+            verify(spriteCubit.copyToClipboard).called(1);
           },
         );
 
         testWidgets(
           'shows the success message',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(find.byKey(const Key('copy_to_clipboard_key')));
             await tester.pump();
             expect(find.byType(SnackBar), findsOneWidget);
@@ -248,27 +387,39 @@ void main() {
 
       group('import from clipboard', () {
         setUp(() {
-          when(cubit.importFromClipboard).thenAnswer((_) async {});
+          when(spriteCubit.importFromClipboard).thenAnswer((_) async {});
         });
 
         testWidgets(
           'copies to the clipboard',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(
               find.byKey(const Key('import_from_clipboard_key')),
             );
             await tester.pump();
-            verify(cubit.importFromClipboard).called(1);
+            verify(spriteCubit.importFromClipboard).called(1);
           },
         );
 
         testWidgets(
           'shows the success message',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
             await tester.tap(
               find.byKey(const Key('import_from_clipboard_key')),
             );
@@ -279,8 +430,14 @@ void main() {
       });
 
       testWidgets('opens the resize dialog', (tester) async {
-        _mockState(SpriteState.initial());
-        await tester.pumpTest(cubit: cubit);
+        _mockState(
+          spriteState: SpriteState.initial(),
+          toolsState: ToolsState.initial(),
+        );
+        await tester.pumpTest(
+          spriteCubit: spriteCubit,
+          toolsCubit: toolsCubit,
+        );
 
         await tester.tap(find.byKey(const Key('resize_sprite_key')));
         await tester.pumpAndSettle();
@@ -289,8 +446,14 @@ void main() {
       });
 
       testWidgets('can resize the sprite', (tester) async {
-        _mockState(SpriteState.initial());
-        await tester.pumpTest(cubit: cubit);
+        _mockState(
+          spriteState: SpriteState.initial(),
+          toolsState: ToolsState.initial(),
+        );
+        await tester.pumpTest(
+          spriteCubit: spriteCubit,
+          toolsCubit: toolsCubit,
+        );
 
         await tester.tap(find.byKey(const Key('resize_sprite_key')));
         await tester.pumpAndSettle();
@@ -301,12 +464,18 @@ void main() {
         await tester.tap(find.text('Confirm'));
         await tester.pump();
 
-        verify(() => cubit.setSize(2, 2)).called(1);
+        verify(() => spriteCubit.setSize(2, 2)).called(1);
       });
 
       testWidgets('does nothing when cancel the resizing', (tester) async {
-        _mockState(SpriteState.initial());
-        await tester.pumpTest(cubit: cubit);
+        _mockState(
+          spriteState: SpriteState.initial(),
+          toolsState: ToolsState.initial(),
+        );
+        await tester.pumpTest(
+          spriteCubit: spriteCubit,
+          toolsCubit: toolsCubit,
+        );
 
         await tester.tap(find.byKey(const Key('resize_sprite_key')));
         await tester.pumpAndSettle();
@@ -317,14 +486,20 @@ void main() {
         await tester.tap(find.text('Cancel'));
         await tester.pump();
 
-        verifyNever(() => cubit.setSize(any(), any()));
+        verifyNever(() => spriteCubit.setSize(any(), any()));
       });
 
       testWidgets(
         'opens the confirm dialog when clearing the sprite',
         (tester) async {
-          _mockState(SpriteState.initial());
-          await tester.pumpTest(cubit: cubit);
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+          );
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+          );
 
           await tester.tap(find.byKey(const Key('clear_sprite_key')));
           await tester.pumpAndSettle();
@@ -336,8 +511,14 @@ void main() {
       testWidgets(
         'clears the sprite upon confirmation',
         (tester) async {
-          _mockState(SpriteState.initial());
-          await tester.pumpTest(cubit: cubit);
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+          );
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+          );
 
           await tester.tap(find.byKey(const Key('clear_sprite_key')));
           await tester.pumpAndSettle();
@@ -345,15 +526,21 @@ void main() {
           await tester.tap(find.text('Confirm'));
           await tester.pumpAndSettle();
 
-          verify(cubit.clearSprite).called(1);
+          verify(spriteCubit.clearSprite).called(1);
         },
       );
 
       testWidgets(
         'does nothing when cancel the clearing',
         (tester) async {
-          _mockState(SpriteState.initial());
-          await tester.pumpTest(cubit: cubit);
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+          );
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+          );
 
           await tester.tap(find.byKey(const Key('clear_sprite_key')));
           await tester.pumpAndSettle();
@@ -361,20 +548,26 @@ void main() {
           await tester.tap(find.text('Cancel'));
           await tester.pumpAndSettle();
 
-          verifyNever(cubit.clearSprite);
+          verifyNever(spriteCubit.clearSprite);
         },
       );
 
       testWidgets(
         'toogles the grid',
         (tester) async {
-          _mockState(SpriteState.initial());
-          await tester.pumpTest(cubit: cubit);
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+          );
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+          );
 
           await tester.tap(find.byKey(const Key('toogle_grid_key')));
           await tester.pumpAndSettle();
 
-          verify(cubit.toogleGrid).called(1);
+          verify(toolsCubit.toogleGrid).called(1);
         },
       );
 
@@ -382,56 +575,81 @@ void main() {
         testWidgets(
           'b selects brush',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyB);
             await tester.sendKeyUpEvent(LogicalKeyboardKey.keyB);
             await tester.pump();
 
-            verify(() => cubit.selectTool(SpriteTool.brush)).called(1);
+            verify(() => toolsCubit.selectTool(SpriteTool.brush)).called(1);
           },
         );
 
         testWidgets(
           'e selects eraser',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyE);
             await tester.sendKeyUpEvent(LogicalKeyboardKey.keyE);
             await tester.pump();
 
-            verify(() => cubit.selectTool(SpriteTool.eraser)).called(1);
+            verify(() => toolsCubit.selectTool(SpriteTool.eraser)).called(1);
           },
         );
 
         testWidgets(
           'f selects bucket',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyF);
             await tester.sendKeyUpEvent(LogicalKeyboardKey.keyF);
             await tester.pump();
 
-            verify(() => cubit.selectTool(SpriteTool.bucket)).called(1);
+            verify(() => toolsCubit.selectTool(SpriteTool.bucket)).called(1);
           },
         );
 
         testWidgets(
           'd selects bucket eraser',
           (tester) async {
-            _mockState(SpriteState.initial());
-            await tester.pumpTest(cubit: cubit);
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyD);
             await tester.sendKeyUpEvent(LogicalKeyboardKey.keyD);
             await tester.pump();
 
-            verify(() => cubit.selectTool(SpriteTool.bucketEraser)).called(1);
+            verify(() => toolsCubit.selectTool(SpriteTool.bucketEraser))
+                .called(1);
           },
         );
       });

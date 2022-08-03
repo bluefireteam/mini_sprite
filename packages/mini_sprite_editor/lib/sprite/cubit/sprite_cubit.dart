@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_sprite/mini_sprite.dart';
+import 'package:mini_sprite_editor/sprite/sprite.dart';
 
 part 'sprite_state.dart';
 
@@ -17,6 +18,8 @@ class SpriteCubit extends Cubit<SpriteState> {
 
   final Future<void> Function(ClipboardData) _setClipboardData;
   final Future<ClipboardData?> Function(String) _getClipboardData;
+
+  bool toolActive = false;
 
   void copyToClipboard() {
     final sprite = MiniSprite(state.pixels);
@@ -33,24 +36,12 @@ class SpriteCubit extends Cubit<SpriteState> {
     }
   }
 
-  void zoomIn() {
-    emit(state.copyWith(pixelSize: state.pixelSize + 10));
-  }
-
-  void zoomOut() {
-    emit(state.copyWith(pixelSize: state.pixelSize - 10));
-  }
-
   void cursorLeft() {
     emit(state.copyWith(cursorPosition: const Offset(-1, -1)));
   }
 
-  void selectTool(SpriteTool tool) {
-    emit(state.copyWith(tool: tool));
-  }
-
-  Offset _projectOffset(Offset position) {
-    final projected = position / state.pixelSize.toDouble();
+  Offset _projectOffset(Offset position, double pixelSize) {
+    final projected = position / pixelSize;
     final x = projected.dx.floorToDouble();
     final y = projected.dy.floorToDouble();
 
@@ -95,43 +86,45 @@ class SpriteCubit extends Cubit<SpriteState> {
       newPixels,
     );
 
-    emit(state.copyWith(pixels: newPixels, toolActive: false));
+    emit(state.copyWith(pixels: newPixels));
+    toolActive = false;
   }
 
-  void _processTool() {
-    switch (state.tool) {
+  void _processTool(SpriteTool tool) {
+    switch (tool) {
       case SpriteTool.brush:
       case SpriteTool.eraser:
-        if (state.toolActive) {
-          _setPixel(state.tool == SpriteTool.brush);
+        if (toolActive) {
+          _setPixel(tool == SpriteTool.brush);
         }
         break;
       case SpriteTool.bucket:
       case SpriteTool.bucketEraser:
-        if (state.toolActive) {
-          _floodFill(state.tool == SpriteTool.bucket);
+        if (toolActive) {
+          _floodFill(tool == SpriteTool.bucket);
         }
         break;
     }
   }
 
-  void cursorHover(Offset position) {
-    final projected = _projectOffset(position);
+  void cursorHover(Offset position, double pixelSize, SpriteTool tool) {
+    final projected = _projectOffset(position, pixelSize);
     if (projected != state.cursorPosition) {
       emit(state.copyWith(cursorPosition: projected));
-      _processTool();
+      _processTool(tool);
     }
   }
 
-  void cursorDown(Offset position) {
-    final projected = _projectOffset(position);
-    emit(state.copyWith(cursorPosition: projected, toolActive: true));
-    _processTool();
+  void cursorDown(Offset position, double pixelSize, SpriteTool tool) {
+    final projected = _projectOffset(position, pixelSize);
+    emit(state.copyWith(cursorPosition: projected));
+    toolActive = true;
+    _processTool(tool);
   }
 
-  void cursorUp() {
-    emit(state.copyWith(toolActive: false));
-    _processTool();
+  void cursorUp(SpriteTool tool) {
+    toolActive = false;
+    _processTool(tool);
   }
 
   void setSize(int x, int y) {
@@ -159,9 +152,5 @@ class SpriteCubit extends Cubit<SpriteState> {
     ];
 
     emit(state.copyWith(pixels: newPixels));
-  }
-
-  void toogleGrid() {
-    emit(state.copyWith(gridActive: !state.gridActive));
   }
 }
