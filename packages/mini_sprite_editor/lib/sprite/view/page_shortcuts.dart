@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_sprite_editor/sprite/cubit/tools_cubit.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
 
 class ToolIntent extends Intent {
@@ -16,7 +17,7 @@ class PageShortcuts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SpriteCubit>();
+    final toolsCubit = context.read<ToolsCubit>();
 
     return Shortcuts(
       shortcuts: {
@@ -37,7 +38,7 @@ class PageShortcuts extends StatelessWidget {
         actions: {
           ToolIntent: CallbackAction<ToolIntent>(
             onInvoke: (intent) {
-              cubit.selectTool(intent.tool);
+              toolsCubit.selectTool(intent.tool);
               return null;
             },
           ),
