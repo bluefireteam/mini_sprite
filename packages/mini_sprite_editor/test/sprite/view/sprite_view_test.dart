@@ -652,6 +652,50 @@ void main() {
                 .called(1);
           },
         );
+
+        testWidgets(
+          'meta + z undo',
+          (tester) async {
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
+
+            await tester.sendKeyDownEvent(LogicalKeyboardKey.meta);
+            await tester.sendKeyDownEvent(LogicalKeyboardKey.keyZ);
+            await tester.sendKeyUpEvent(LogicalKeyboardKey.meta);
+            await tester.sendKeyUpEvent(LogicalKeyboardKey.keyZ);
+            await tester.pump();
+
+            verify(spriteCubit.undo).called(1);
+          },
+        );
+
+        testWidgets(
+          'meta + y undo',
+          (tester) async {
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+            );
+
+            await tester.sendKeyDownEvent(LogicalKeyboardKey.meta);
+            await tester.sendKeyDownEvent(LogicalKeyboardKey.keyY);
+            await tester.sendKeyUpEvent(LogicalKeyboardKey.meta);
+            await tester.sendKeyUpEvent(LogicalKeyboardKey.keyY);
+            await tester.pump();
+
+            verify(spriteCubit.redo).called(1);
+          },
+        );
       });
     });
   });
