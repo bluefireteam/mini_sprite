@@ -10,6 +10,14 @@ class ToolIntent extends Intent {
   final SpriteTool tool;
 }
 
+class UndoIntent extends Intent {
+  const UndoIntent();
+}
+
+class RedoIntent extends Intent {
+  const RedoIntent();
+}
+
 class PageShortcuts extends StatelessWidget {
   const PageShortcuts({super.key, required this.child});
 
@@ -18,6 +26,7 @@ class PageShortcuts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final toolsCubit = context.read<ToolsCubit>();
+    final spriteCubit = context.read<SpriteCubit>();
 
     return Shortcuts(
       shortcuts: {
@@ -33,12 +42,28 @@ class PageShortcuts extends StatelessWidget {
         LogicalKeySet(LogicalKeyboardKey.keyD): const ToolIntent(
           SpriteTool.bucketEraser,
         ),
+        LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyZ):
+            const UndoIntent(),
+        LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyY):
+            const RedoIntent(),
       },
       child: Actions(
         actions: {
           ToolIntent: CallbackAction<ToolIntent>(
             onInvoke: (intent) {
               toolsCubit.selectTool(intent.tool);
+              return null;
+            },
+          ),
+          UndoIntent: CallbackAction<UndoIntent>(
+            onInvoke: (intent) {
+              spriteCubit.undo();
+              return null;
+            },
+          ),
+          RedoIntent: CallbackAction<RedoIntent>(
+            onInvoke: (intent) {
+              spriteCubit.redo();
               return null;
             },
           ),

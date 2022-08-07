@@ -1,14 +1,14 @@
 import 'dart:ui';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
+import 'package:replay_bloc/replay_bloc.dart';
 
 part 'sprite_state.dart';
 
-class SpriteCubit extends Cubit<SpriteState> {
+class SpriteCubit extends ReplayCubit<SpriteState> {
   SpriteCubit({
     Future<void> Function(ClipboardData)? setClipboardData,
     Future<ClipboardData?> Function(String)? getClipboardData,
@@ -152,5 +152,10 @@ class SpriteCubit extends Cubit<SpriteState> {
     ];
 
     emit(state.copyWith(pixels: newPixels));
+  }
+
+  @override
+  bool shouldReplay(SpriteState state) {
+    return state.pixels != this.state.pixels;
   }
 }
