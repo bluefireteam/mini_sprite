@@ -393,5 +393,22 @@ void main() {
         ),
       ],
     );
+
+    test('shouldReplay is true when pixels are different', () {
+      final cubit = SpriteCubit();
+      final state = SpriteState.initial().copyWith(
+        pixels: [
+          [true],
+          [true],
+        ],
+      );
+      expect(cubit.shouldReplay(state), isTrue);
+    });
+
+    test('shouldReplay is false when pixels are different', () {
+      final cubit = SpriteCubit();
+      final state = SpriteState.initial();
+      expect(cubit.shouldReplay(state), isFalse);
+    });
   });
 }

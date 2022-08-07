@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_sprite/mini_sprite.dart';
@@ -156,6 +157,7 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
 
   @override
   bool shouldReplay(SpriteState state) {
-    return state.pixels != this.state.pixels;
+    final eq = const ListEquality<List<bool>>(ListEquality()).equals;
+    return !eq(state.pixels, this.state.pixels);
   }
 }
