@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
@@ -8,15 +9,21 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(),
-      darkTheme: ThemeData.dark(),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const SpritePage(),
+    return BlocProvider<ConfigCubit>(
+      create: (_) => ConfigCubit(),
+      child: BlocBuilder<ConfigCubit, ConfigState>(
+        builder: (context, state) => MaterialApp(
+          themeMode: state.themeMode,
+          theme: ThemeData(),
+          darkTheme: ThemeData.dark(),
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const SpritePage(),
+        ),
+      ),
     );
   }
 }

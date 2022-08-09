@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mini_sprite_editor/sprite/cubit/tools_cubit.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
 import 'package:mocktail/mocktail.dart';
@@ -16,10 +17,13 @@ class _MockSpriteCubit extends Mock implements SpriteCubit {}
 
 class _MockToolsCubit extends Mock implements ToolsCubit {}
 
+class _MockConfigCubit extends Mock implements ConfigCubit {}
+
 extension TestWidgetText on WidgetTester {
   Future<void> pumpTest({
     SpriteCubit? spriteCubit,
     ToolsCubit? toolsCubit,
+    ConfigCubit? configCubit,
   }) async {
     await pumpApp(
       MultiBlocProvider(
@@ -30,6 +34,9 @@ extension TestWidgetText on WidgetTester {
           BlocProvider<ToolsCubit>.value(
             value: toolsCubit ?? _MockToolsCubit(),
           ),
+          BlocProvider<ConfigCubit>.value(
+            value: configCubit ?? _MockConfigCubit(),
+          ),
         ],
         child: const SpriteView(),
       ),
@@ -37,10 +44,14 @@ extension TestWidgetText on WidgetTester {
   }
 }
 
-void main() {
+void main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = MockHydratedStorage();
+
   group('SpriteView', () {
     late SpriteCubit spriteCubit;
     late ToolsCubit toolsCubit;
+    late ConfigCubit configCubit;
 
     setUpAll(() {
       registerFallbackValue(SpriteTool.brush);
@@ -50,11 +61,13 @@ void main() {
     setUp(() {
       spriteCubit = _MockSpriteCubit();
       toolsCubit = _MockToolsCubit();
+      configCubit = _MockConfigCubit();
     });
 
     void _mockState({
       required SpriteState spriteState,
       required ToolsState toolsState,
+      required ConfigState configState,
     }) {
       whenListen(
         spriteCubit,
@@ -66,6 +79,11 @@ void main() {
         Stream.fromIterable([toolsState]),
         initialState: toolsState,
       );
+      whenListen(
+        configCubit,
+        Stream.fromIterable([configState]),
+        initialState: configState,
+      );
     }
 
     testWidgets('emits cursor down on pan start', (tester) async {
@@ -74,6 +92,7 @@ void main() {
       _mockState(
         spriteState: SpriteState.initial(),
         toolsState: ToolsState.initial(),
+        configState: ConfigState.initial(),
       );
       await tester.pumpTest(
         spriteCubit: spriteCubit,
@@ -98,6 +117,7 @@ void main() {
       _mockState(
         spriteState: SpriteState.initial(),
         toolsState: ToolsState.initial(),
+        configState: ConfigState.initial(),
       );
       await tester.pumpTest(
         spriteCubit: spriteCubit,
@@ -122,6 +142,7 @@ void main() {
       _mockState(
         spriteState: SpriteState.initial(),
         toolsState: ToolsState.initial(),
+        configState: ConfigState.initial(),
       );
       await tester.pumpTest(
         spriteCubit: spriteCubit,
@@ -148,6 +169,7 @@ void main() {
       _mockState(
         spriteState: SpriteState.initial(),
         toolsState: ToolsState.initial(),
+        configState: ConfigState.initial(),
       );
       await tester.pumpTest(
         spriteCubit: spriteCubit,
@@ -167,8 +189,10 @@ void main() {
           (tester) async {
             _mockState(
               spriteState: SpriteState.initial(),
-              toolsState:
-                  ToolsState.initial().copyWith(tool: SpriteTool.eraser),
+              toolsState: ToolsState.initial().copyWith(
+                tool: SpriteTool.eraser,
+              ),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -186,6 +210,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -205,6 +230,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -221,8 +247,10 @@ void main() {
           (tester) async {
             _mockState(
               spriteState: SpriteState.initial(),
-              toolsState:
-                  ToolsState.initial().copyWith(tool: SpriteTool.eraser),
+              toolsState: ToolsState.initial().copyWith(
+                tool: SpriteTool.eraser,
+              ),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -242,6 +270,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -258,8 +287,10 @@ void main() {
           (tester) async {
             _mockState(
               spriteState: SpriteState.initial(),
-              toolsState:
-                  ToolsState.initial().copyWith(tool: SpriteTool.bucket),
+              toolsState: ToolsState.initial().copyWith(
+                tool: SpriteTool.bucket,
+              ),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -279,6 +310,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -299,6 +331,7 @@ void main() {
               toolsState: ToolsState.initial().copyWith(
                 tool: SpriteTool.bucketEraser,
               ),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -317,6 +350,7 @@ void main() {
           _mockState(
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
+            configState: ConfigState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
@@ -334,6 +368,7 @@ void main() {
           _mockState(
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
+            configState: ConfigState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
@@ -356,6 +391,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -373,6 +409,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -396,6 +433,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -415,6 +453,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -433,6 +472,7 @@ void main() {
         _mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
+          configState: ConfigState.initial(),
         );
         await tester.pumpTest(
           spriteCubit: spriteCubit,
@@ -449,6 +489,7 @@ void main() {
         _mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
+          configState: ConfigState.initial(),
         );
         await tester.pumpTest(
           spriteCubit: spriteCubit,
@@ -471,6 +512,7 @@ void main() {
         _mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
+          configState: ConfigState.initial(),
         );
         await tester.pumpTest(
           spriteCubit: spriteCubit,
@@ -495,6 +537,7 @@ void main() {
           _mockState(
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
+            configState: ConfigState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
@@ -514,6 +557,7 @@ void main() {
           _mockState(
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
+            configState: ConfigState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
@@ -536,6 +580,7 @@ void main() {
           _mockState(
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
+            configState: ConfigState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
@@ -558,6 +603,7 @@ void main() {
           _mockState(
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
+            configState: ConfigState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
@@ -578,6 +624,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -598,6 +645,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -618,6 +666,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -638,6 +687,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -659,6 +709,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -681,6 +732,7 @@ void main() {
             _mockState(
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
@@ -696,6 +748,112 @@ void main() {
             verify(spriteCubit.redo).called(1);
           },
         );
+      });
+
+      group('config', () {
+        testWidgets('opens the config dialog', (tester) async {
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+            configState: ConfigState.initial(),
+          );
+
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+            configCubit: configCubit,
+          );
+
+          await tester.tap(find.byKey(const Key('config_key')));
+          await tester.pumpAndSettle();
+
+          expect(find.byType(ConfigDialog), findsOneWidget);
+        });
+
+        testWidgets('can close the config dialog', (tester) async {
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+            configState: ConfigState.initial(),
+          );
+
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+            configCubit: configCubit,
+          );
+
+          await tester.tap(find.byKey(const Key('config_key')));
+          await tester.pumpAndSettle();
+
+          await tester.tap(find.text('Close'));
+          await tester.pumpAndSettle();
+
+          expect(find.byType(ConfigDialog), findsNothing);
+        });
+
+        testWidgets('can change to system', (tester) async {
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+            configState: ConfigState(themeMode: ThemeMode.dark),
+          );
+
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+            configCubit: configCubit,
+          );
+
+          await tester.tap(find.byKey(const Key('config_key')));
+          await tester.pumpAndSettle();
+
+          await tester.tap(find.byKey(const Key('radio_system')));
+          await tester.pump();
+          verify(() => configCubit.setThemeMode(ThemeMode.system)).called(1);
+        });
+
+        testWidgets('can change to light', (tester) async {
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+            configState: ConfigState.initial(),
+          );
+
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+            configCubit: configCubit,
+          );
+
+          await tester.tap(find.byKey(const Key('config_key')));
+          await tester.pumpAndSettle();
+
+          await tester.tap(find.byKey(const Key('radio_light')));
+          await tester.pump();
+          verify(() => configCubit.setThemeMode(ThemeMode.light)).called(1);
+        });
+
+        testWidgets('can change to dark', (tester) async {
+          _mockState(
+            spriteState: SpriteState.initial(),
+            toolsState: ToolsState.initial(),
+            configState: ConfigState.initial(),
+          );
+
+          await tester.pumpTest(
+            spriteCubit: spriteCubit,
+            toolsCubit: toolsCubit,
+            configCubit: configCubit,
+          );
+
+          await tester.tap(find.byKey(const Key('config_key')));
+          await tester.pumpAndSettle();
+
+          await tester.tap(find.byKey(const Key('radio_dark')));
+          await tester.pump();
+          verify(() => configCubit.setThemeMode(ThemeMode.dark)).called(1);
+        });
       });
     });
   });

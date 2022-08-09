@@ -56,6 +56,10 @@
     "@confirm": {
         "description": "Confirm label"
     },
+    "close": "Close",
+    "@close": {
+        "description": "Close label"
+    },
     "cancel": "Cancel",
     "@cancel": {
         "description": "Cancel label"
@@ -79,5 +83,21 @@
     "toogleGrid": "Toogle grid",
     "@toogleGrid": {
         "description": "Label for the grid toogling"
+    },
+    "configurations": "Configurations",
+    "@configurations": {
+        "description": "Label for configurations"
+    },
+    "system": "System",
+    "@system": {
+        "description": "Label for system"
+    },
+    "light": "Light",
+    "@light": {
+        "description": "Label for light"
+    },
+    "dark": "Dark",
+    "@dark": {
+        "description": "Label for dark"
     }
 }
