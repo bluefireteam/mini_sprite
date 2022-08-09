@@ -1,3 +1,4 @@
+export 'config_dialog.dart';
 export 'confirm_dialog.dart';
 export 'page_shortcuts.dart';
 export 'pixel_cell.dart';

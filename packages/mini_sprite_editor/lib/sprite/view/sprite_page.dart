@@ -180,6 +180,14 @@ class SpriteView extends StatelessWidget {
                       tooltip: l10n.importFromClipBoard,
                       icon: const Icon(Icons.import_export),
                     ),
+                    IconButton(
+                      key: const Key('config_key'),
+                      onPressed: () {
+                        ConfigDialog.show(context);
+                      },
+                      tooltip: l10n.configurations,
+                      icon: const Icon(Icons.settings),
+                    ),
                   ],
                 ),
               ),
