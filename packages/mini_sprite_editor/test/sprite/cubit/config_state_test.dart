@@ -12,17 +12,94 @@ void main() {
 
     test('supports equality', () {
       expect(
-        ConfigState(themeMode: ThemeMode.dark),
+        ConfigState(
+          themeMode: ThemeMode.dark,
+          filledColor: Colors.white,
+          unfilledColor: Colors.transparent,
+          backgroundColor: Colors.black,
+        ),
         equals(
-          ConfigState(themeMode: ThemeMode.dark),
+          ConfigState(
+            themeMode: ThemeMode.dark,
+            filledColor: Colors.white,
+            unfilledColor: Colors.transparent,
+            backgroundColor: Colors.black,
+          ),
         ),
       );
 
       expect(
-        ConfigState(themeMode: ThemeMode.dark),
+        ConfigState(
+          themeMode: ThemeMode.dark,
+          filledColor: Colors.white,
+          unfilledColor: Colors.transparent,
+          backgroundColor: Colors.black,
+        ),
         isNot(
           equals(
-            ConfigState(themeMode: ThemeMode.light),
+            ConfigState(
+              themeMode: ThemeMode.light,
+              filledColor: Colors.white,
+              unfilledColor: Colors.transparent,
+              backgroundColor: Colors.black,
+            ),
+          ),
+        ),
+      );
+
+      expect(
+        ConfigState(
+          themeMode: ThemeMode.dark,
+          filledColor: Colors.red,
+          unfilledColor: Colors.transparent,
+          backgroundColor: Colors.black,
+        ),
+        isNot(
+          equals(
+            ConfigState(
+              themeMode: ThemeMode.light,
+              filledColor: Colors.white,
+              unfilledColor: Colors.transparent,
+              backgroundColor: Colors.black,
+            ),
+          ),
+        ),
+      );
+
+      expect(
+        ConfigState(
+          themeMode: ThemeMode.dark,
+          filledColor: Colors.white,
+          unfilledColor: Colors.red,
+          backgroundColor: Colors.black,
+        ),
+        isNot(
+          equals(
+            ConfigState(
+              themeMode: ThemeMode.light,
+              filledColor: Colors.white,
+              unfilledColor: Colors.transparent,
+              backgroundColor: Colors.black,
+            ),
+          ),
+        ),
+      );
+
+      expect(
+        ConfigState(
+          themeMode: ThemeMode.dark,
+          filledColor: Colors.white,
+          unfilledColor: Colors.transparent,
+          backgroundColor: Colors.red,
+        ),
+        isNot(
+          equals(
+            ConfigState(
+              themeMode: ThemeMode.light,
+              filledColor: Colors.white,
+              unfilledColor: Colors.transparent,
+              backgroundColor: Colors.black,
+            ),
           ),
         ),
       );
@@ -30,21 +107,94 @@ void main() {
 
     test('copyWith returns a new instance with the informed value', () {
       expect(
-        ConfigState(themeMode: ThemeMode.dark).copyWith(),
+        ConfigState(
+          themeMode: ThemeMode.dark,
+          filledColor: Colors.white,
+          unfilledColor: Colors.transparent,
+          backgroundColor: Colors.black,
+        ).copyWith(),
         equals(
           ConfigState(
             themeMode: ThemeMode.dark,
+            filledColor: Colors.white,
+            unfilledColor: Colors.transparent,
+            backgroundColor: Colors.black,
           ),
         ),
       );
 
       expect(
-        ConfigState(themeMode: ThemeMode.dark).copyWith(
+        ConfigState(
+          themeMode: ThemeMode.dark,
+          filledColor: Colors.white,
+          unfilledColor: Colors.transparent,
+          backgroundColor: Colors.black,
+        ).copyWith(
           themeMode: ThemeMode.light,
         ),
         equals(
           ConfigState(
             themeMode: ThemeMode.light,
+            filledColor: Colors.white,
+            unfilledColor: Colors.transparent,
+            backgroundColor: Colors.black,
+          ),
+        ),
+      );
+
+      expect(
+        ConfigState(
+          themeMode: ThemeMode.dark,
+          filledColor: Colors.white,
+          unfilledColor: Colors.transparent,
+          backgroundColor: Colors.black,
+        ).copyWith(
+          filledColor: Colors.red,
+        ),
+        equals(
+          ConfigState(
+            themeMode: ThemeMode.dark,
+            filledColor: Colors.red,
+            unfilledColor: Colors.transparent,
+            backgroundColor: Colors.black,
+          ),
+        ),
+      );
+
+      expect(
+        ConfigState(
+          themeMode: ThemeMode.dark,
+          filledColor: Colors.white,
+          unfilledColor: Colors.transparent,
+          backgroundColor: Colors.black,
+        ).copyWith(
+          unfilledColor: Colors.red,
+        ),
+        equals(
+          ConfigState(
+            themeMode: ThemeMode.dark,
+            filledColor: Colors.white,
+            unfilledColor: Colors.red,
+            backgroundColor: Colors.black,
+          ),
+        ),
+      );
+
+      expect(
+        ConfigState(
+          themeMode: ThemeMode.dark,
+          filledColor: Colors.white,
+          unfilledColor: Colors.transparent,
+          backgroundColor: Colors.black,
+        ).copyWith(
+          backgroundColor: Colors.red,
+        ),
+        equals(
+          ConfigState(
+            themeMode: ThemeMode.dark,
+            filledColor: Colors.white,
+            unfilledColor: Colors.transparent,
+            backgroundColor: Colors.red,
           ),
         ),
       );

@@ -13,6 +13,8 @@ void main() {
         Scaffold(
           body: PixelCell(
             selected: true,
+            filledColor: Colors.white,
+            unfilledColor: Colors.transparent,
             hovered: false,
             pixelSize: 50,
             hasBorder: true,
@@ -31,6 +33,8 @@ void main() {
         Scaffold(
           body: PixelCell(
             selected: false,
+            filledColor: Colors.white,
+            unfilledColor: Colors.transparent,
             hovered: true,
             pixelSize: 50,
             hasBorder: true,
@@ -51,6 +55,8 @@ void main() {
           Scaffold(
             body: PixelCell(
               selected: false,
+              filledColor: Colors.white,
+              unfilledColor: Colors.transparent,
               hovered: false,
               pixelSize: 50,
               hasBorder: true,
@@ -72,6 +78,8 @@ void main() {
           Scaffold(
             body: PixelCell(
               selected: false,
+              filledColor: Colors.white,
+              unfilledColor: Colors.transparent,
               hovered: false,
               pixelSize: 50,
               hasBorder: false,
@@ -82,6 +90,29 @@ void main() {
         await expectLater(
           find.byType(Scaffold),
           matchesGoldenFile('goldens/pixel_cell_no_border.png'),
+        );
+      },
+    );
+
+    testWidgets(
+      'renders correctly when there is no grid active and is selected',
+      (tester) async {
+        await tester.pumpApp(
+          Scaffold(
+            body: PixelCell(
+              selected: true,
+              filledColor: Colors.white,
+              unfilledColor: Colors.transparent,
+              hovered: false,
+              pixelSize: 50,
+              hasBorder: false,
+            ),
+          ),
+        );
+
+        await expectLater(
+          find.byType(Scaffold),
+          matchesGoldenFile('goldens/selected_pixel_cell_no_border.png'),
         );
       },
     );

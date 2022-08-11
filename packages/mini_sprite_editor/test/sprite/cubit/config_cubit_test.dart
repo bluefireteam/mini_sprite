@@ -24,27 +24,80 @@ void main() async {
         cubit.setThemeMode(ThemeMode.light);
       },
       expect: () => [
-        const ConfigState(themeMode: ThemeMode.light),
+        const ConfigState.initial().copyWith(themeMode: ThemeMode.light),
+      ],
+    );
+
+    blocTest<ConfigCubit, ConfigState>(
+      'setFilledColor',
+      build: ConfigCubit.new,
+      act: (cubit) {
+        cubit.setFilledColor(Colors.red);
+      },
+      expect: () => [
+        const ConfigState.initial().copyWith(filledColor: Colors.red),
+      ],
+    );
+
+    blocTest<ConfigCubit, ConfigState>(
+      'setUnfilledColor',
+      build: ConfigCubit.new,
+      act: (cubit) {
+        cubit.setUnfilledColor(Colors.red);
+      },
+      expect: () => [
+        const ConfigState.initial().copyWith(unfilledColor: Colors.red),
+      ],
+    );
+
+    blocTest<ConfigCubit, ConfigState>(
+      'setBackgroundColor',
+      build: ConfigCubit.new,
+      act: (cubit) {
+        cubit.setBackgroundColor(Colors.red);
+      },
+      expect: () => [
+        const ConfigState.initial().copyWith(backgroundColor: Colors.red),
       ],
     );
 
     test('toJson returns the state json', () {
-      const state = ConfigState(themeMode: ThemeMode.dark);
+      final state = ConfigState.initial().copyWith(themeMode: ThemeMode.dark);
       final cubit = ConfigCubit();
       final json = cubit.toJson(state);
 
-      expect(json, equals({'theme_mode': 'dark'}));
+      expect(
+        json,
+        equals(
+          {
+            'theme_mode': 'dark',
+            'filled_color': state.filledColor.value,
+            'unfilled_color': state.unfilledColor.value,
+            'background_color': state.backgroundColor.value,
+          },
+        ),
+      );
     });
 
     test('fromJson returns the correct instance', () {
       final state = ConfigCubit().fromJson(
-        <String, dynamic>{'theme_mode': 'dark'},
+        <String, dynamic>{
+          'theme_mode': 'dark',
+          'filled_color': Colors.white.value,
+          'unfilled_color': Colors.transparent.value,
+          'background_color': Colors.black.value,
+        },
       );
 
       expect(
         state,
         equals(
-          ConfigState(themeMode: ThemeMode.dark),
+          ConfigState(
+            themeMode: ThemeMode.dark,
+            filledColor: Colors.white,
+            unfilledColor: Colors.transparent,
+            backgroundColor: Colors.black,
+          ),
         ),
       );
     });
@@ -53,13 +106,23 @@ void main() async {
       'fromJson returns theme mode system when serialized has invalid value',
       () {
         final state = ConfigCubit().fromJson(
-          <String, dynamic>{'theme_mode': 'bla'},
+          <String, dynamic>{
+            'theme_mode': 'bla',
+            'filled_color': Colors.white.value,
+            'unfilled_color': Colors.transparent.value,
+            'background_color': Colors.black.value,
+          },
         );
 
         expect(
           state,
           equals(
-            ConfigState(themeMode: ThemeMode.system),
+            ConfigState(
+              themeMode: ThemeMode.system,
+              filledColor: Colors.white,
+              unfilledColor: Colors.transparent,
+              backgroundColor: Colors.black,
+            ),
           ),
         );
       },

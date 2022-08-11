@@ -11,6 +11,18 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
     emit(state.copyWith(themeMode: mode));
   }
 
+  void setFilledColor(Color color) {
+    emit(state.copyWith(filledColor: color));
+  }
+
+  void setUnfilledColor(Color color) {
+    emit(state.copyWith(unfilledColor: color));
+  }
+
+  void setBackgroundColor(Color color) {
+    emit(state.copyWith(backgroundColor: color));
+  }
+
   @override
   ConfigState? fromJson(Map<String, dynamic> json) {
     final themeModeRaw = json['theme_mode'] as String?;
@@ -21,6 +33,9 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
 
     return ConfigState(
       themeMode: themeMode,
+      filledColor: Color(json['filled_color'] as int),
+      unfilledColor: Color(json['unfilled_color'] as int),
+      backgroundColor: Color(json['background_color'] as int),
     );
   }
 
@@ -28,6 +43,9 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
   Map<String, dynamic>? toJson(ConfigState state) {
     return <String, dynamic>{
       'theme_mode': state.themeMode.name,
+      'filled_color': state.filledColor.value,
+      'unfilled_color': state.unfilledColor.value,
+      'background_color': state.backgroundColor.value,
     };
   }
 }
