@@ -515,12 +515,14 @@ void main() async {
               find.byKey(const Key('export_to_image')),
             );
             await tester.pump();
-            verify(() => spriteCubit.exportToImage(
-                  pixelSize: any(named: 'pixelSize'),
-                  filledColor: any(named: 'filledColor'),
-                  unfilledColor: any(named: 'unfilledColor'),
-                  backgroundColor: any(named: 'backgroundColor'),
-                ),).called(1);
+            verify(
+              () => spriteCubit.exportToImage(
+                pixelSize: any(named: 'pixelSize'),
+                filledColor: any(named: 'filledColor'),
+                unfilledColor: any(named: 'unfilledColor'),
+                backgroundColor: any(named: 'backgroundColor'),
+              ),
+            ).called(1);
           },
         );
 

@@ -10,6 +10,7 @@ dependencies:
   bloc: ^8.0.3
   collection: ^1.16.0
   equatable: ^2.0.3
+  file_selector: ^0.9.0
   flame: 1.2.1
   flame_mini_sprite: 1.0.0+1
   flutter:
@@ -18,7 +19,6 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   flutter_localizations:
     sdk: flutter
-  file_selector: ^0.9.0
   hydrated_bloc: ^9.0.0-dev.3
   intl: ^0.17.0
   mini_sprite: 1.0.0+1
