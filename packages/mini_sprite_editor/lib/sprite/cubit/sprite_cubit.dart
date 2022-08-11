@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
+import 'package:file_selector/file_selector.dart';
+import 'package:flame_mini_sprite/flame_mini_sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
@@ -26,6 +28,39 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     final sprite = MiniSprite(state.pixels);
     final data = sprite.toDataString();
     _setClipboardData(ClipboardData(text: data));
+  }
+
+  Future<void> exportToImage({
+    required int pixelSize,
+    required Color filledColor,
+    required Color unfilledColor,
+    required Color backgroundColor,
+  }) async {
+    final miniSprite = MiniSprite(state.pixels);
+    final sprite = await miniSprite.toSprite(
+      pixelSize: pixelSize.toDouble(),
+      color: filledColor,
+      blankColor: unfilledColor,
+      backgroundColor: backgroundColor,
+    );
+
+    final data = await sprite.image.toByteData(format: ImageByteFormat.png);
+
+    const fileName = 'sprite.png';
+    final path = await getSavePath(suggestedName: fileName);
+    if (path == null) {
+      // Operation was canceled by the user.
+      return;
+    }
+
+    final fileData = data!.buffer.asUint8List();
+    const mimeType = 'image/png';
+    final imageFile = XFile.fromData(
+      fileData,
+      mimeType: mimeType,
+      name: fileName,
+    );
+    await imageFile.saveTo(path);
   }
 
   Future<void> importFromClipboard() async {

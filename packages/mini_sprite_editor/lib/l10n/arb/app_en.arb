@@ -115,5 +115,13 @@
     "chooseColor": "Choose color",
     "@chooseColor": {
         "description": "Label for the choose color label"
+    },
+    "exportToImage": "Export current sprite to image",
+    "@exportToImage": {
+        "description": "Label for the image export button"
+    },
+    "spriteExported": "Sprite successfully exported",
+    "@spriteExported": {
+        "description": "Label for the image export button"
     }
 }

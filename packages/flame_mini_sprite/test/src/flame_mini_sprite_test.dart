@@ -41,5 +41,22 @@ void main() {
       },
       goldenFile: 'goldens/flame_mini_sprite_with_blank_color.png',
     );
+
+    testGolden(
+      'renders correctly when a background color is used',
+      (game) async {
+        final miniSprite = MiniSprite.fromDataString(raw);
+        final sprite = await miniSprite.toSprite(
+          color: Colors.white,
+          pixelSize: 4,
+          backgroundColor: Colors.blue,
+        );
+
+        game.camera.followVector2(Vector2.zero());
+        await game
+            .ensureAdd(SpriteComponent(sprite: sprite, anchor: Anchor.center));
+      },
+      goldenFile: 'goldens/flame_mini_sprite_with_background_color.png',
+    );
   });
 }

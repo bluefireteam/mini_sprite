@@ -10,6 +10,7 @@ extension FlameMiniSpriteX on MiniSprite {
     required double pixelSize,
     required Color color,
     Color? blankColor,
+    Color? backgroundColor,
   }) async {
     final recorder = PictureRecorder();
     final canvas = Canvas(recorder);
@@ -17,6 +18,16 @@ extension FlameMiniSpriteX on MiniSprite {
     final paint = Paint()..color = color;
     final blankPaint =
         blankColor != null ? (Paint()..color = blankColor) : null;
+
+    final w = pixels[0].length * pixelSize.toInt();
+    final h = pixels.length * pixelSize.toInt();
+
+    if (backgroundColor != null) {
+      canvas.drawRect(
+        Rect.fromLTWH(0, 0, w.toDouble(), h.toDouble()),
+        Paint()..color = backgroundColor,
+      );
+    }
 
     for (var y = 0; y < pixels.length; y++) {
       for (var x = 0; x < pixels[y].length; x++) {
@@ -34,10 +45,7 @@ extension FlameMiniSpriteX on MiniSprite {
       }
     }
 
-    final image = await recorder.endRecording().toImage(
-          pixels[0].length * pixelSize.toInt(),
-          pixels.length * pixelSize.toInt(),
-        );
+    final image = await recorder.endRecording().toImage(w, h);
 
     return Sprite(image);
   }

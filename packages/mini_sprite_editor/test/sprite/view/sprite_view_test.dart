@@ -55,6 +55,7 @@ void main() async {
     setUpAll(() {
       registerFallbackValue(SpriteTool.brush);
       registerFallbackValue(Offset.zero);
+      registerFallbackValue(Colors.black);
     });
 
     setUp(() {
@@ -478,6 +479,68 @@ void main() async {
             );
             await tester.tap(
               find.byKey(const Key('import_from_clipboard_key')),
+            );
+            await tester.pump();
+            expect(find.byType(SnackBar), findsOneWidget);
+          },
+        );
+      });
+
+      group('export to image', () {
+        setUp(() {
+          when(
+            () => spriteCubit.exportToImage(
+              pixelSize: any(named: 'pixelSize'),
+              filledColor: any(named: 'filledColor'),
+              unfilledColor: any(named: 'unfilledColor'),
+              backgroundColor: any(named: 'backgroundColor'),
+            ),
+          ).thenAnswer((_) async {});
+        });
+
+        testWidgets(
+          'exports',
+          (tester) async {
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+              configCubit: configCubit,
+            );
+            await tester.tap(
+              find.byKey(const Key('export_to_image')),
+            );
+            await tester.pump();
+            verify(
+              () => spriteCubit.exportToImage(
+                pixelSize: any(named: 'pixelSize'),
+                filledColor: any(named: 'filledColor'),
+                unfilledColor: any(named: 'unfilledColor'),
+                backgroundColor: any(named: 'backgroundColor'),
+              ),
+            ).called(1);
+          },
+        );
+
+        testWidgets(
+          'shows the success message',
+          (tester) async {
+            _mockState(
+              spriteState: SpriteState.initial(),
+              toolsState: ToolsState.initial(),
+              configState: ConfigState.initial(),
+            );
+            await tester.pumpTest(
+              spriteCubit: spriteCubit,
+              toolsCubit: toolsCubit,
+              configCubit: configCubit,
+            );
+            await tester.tap(
+              find.byKey(const Key('export_to_image')),
             );
             await tester.pump();
             expect(find.byType(SnackBar), findsOneWidget);
