@@ -182,6 +182,23 @@ class SpriteView extends StatelessWidget {
                       icon: const Icon(Icons.import_export),
                     ),
                     IconButton(
+                      key: const Key('export_to_image'),
+                      onPressed: () async {
+                        final messenger = ScaffoldMessenger.of(context);
+                        await context.read<SpriteCubit>().exportToImage(
+                              pixelSize: pixelSize,
+                              filledColor: configState.filledColor,
+                              unfilledColor: configState.unfilledColor,
+                              backgroundColor: configState.backgroundColor,
+                            );
+                        messenger.showSnackBar(
+                          SnackBar(content: Text(l10n.spriteExported)),
+                        );
+                      },
+                      tooltip: l10n.exportToImage,
+                      icon: const Icon(Icons.image),
+                    ),
+                    IconButton(
                       key: const Key('config_key'),
                       onPressed: () {
                         ConfigDialog.show(context);
