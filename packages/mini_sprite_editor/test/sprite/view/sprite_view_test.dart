@@ -45,7 +45,6 @@ extension TestWidgetText on WidgetTester {
 }
 
 void main() async {
-  TestWidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = MockHydratedStorage();
 
   group('SpriteView', () {
@@ -97,6 +96,7 @@ void main() async {
       await tester.pumpTest(
         spriteCubit: spriteCubit,
         toolsCubit: toolsCubit,
+        configCubit: configCubit,
       );
 
       await tester.drag(find.byKey(const Key('board_key')), Offset(30, 30));
@@ -122,6 +122,7 @@ void main() async {
       await tester.pumpTest(
         spriteCubit: spriteCubit,
         toolsCubit: toolsCubit,
+        configCubit: configCubit,
       );
 
       await tester.drag(find.byKey(const Key('board_key')), Offset(30, 30));
@@ -147,6 +148,7 @@ void main() async {
       await tester.pumpTest(
         spriteCubit: spriteCubit,
         toolsCubit: toolsCubit,
+        configCubit: configCubit,
       );
 
       final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
@@ -174,6 +176,7 @@ void main() async {
       await tester.pumpTest(
         spriteCubit: spriteCubit,
         toolsCubit: toolsCubit,
+        configCubit: configCubit,
       );
 
       await tester.drag(find.byKey(const Key('board_key')), Offset(30, 30));
@@ -197,6 +200,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(find.byKey(const Key('brush_key')));
             await tester.pump();
@@ -215,6 +219,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(find.byKey(const Key('brush_key')));
             await tester.pump();
@@ -235,6 +240,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(find.byKey(const Key('eraser_key')));
             await tester.pump();
@@ -255,6 +261,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(find.byKey(const Key('eraser_key')));
             await tester.pump();
@@ -275,6 +282,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(find.byKey(const Key('bucket_key')));
             await tester.pump();
@@ -295,6 +303,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(find.byKey(const Key('bucket_key')));
             await tester.pump();
@@ -315,6 +324,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(find.byKey(const Key('bucket_eraser_key')));
             await tester.pump();
@@ -336,6 +346,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(find.byKey(const Key('bucket_eraser_key')));
             await tester.pump();
@@ -355,6 +366,7 @@ void main() async {
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
+            configCubit: configCubit,
           );
           await tester.tap(find.byKey(const Key('zoom_in_key')));
           await tester.pump();
@@ -373,6 +385,7 @@ void main() async {
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
+            configCubit: configCubit,
           );
           await tester.tap(find.byKey(const Key('zoom_out_key')));
           await tester.pump();
@@ -396,6 +409,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(find.byKey(const Key('copy_to_clipboard_key')));
             await tester.pump();
@@ -414,6 +428,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(find.byKey(const Key('copy_to_clipboard_key')));
             await tester.pump();
@@ -438,6 +453,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(
               find.byKey(const Key('import_from_clipboard_key')),
@@ -458,6 +474,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
             await tester.tap(
               find.byKey(const Key('import_from_clipboard_key')),
@@ -477,6 +494,7 @@ void main() async {
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
+          configCubit: configCubit,
         );
 
         await tester.tap(find.byKey(const Key('resize_sprite_key')));
@@ -494,6 +512,7 @@ void main() async {
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
+          configCubit: configCubit,
         );
 
         await tester.tap(find.byKey(const Key('resize_sprite_key')));
@@ -517,6 +536,7 @@ void main() async {
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
+          configCubit: configCubit,
         );
 
         await tester.tap(find.byKey(const Key('resize_sprite_key')));
@@ -542,6 +562,7 @@ void main() async {
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
+            configCubit: configCubit,
           );
 
           await tester.tap(find.byKey(const Key('clear_sprite_key')));
@@ -562,6 +583,7 @@ void main() async {
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
+            configCubit: configCubit,
           );
 
           await tester.tap(find.byKey(const Key('clear_sprite_key')));
@@ -585,6 +607,7 @@ void main() async {
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
+            configCubit: configCubit,
           );
 
           await tester.tap(find.byKey(const Key('clear_sprite_key')));
@@ -608,6 +631,7 @@ void main() async {
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
+            configCubit: configCubit,
           );
 
           await tester.tap(find.byKey(const Key('toogle_grid_key')));
@@ -629,6 +653,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyB);
@@ -650,6 +675,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyE);
@@ -671,6 +697,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyF);
@@ -692,6 +719,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyD);
@@ -714,6 +742,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.meta);
@@ -737,6 +766,7 @@ void main() async {
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
+              configCubit: configCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.meta);
@@ -748,112 +778,6 @@ void main() async {
             verify(spriteCubit.redo).called(1);
           },
         );
-      });
-
-      group('config', () {
-        testWidgets('opens the config dialog', (tester) async {
-          _mockState(
-            spriteState: SpriteState.initial(),
-            toolsState: ToolsState.initial(),
-            configState: ConfigState.initial(),
-          );
-
-          await tester.pumpTest(
-            spriteCubit: spriteCubit,
-            toolsCubit: toolsCubit,
-            configCubit: configCubit,
-          );
-
-          await tester.tap(find.byKey(const Key('config_key')));
-          await tester.pumpAndSettle();
-
-          expect(find.byType(ConfigDialog), findsOneWidget);
-        });
-
-        testWidgets('can close the config dialog', (tester) async {
-          _mockState(
-            spriteState: SpriteState.initial(),
-            toolsState: ToolsState.initial(),
-            configState: ConfigState.initial(),
-          );
-
-          await tester.pumpTest(
-            spriteCubit: spriteCubit,
-            toolsCubit: toolsCubit,
-            configCubit: configCubit,
-          );
-
-          await tester.tap(find.byKey(const Key('config_key')));
-          await tester.pumpAndSettle();
-
-          await tester.tap(find.text('Close'));
-          await tester.pumpAndSettle();
-
-          expect(find.byType(ConfigDialog), findsNothing);
-        });
-
-        testWidgets('can change to system', (tester) async {
-          _mockState(
-            spriteState: SpriteState.initial(),
-            toolsState: ToolsState.initial(),
-            configState: ConfigState(themeMode: ThemeMode.dark),
-          );
-
-          await tester.pumpTest(
-            spriteCubit: spriteCubit,
-            toolsCubit: toolsCubit,
-            configCubit: configCubit,
-          );
-
-          await tester.tap(find.byKey(const Key('config_key')));
-          await tester.pumpAndSettle();
-
-          await tester.tap(find.byKey(const Key('radio_system')));
-          await tester.pump();
-          verify(() => configCubit.setThemeMode(ThemeMode.system)).called(1);
-        });
-
-        testWidgets('can change to light', (tester) async {
-          _mockState(
-            spriteState: SpriteState.initial(),
-            toolsState: ToolsState.initial(),
-            configState: ConfigState.initial(),
-          );
-
-          await tester.pumpTest(
-            spriteCubit: spriteCubit,
-            toolsCubit: toolsCubit,
-            configCubit: configCubit,
-          );
-
-          await tester.tap(find.byKey(const Key('config_key')));
-          await tester.pumpAndSettle();
-
-          await tester.tap(find.byKey(const Key('radio_light')));
-          await tester.pump();
-          verify(() => configCubit.setThemeMode(ThemeMode.light)).called(1);
-        });
-
-        testWidgets('can change to dark', (tester) async {
-          _mockState(
-            spriteState: SpriteState.initial(),
-            toolsState: ToolsState.initial(),
-            configState: ConfigState.initial(),
-          );
-
-          await tester.pumpTest(
-            spriteCubit: spriteCubit,
-            toolsCubit: toolsCubit,
-            configCubit: configCubit,
-          );
-
-          await tester.tap(find.byKey(const Key('config_key')));
-          await tester.pumpAndSettle();
-
-          await tester.tap(find.byKey(const Key('radio_dark')));
-          await tester.pump();
-          verify(() => configCubit.setThemeMode(ThemeMode.dark)).called(1);
-        });
       });
     });
   });

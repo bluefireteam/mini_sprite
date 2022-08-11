@@ -99,5 +99,21 @@
     "dark": "Dark",
     "@dark": {
         "description": "Label for dark"
+    },
+    "filledPixelColor": "Filled pixel color",
+    "@filledPixelColor": {
+        "description": "Label for the filled pixel color"
+    },
+    "unfilledPixelColor": "Unfilled pixel color",
+    "@unfilledPixelColor": {
+        "description": "Label for the unfilled pixel color"
+    },
+    "backgroundColor": "Background color",
+    "@backgroundColor": {
+        "description": "Label for the background color"
+    },
+    "chooseColor": "Choose color",
+    "@chooseColor": {
+        "description": "Label for the choose color label"
     }
 }

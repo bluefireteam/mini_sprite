@@ -1,4 +1,3 @@
-import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
@@ -32,6 +31,7 @@ class SpriteView extends StatelessWidget {
     final l10n = context.l10n;
     final spriteState = context.watch<SpriteCubit>().state;
     final toolsState = context.watch<ToolsCubit>().state;
+    final configState = context.watch<ConfigCubit>().state;
 
     final pixels = spriteState.pixels;
     final cursorPosition = spriteState.cursorPosition;
@@ -80,9 +80,7 @@ class SpriteView extends StatelessWidget {
                                 );
                           },
                           child: Container(
-                            color: Theme.of(context)
-                                .scaffoldBackgroundColor
-                                .darken(0.1),
+                            color: configState.backgroundColor,
                             key: const Key('board_key'),
                             width: spriteWidth.toDouble(),
                             height: spriteHeight.toDouble(),
@@ -94,6 +92,9 @@ class SpriteView extends StatelessWidget {
                                       for (var x = 0; x < pixels[y].length; x++)
                                         PixelCell(
                                           pixelSize: pixelSize,
+                                          filledColor: configState.filledColor,
+                                          unfilledColor:
+                                              configState.unfilledColor,
                                           selected: pixels[y][x],
                                           hasBorder: gridActive,
                                           hovered: cursorPosition ==

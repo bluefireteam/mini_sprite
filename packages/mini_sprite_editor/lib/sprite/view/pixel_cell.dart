@@ -5,35 +5,36 @@ class PixelCell extends StatelessWidget {
     super.key,
     required this.selected,
     required this.hovered,
+    required this.filledColor,
+    required this.unfilledColor,
     required this.pixelSize,
     required this.hasBorder,
   });
 
   final bool selected;
   final bool hovered;
+  final Color filledColor;
+  final Color unfilledColor;
   final int pixelSize;
   final bool hasBorder;
 
   @override
   Widget build(BuildContext context) {
-    final selectedColor =
-        Theme.of(context).textTheme.bodySmall?.color ?? Colors.black;
-
     return Container(
       width: pixelSize.toDouble(),
       height: pixelSize.toDouble(),
       decoration: BoxDecoration(
         color: selected
-            ? selectedColor
+            ? filledColor
             : hovered
-                ? selectedColor.withOpacity(.2)
-                : Colors.transparent,
+                ? filledColor.withOpacity(.2)
+                : unfilledColor,
         border: Border.all(
           color: hasBorder
-              ? selectedColor
+              ? filledColor
               : selected
-                  ? selectedColor
-                  : Colors.transparent,
+                  ? filledColor
+                  : unfilledColor,
         ),
       ),
     );
