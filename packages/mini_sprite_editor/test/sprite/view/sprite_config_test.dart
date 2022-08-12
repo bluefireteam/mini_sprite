@@ -17,23 +17,29 @@ class _MockToolsCubit extends Mock implements ToolsCubit {}
 
 class _MockConfigCubit extends Mock implements ConfigCubit {}
 
+class _MockLibraryCubit extends Mock implements LibraryCubit {}
+
 extension TestWidgetText on WidgetTester {
   Future<void> pumpTest({
-    SpriteCubit? spriteCubit,
-    ToolsCubit? toolsCubit,
-    ConfigCubit? configCubit,
+    required SpriteCubit spriteCubit,
+    required ToolsCubit toolsCubit,
+    required ConfigCubit configCubit,
+    required LibraryCubit libraryCubit,
   }) async {
     await pumpApp(
       MultiBlocProvider(
         providers: [
           BlocProvider<SpriteCubit>.value(
-            value: spriteCubit ?? _MockSpriteCubit(),
+            value: spriteCubit,
           ),
           BlocProvider<ToolsCubit>.value(
-            value: toolsCubit ?? _MockToolsCubit(),
+            value: toolsCubit,
           ),
           BlocProvider<ConfigCubit>.value(
-            value: configCubit ?? _MockConfigCubit(),
+            value: configCubit,
+          ),
+          BlocProvider<LibraryCubit>.value(
+            value: libraryCubit,
           ),
         ],
         child: const SpriteView(),
@@ -49,6 +55,7 @@ void main() async {
     late SpriteCubit spriteCubit;
     late ToolsCubit toolsCubit;
     late ConfigCubit configCubit;
+    late LibraryCubit libraryCubit;
 
     setUpAll(() {
       registerFallbackValue(SpriteTool.brush);
@@ -59,12 +66,14 @@ void main() async {
       spriteCubit = _MockSpriteCubit();
       toolsCubit = _MockToolsCubit();
       configCubit = _MockConfigCubit();
+      libraryCubit = _MockLibraryCubit();
     });
 
     void _mockState({
       required SpriteState spriteState,
       required ToolsState toolsState,
       required ConfigState configState,
+      required LibraryState libraryState,
     }) {
       whenListen(
         spriteCubit,
@@ -81,6 +90,12 @@ void main() async {
         Stream.fromIterable([configState]),
         initialState: configState,
       );
+
+      whenListen(
+        libraryCubit,
+        Stream.fromIterable([libraryState]),
+        initialState: libraryState,
+      );
     }
 
     group('config', () {
@@ -89,12 +104,14 @@ void main() async {
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
         );
 
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('config_key')));
@@ -108,12 +125,14 @@ void main() async {
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
         );
 
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('config_key')));
@@ -132,12 +151,14 @@ void main() async {
           configState: ConfigState.initial().copyWith(
             themeMode: ThemeMode.dark,
           ),
+          libraryState: LibraryState.initial(),
         );
 
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('config_key')));
@@ -153,12 +174,14 @@ void main() async {
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
         );
 
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('config_key')));
@@ -174,12 +197,14 @@ void main() async {
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
         );
 
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('config_key')));
@@ -196,12 +221,14 @@ void main() async {
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: state,
+          libraryState: LibraryState.initial(),
         );
 
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('config_key')));
@@ -225,12 +252,14 @@ void main() async {
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: state,
+          libraryState: LibraryState.initial(),
         );
 
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('config_key')));
@@ -256,12 +285,14 @@ void main() async {
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: state,
+          libraryState: LibraryState.initial(),
         );
 
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('config_key')));

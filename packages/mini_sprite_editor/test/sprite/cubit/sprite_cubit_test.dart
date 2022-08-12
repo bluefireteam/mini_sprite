@@ -59,7 +59,7 @@ void main() {
 
     group('importFromClipboard', () {
       late GetClipboardStub stub;
-      final sprite = MiniSprite([
+      final sprite = MiniSprite(const [
         [true, false],
         [false, true]
       ]);
@@ -384,6 +384,23 @@ void main() {
         ],
       ),
       act: (cubit) => cubit.clearSprite(),
+      expect: () => [
+        SpriteState.initial().copyWith(
+          pixels: [
+            [false],
+            [false],
+          ],
+        ),
+      ],
+    );
+
+    blocTest<SpriteCubit, SpriteState>(
+      'sets the sprite',
+      build: SpriteCubit.new,
+      act: (cubit) => cubit.setSprite([
+        [false],
+        [false],
+      ]),
       expect: () => [
         SpriteState.initial().copyWith(
           pixels: [

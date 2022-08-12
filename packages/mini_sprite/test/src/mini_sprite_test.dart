@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:mini_sprite/mini_sprite.dart';
 import 'package:test/test.dart';
 
@@ -91,6 +93,36 @@ void main() {
           ]),
         );
       });
+    });
+
+    test('supports equality', () {
+      expect(
+        MiniSprite([
+          [true],
+          [true]
+        ]),
+        equals(
+          MiniSprite([
+            [true],
+            [true]
+          ]),
+        ),
+      );
+
+      expect(
+        MiniSprite([
+          [true],
+          [false]
+        ]),
+        isNot(
+          equals(
+            MiniSprite([
+              [true],
+              [true]
+            ]),
+          ),
+        ),
+      );
     });
   });
 }

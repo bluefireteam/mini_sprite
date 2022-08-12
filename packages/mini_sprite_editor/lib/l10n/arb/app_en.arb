@@ -123,5 +123,13 @@
     "spriteExported": "Sprite successfully exported",
     "@spriteExported": {
         "description": "Label for the image export button"
+    },
+    "startCollection": "Start a collection",
+    "@startCollection": {
+        "description": "Label for the start collection button"
+    },
+    "addSprite": "Add a sprite",
+    "@addSprite": {
+        "description": "Label for the add sprite button"
     }
 }
