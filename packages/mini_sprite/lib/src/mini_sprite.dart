@@ -7,7 +7,7 @@ import 'package:equatable/equatable.dart';
 /// {@endtemplate}
 class MiniSprite extends Equatable {
   /// {@macro mini_sprite}
-  MiniSprite(this.pixels);
+  const MiniSprite(this.pixels);
 
   /// {@macro mini_sprite}
   ///

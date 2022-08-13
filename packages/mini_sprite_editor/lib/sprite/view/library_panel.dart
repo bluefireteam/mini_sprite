@@ -32,12 +32,13 @@ class _LibraryPanelState extends State<LibraryPanel> {
   Widget build(BuildContext context) {
     final libraryCubit = context.watch<LibraryCubit>();
     final library = libraryCubit.state;
+    final l10n = context.l10n;
 
     if (library.sprites.isEmpty) {
       return Card(
         child: IconButton(
           key: const Key('start_collection_key'),
-          tooltip: context.l10n.startCollection,
+          tooltip: l10n.startCollection,
           onPressed: () {
             libraryCubit.startCollection(
               context.read<SpriteCubit>().state.pixels,
@@ -60,7 +61,7 @@ class _LibraryPanelState extends State<LibraryPanel> {
               children: [
                 IconButton(
                   key: const Key('add_sprite_key'),
-                  tooltip: context.l10n.addSprite,
+                  tooltip: l10n.addSprite,
                   onPressed: () {
                     final spriteState = context.read<SpriteCubit>().state;
                     libraryCubit.addSprite(
@@ -72,7 +73,7 @@ class _LibraryPanelState extends State<LibraryPanel> {
                 ),
                 IconButton(
                   key: const Key('remove_sprite_key'),
-                  tooltip: context.l10n.renameSprite,
+                  tooltip: l10n.renameSprite,
                   onPressed: () async {
                     final cubit = context.read<LibraryCubit>();
                     final value = await ConfirmDialog.show(context);
@@ -81,7 +82,29 @@ class _LibraryPanelState extends State<LibraryPanel> {
                     }
                   },
                   icon: const Icon(Icons.remove),
-                )
+                ),
+                IconButton(
+                  key: const Key('copy_library_to_clipboard_key'),
+                  onPressed: () {
+                    context.read<LibraryCubit>().copyToClipboard();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(l10n.copiedWithSuccess)),
+                    );
+                  },
+                  tooltip: l10n.copyToClipboard,
+                  icon: const Icon(Icons.download),
+                ),
+                IconButton(
+                  key: const Key('import_library_from_clipboard_key'),
+                  onPressed: () {
+                    context.read<LibraryCubit>().importFromClipboard();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(l10n.importSuccess)),
+                    );
+                  },
+                  tooltip: l10n.importFromClipBoard,
+                  icon: const Icon(Icons.import_export),
+                ),
               ],
             ),
             Expanded(
