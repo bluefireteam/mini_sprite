@@ -1,4 +1,4 @@
-// ignore_for_file: one_member_abstracts
+// ignore_for_file: one_member_abstracts, prefer_const_constructors
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/services.dart';

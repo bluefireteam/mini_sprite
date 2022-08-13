@@ -26,8 +26,8 @@ void main() {
 
       expect(
         LibraryState(
-          sprites: {
-            'player': MiniSprite(const [
+          sprites: const {
+            'player': MiniSprite([
               [true],
               [true]
             ])
@@ -37,8 +37,8 @@ void main() {
         isNot(
           equals(
             LibraryState(
-              sprites: {
-                'player': MiniSprite(const [
+              sprites: const {
+                'player': MiniSprite([
                   [true],
                   [false]
                 ])
@@ -51,8 +51,8 @@ void main() {
 
       expect(
         LibraryState(
-          sprites: {
-            'player': MiniSprite(const [
+          sprites: const {
+            'player': MiniSprite([
               [true],
               [true]
             ])
@@ -62,8 +62,8 @@ void main() {
         isNot(
           equals(
             LibraryState(
-              sprites: {
-                'player': MiniSprite(const [
+              sprites: const {
+                'player': MiniSprite([
                   [true],
                   [true]
                 ])
@@ -87,8 +87,8 @@ void main() {
         ),
         equals(
           LibraryState(
-            sprites: {
-              'player': MiniSprite(const [
+            sprites: const {
+              'player': MiniSprite([
                 [true],
                 [true]
               ])

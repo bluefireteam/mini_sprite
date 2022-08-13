@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mini_sprite/mini_sprite.dart';
@@ -13,8 +15,8 @@ void main() {
       ]),
       expect: () => [
         LibraryState(
-          sprites: {
-            'sprite_1': MiniSprite(const [
+          sprites: const {
+            'sprite_1': MiniSprite([
               [true]
             ]),
           },
@@ -26,15 +28,15 @@ void main() {
     blocTest<LibraryCubit, LibraryState>(
       'updates the selected sprite',
       seed: () => LibraryState(
-        sprites: {
+        sprites: const {
           'player': MiniSprite(
-            const [
+            [
               [true, true],
               [true, true],
             ],
           ),
           'tile': MiniSprite(
-            const [
+            [
               [false, true],
               [true, false],
             ],
@@ -49,15 +51,15 @@ void main() {
       ]),
       expect: () => [
         LibraryState(
-          sprites: {
+          sprites: const {
             'player': MiniSprite(
-              const [
+              [
                 [true, false],
                 [false, true],
               ],
             ),
             'tile': MiniSprite(
-              const [
+              [
                 [false, true],
                 [true, false],
               ],
@@ -71,15 +73,15 @@ void main() {
     blocTest<LibraryCubit, LibraryState>(
       'renames a sprite',
       seed: () => LibraryState(
-        sprites: {
+        sprites: const {
           'player': MiniSprite(
-            const [
+            [
               [true, true],
               [true, true],
             ],
           ),
           'tile': MiniSprite(
-            const [
+            [
               [false, true],
               [true, false],
             ],
@@ -91,15 +93,15 @@ void main() {
       act: (cubit) => cubit.rename('player', 'char'),
       expect: () => [
         LibraryState(
-          sprites: {
+          sprites: const {
             'char': MiniSprite(
-              const [
+              [
                 [true, true],
                 [true, true],
               ],
             ),
             'tile': MiniSprite(
-              const [
+              [
                 [false, true],
                 [true, false],
               ],
@@ -113,15 +115,15 @@ void main() {
     blocTest<LibraryCubit, LibraryState>(
       'renames a sprite that is not selected',
       seed: () => LibraryState(
-        sprites: {
+        sprites: const {
           'player': MiniSprite(
-            const [
+            [
               [true, true],
               [true, true],
             ],
           ),
           'tile': MiniSprite(
-            const [
+            [
               [false, true],
               [true, false],
             ],
@@ -133,15 +135,15 @@ void main() {
       act: (cubit) => cubit.rename('player', 'char'),
       expect: () => [
         LibraryState(
-          sprites: {
+          sprites: const {
             'char': MiniSprite(
-              const [
+              [
                 [true, true],
                 [true, true],
               ],
             ),
             'tile': MiniSprite(
-              const [
+              [
                 [false, true],
                 [true, false],
               ],
@@ -155,15 +157,15 @@ void main() {
     blocTest<LibraryCubit, LibraryState>(
       'removes a sprite',
       seed: () => LibraryState(
-        sprites: {
+        sprites: const {
           'player': MiniSprite(
-            const [
+            [
               [true, true],
               [true, true],
             ],
           ),
           'tile': MiniSprite(
-            const [
+            [
               [false, true],
               [true, false],
             ],
@@ -175,9 +177,9 @@ void main() {
       act: (cubit) => cubit.removeSprite('player'),
       expect: () => [
         LibraryState(
-          sprites: {
+          sprites: const {
             'tile': MiniSprite(
-              const [
+              [
                 [false, true],
                 [true, false],
               ],
@@ -191,15 +193,15 @@ void main() {
     blocTest<LibraryCubit, LibraryState>(
       'removes a sprite that is selected',
       seed: () => LibraryState(
-        sprites: {
+        sprites: const {
           'player': MiniSprite(
-            const [
+            [
               [true, true],
               [true, true],
             ],
           ),
           'tile': MiniSprite(
-            const [
+            [
               [false, true],
               [true, false],
             ],
@@ -211,9 +213,9 @@ void main() {
       act: (cubit) => cubit.removeSprite('player'),
       expect: () => [
         LibraryState(
-          sprites: {
+          sprites: const {
             'tile': MiniSprite(
-              const [
+              [
                 [false, true],
                 [true, false],
               ],
@@ -234,9 +236,9 @@ void main() {
       act: (cubit) => cubit.addSprite(2, 2),
       expect: () => [
         LibraryState(
-          sprites: {
+          sprites: const {
             'sprite_1': MiniSprite(
-              const [
+              [
                 [false, false],
                 [false, false],
               ],

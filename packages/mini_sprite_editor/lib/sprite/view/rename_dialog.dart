@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
 
 class RenameDialog extends StatefulWidget {

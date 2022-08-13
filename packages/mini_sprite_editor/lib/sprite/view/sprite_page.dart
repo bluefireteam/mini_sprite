@@ -84,45 +84,46 @@ class SpriteView extends StatelessWidget {
                                 );
                           },
                           child: BlocListener<LibraryCubit, LibraryState>(
-                              listenWhen: (previous, current) =>
-                                  previous.selected != current.selected,
-                              listener: (context, state) {
-                                context.read<SpriteCubit>().setSprite(
-                                      state.sprites[state.selected]!.pixels,
-                                    );
-                              },
-                              child: Container(
-                                color: configState.backgroundColor,
-                                key: const Key('board_key'),
-                                width: spriteWidth.toDouble(),
-                                height: spriteHeight.toDouble(),
-                                child: Column(
-                                  children: [
-                                    for (var y = 0; y < pixels.length; y++)
-                                      Row(
-                                        children: [
-                                          for (var x = 0;
-                                              x < pixels[y].length;
-                                              x++)
-                                            PixelCell(
-                                              pixelSize: pixelSize,
-                                              filledColor:
-                                                  configState.filledColor,
-                                              unfilledColor:
-                                                  configState.unfilledColor,
-                                              selected: pixels[y][x],
-                                              hasBorder: gridActive,
-                                              hovered: cursorPosition ==
-                                                  Offset(
-                                                    x.toDouble(),
-                                                    y.toDouble(),
-                                                  ),
-                                            ),
-                                        ],
-                                      ),
-                                  ],
-                                ),
-                              )),
+                            listenWhen: (previous, current) =>
+                                previous.selected != current.selected,
+                            listener: (context, state) {
+                              context.read<SpriteCubit>().setSprite(
+                                    state.sprites[state.selected]!.pixels,
+                                  );
+                            },
+                            child: Container(
+                              color: configState.backgroundColor,
+                              key: const Key('board_key'),
+                              width: spriteWidth.toDouble(),
+                              height: spriteHeight.toDouble(),
+                              child: Column(
+                                children: [
+                                  for (var y = 0; y < pixels.length; y++)
+                                    Row(
+                                      children: [
+                                        for (var x = 0;
+                                            x < pixels[y].length;
+                                            x++)
+                                          PixelCell(
+                                            pixelSize: pixelSize,
+                                            filledColor:
+                                                configState.filledColor,
+                                            unfilledColor:
+                                                configState.unfilledColor,
+                                            selected: pixels[y][x],
+                                            hasBorder: gridActive,
+                                            hovered: cursorPosition ==
+                                                Offset(
+                                                  x.toDouble(),
+                                                  y.toDouble(),
+                                                ),
+                                          ),
+                                      ],
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
