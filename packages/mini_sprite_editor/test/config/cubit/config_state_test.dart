@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mini_sprite_editor/sprite/cubit/config_cubit.dart';
+import 'package:mini_sprite_editor/config/config.dart';
 
 void main() {
   group('ConfigState', () {
