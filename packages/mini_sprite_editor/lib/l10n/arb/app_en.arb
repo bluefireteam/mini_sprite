@@ -123,5 +123,25 @@
     "spriteExported": "Sprite successfully exported",
     "@spriteExported": {
         "description": "Label for the image export button"
+    },
+    "startCollection": "Start a collection",
+    "@startCollection": {
+        "description": "Label for the start collection button"
+    },
+    "addSprite": "Add a sprite",
+    "@addSprite": {
+        "description": "Label for the add sprite button"
+    },
+    "renameSprite": "Rename sprite",
+    "@renameSprite": {
+        "description": "Title for the rename sprite"
+    },
+    "renameSpriteMessage": "Choose the new name",
+    "@renameSpriteMessage": {
+        "description": "Label for the rename sprite"
+    },
+    "removeSprite": "Remove selected sprite",
+    "@removeSprite": {
+        "description": "Label for the remove sprite button"
     }
 }

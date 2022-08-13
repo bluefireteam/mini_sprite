@@ -19,23 +19,29 @@ class _MockToolsCubit extends Mock implements ToolsCubit {}
 
 class _MockConfigCubit extends Mock implements ConfigCubit {}
 
+class _MockLibraryCubit extends Mock implements LibraryCubit {}
+
 extension TestWidgetText on WidgetTester {
   Future<void> pumpTest({
-    SpriteCubit? spriteCubit,
-    ToolsCubit? toolsCubit,
-    ConfigCubit? configCubit,
+    required SpriteCubit spriteCubit,
+    required ToolsCubit toolsCubit,
+    required ConfigCubit configCubit,
+    required LibraryCubit libraryCubit,
   }) async {
     await pumpApp(
       MultiBlocProvider(
         providers: [
           BlocProvider<SpriteCubit>.value(
-            value: spriteCubit ?? _MockSpriteCubit(),
+            value: spriteCubit,
           ),
           BlocProvider<ToolsCubit>.value(
-            value: toolsCubit ?? _MockToolsCubit(),
+            value: toolsCubit,
           ),
           BlocProvider<ConfigCubit>.value(
-            value: configCubit ?? _MockConfigCubit(),
+            value: configCubit,
+          ),
+          BlocProvider<LibraryCubit>.value(
+            value: libraryCubit,
           ),
         ],
         child: const SpriteView(),
@@ -51,6 +57,7 @@ void main() async {
     late SpriteCubit spriteCubit;
     late ToolsCubit toolsCubit;
     late ConfigCubit configCubit;
+    late LibraryCubit libraryCubit;
 
     setUpAll(() {
       registerFallbackValue(SpriteTool.brush);
@@ -62,12 +69,14 @@ void main() async {
       spriteCubit = _MockSpriteCubit();
       toolsCubit = _MockToolsCubit();
       configCubit = _MockConfigCubit();
+      libraryCubit = _MockLibraryCubit();
     });
 
     void _mockState({
       required SpriteState spriteState,
       required ToolsState toolsState,
       required ConfigState configState,
+      required LibraryState libraryState,
     }) {
       whenListen(
         spriteCubit,
@@ -84,6 +93,11 @@ void main() async {
         Stream.fromIterable([configState]),
         initialState: configState,
       );
+      whenListen(
+        libraryCubit,
+        Stream.fromIterable([libraryState]),
+        initialState: libraryState,
+      );
     }
 
     testWidgets('emits cursor down on pan start', (tester) async {
@@ -93,11 +107,13 @@ void main() async {
         spriteState: SpriteState.initial(),
         toolsState: ToolsState.initial(),
         configState: ConfigState.initial(),
+        libraryState: LibraryState.initial(),
       );
       await tester.pumpTest(
         spriteCubit: spriteCubit,
         toolsCubit: toolsCubit,
         configCubit: configCubit,
+        libraryCubit: libraryCubit,
       );
 
       await tester.drag(find.byKey(const Key('board_key')), Offset(30, 30));
@@ -119,11 +135,13 @@ void main() async {
         spriteState: SpriteState.initial(),
         toolsState: ToolsState.initial(),
         configState: ConfigState.initial(),
+        libraryState: LibraryState.initial(),
       );
       await tester.pumpTest(
         spriteCubit: spriteCubit,
         toolsCubit: toolsCubit,
         configCubit: configCubit,
+        libraryCubit: libraryCubit,
       );
 
       await tester.drag(find.byKey(const Key('board_key')), Offset(30, 30));
@@ -145,11 +163,13 @@ void main() async {
         spriteState: SpriteState.initial(),
         toolsState: ToolsState.initial(),
         configState: ConfigState.initial(),
+        libraryState: LibraryState.initial(),
       );
       await tester.pumpTest(
         spriteCubit: spriteCubit,
         toolsCubit: toolsCubit,
         configCubit: configCubit,
+        libraryCubit: libraryCubit,
       );
 
       final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
@@ -173,11 +193,13 @@ void main() async {
         spriteState: SpriteState.initial(),
         toolsState: ToolsState.initial(),
         configState: ConfigState.initial(),
+        libraryState: LibraryState.initial(),
       );
       await tester.pumpTest(
         spriteCubit: spriteCubit,
         toolsCubit: toolsCubit,
         configCubit: configCubit,
+        libraryCubit: libraryCubit,
       );
 
       await tester.drag(find.byKey(const Key('board_key')), Offset(30, 30));
@@ -197,11 +219,13 @@ void main() async {
                 tool: SpriteTool.eraser,
               ),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(find.byKey(const Key('brush_key')));
             await tester.pump();
@@ -216,11 +240,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(find.byKey(const Key('brush_key')));
             await tester.pump();
@@ -237,11 +263,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(find.byKey(const Key('eraser_key')));
             await tester.pump();
@@ -258,11 +286,13 @@ void main() async {
                 tool: SpriteTool.eraser,
               ),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(find.byKey(const Key('eraser_key')));
             await tester.pump();
@@ -279,11 +309,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(find.byKey(const Key('bucket_key')));
             await tester.pump();
@@ -300,11 +332,13 @@ void main() async {
                 tool: SpriteTool.bucket,
               ),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(find.byKey(const Key('bucket_key')));
             await tester.pump();
@@ -321,11 +355,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(find.byKey(const Key('bucket_eraser_key')));
             await tester.pump();
@@ -343,11 +379,13 @@ void main() async {
                 tool: SpriteTool.bucketEraser,
               ),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(find.byKey(const Key('bucket_eraser_key')));
             await tester.pump();
@@ -363,11 +401,13 @@ void main() async {
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
             configState: ConfigState.initial(),
+            libraryState: LibraryState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
             configCubit: configCubit,
+            libraryCubit: libraryCubit,
           );
           await tester.tap(find.byKey(const Key('zoom_in_key')));
           await tester.pump();
@@ -382,11 +422,13 @@ void main() async {
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
             configState: ConfigState.initial(),
+            libraryState: LibraryState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
             configCubit: configCubit,
+            libraryCubit: libraryCubit,
           );
           await tester.tap(find.byKey(const Key('zoom_out_key')));
           await tester.pump();
@@ -406,11 +448,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(find.byKey(const Key('copy_to_clipboard_key')));
             await tester.pump();
@@ -425,11 +469,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(find.byKey(const Key('copy_to_clipboard_key')));
             await tester.pump();
@@ -450,11 +496,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(
               find.byKey(const Key('import_from_clipboard_key')),
@@ -471,11 +519,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(
               find.byKey(const Key('import_from_clipboard_key')),
@@ -505,11 +555,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(
               find.byKey(const Key('export_to_image')),
@@ -533,11 +585,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
             await tester.tap(
               find.byKey(const Key('export_to_image')),
@@ -553,11 +607,13 @@ void main() async {
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
         );
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('resize_sprite_key')));
@@ -571,11 +627,13 @@ void main() async {
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
         );
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('resize_sprite_key')));
@@ -595,11 +653,13 @@ void main() async {
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
         );
         await tester.pumpTest(
           spriteCubit: spriteCubit,
           toolsCubit: toolsCubit,
           configCubit: configCubit,
+          libraryCubit: libraryCubit,
         );
 
         await tester.tap(find.byKey(const Key('resize_sprite_key')));
@@ -621,11 +681,13 @@ void main() async {
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
             configState: ConfigState.initial(),
+            libraryState: LibraryState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
             configCubit: configCubit,
+            libraryCubit: libraryCubit,
           );
 
           await tester.tap(find.byKey(const Key('clear_sprite_key')));
@@ -642,11 +704,13 @@ void main() async {
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
             configState: ConfigState.initial(),
+            libraryState: LibraryState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
             configCubit: configCubit,
+            libraryCubit: libraryCubit,
           );
 
           await tester.tap(find.byKey(const Key('clear_sprite_key')));
@@ -666,11 +730,13 @@ void main() async {
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
             configState: ConfigState.initial(),
+            libraryState: LibraryState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
             configCubit: configCubit,
+            libraryCubit: libraryCubit,
           );
 
           await tester.tap(find.byKey(const Key('clear_sprite_key')));
@@ -690,11 +756,13 @@ void main() async {
             spriteState: SpriteState.initial(),
             toolsState: ToolsState.initial(),
             configState: ConfigState.initial(),
+            libraryState: LibraryState.initial(),
           );
           await tester.pumpTest(
             spriteCubit: spriteCubit,
             toolsCubit: toolsCubit,
             configCubit: configCubit,
+            libraryCubit: libraryCubit,
           );
 
           await tester.tap(find.byKey(const Key('toogle_grid_key')));
@@ -712,11 +780,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyB);
@@ -734,11 +804,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyE);
@@ -756,11 +828,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyF);
@@ -778,11 +852,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.keyD);
@@ -801,11 +877,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.meta);
@@ -825,11 +903,13 @@ void main() async {
               spriteState: SpriteState.initial(),
               toolsState: ToolsState.initial(),
               configState: ConfigState.initial(),
+              libraryState: LibraryState.initial(),
             );
             await tester.pumpTest(
               spriteCubit: spriteCubit,
               toolsCubit: toolsCubit,
               configCubit: configCubit,
+              libraryCubit: libraryCubit,
             );
 
             await tester.sendKeyDownEvent(LogicalKeyboardKey.meta);

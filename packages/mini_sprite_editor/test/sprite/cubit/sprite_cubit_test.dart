@@ -1,4 +1,4 @@
-// ignore_for_file: one_member_abstracts
+// ignore_for_file: one_member_abstracts, prefer_const_constructors
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/services.dart';
@@ -59,7 +59,7 @@ void main() {
 
     group('importFromClipboard', () {
       late GetClipboardStub stub;
-      final sprite = MiniSprite([
+      final sprite = MiniSprite(const [
         [true, false],
         [false, true]
       ]);
@@ -384,6 +384,23 @@ void main() {
         ],
       ),
       act: (cubit) => cubit.clearSprite(),
+      expect: () => [
+        SpriteState.initial().copyWith(
+          pixels: [
+            [false],
+            [false],
+          ],
+        ),
+      ],
+    );
+
+    blocTest<SpriteCubit, SpriteState>(
+      'sets the sprite',
+      build: SpriteCubit.new,
+      act: (cubit) => cubit.setSprite([
+        [false],
+        [false],
+      ]),
       expect: () => [
         SpriteState.initial().copyWith(
           pixels: [

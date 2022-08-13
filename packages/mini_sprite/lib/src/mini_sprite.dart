@@ -1,11 +1,13 @@
+import 'package:equatable/equatable.dart';
+
 /// {@template mini_sprite}
 /// A class used to manipulate a matrix of pixels.
 /// first dimension of the [pixels] array is the y coordinate,
 /// second is the x coordinate.
 /// {@endtemplate}
-class MiniSprite {
+class MiniSprite extends Equatable {
   /// {@macro mini_sprite}
-  MiniSprite(this.pixels);
+  const MiniSprite(this.pixels);
 
   /// {@macro mini_sprite}
   ///
@@ -85,4 +87,7 @@ class MiniSprite {
 
     return '$dimensions;${blocks.join(';')}';
   }
+
+  @override
+  List<Object> get props => [pixels];
 }

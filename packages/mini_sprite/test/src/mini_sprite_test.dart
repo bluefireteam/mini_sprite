@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:mini_sprite/mini_sprite.dart';
 import 'package:test/test.dart';
 
@@ -21,7 +23,7 @@ void main() {
 
     test('toDataString returns the correct data', () {
       expect(
-        MiniSprite([
+        MiniSprite(const [
           [true, true],
           [true, true],
         ]).toDataString(),
@@ -29,7 +31,7 @@ void main() {
       );
 
       expect(
-        MiniSprite([
+        MiniSprite(const [
           [true, true],
           [true, false],
         ]).toDataString(),
@@ -37,7 +39,7 @@ void main() {
       );
 
       expect(
-        MiniSprite([
+        MiniSprite(const [
           [true, false],
           [true, false],
         ]).toDataString(),
@@ -74,7 +76,7 @@ void main() {
     group('when dimensions are not symmetrical', () {
       test('toDataString returns the correct data', () {
         expect(
-          MiniSprite([
+          MiniSprite(const [
             [true, true, true],
             [true, false, false],
           ]).toDataString(),
@@ -91,6 +93,36 @@ void main() {
           ]),
         );
       });
+    });
+
+    test('supports equality', () {
+      expect(
+        MiniSprite(const [
+          [true],
+          [true]
+        ]),
+        equals(
+          MiniSprite(const [
+            [true],
+            [true]
+          ]),
+        ),
+      );
+
+      expect(
+        MiniSprite(const [
+          [true],
+          [false]
+        ]),
+        isNot(
+          equals(
+            MiniSprite(const [
+              [true],
+              [true]
+            ]),
+          ),
+        ),
+      );
     });
   });
 }

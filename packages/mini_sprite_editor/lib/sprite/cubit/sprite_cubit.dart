@@ -30,6 +30,11 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     _setClipboardData(ClipboardData(text: data));
   }
 
+  void setSprite(List<List<bool>> pixels) {
+    emit(state.copyWith(pixels: pixels));
+    clearHistory();
+  }
+
   Future<void> exportToImage({
     required int pixelSize,
     required Color filledColor,
