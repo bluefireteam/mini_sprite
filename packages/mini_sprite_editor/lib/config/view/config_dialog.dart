@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:mini_sprite_editor/config/config.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
-import 'package:mini_sprite_editor/sprite/sprite.dart';
 
 class ConfigDialog extends StatefulWidget {
   const ConfigDialog({super.key});

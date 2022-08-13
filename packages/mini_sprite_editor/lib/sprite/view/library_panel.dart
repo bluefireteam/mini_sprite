@@ -3,6 +3,7 @@ import 'package:flame_mini_sprite/flame_mini_sprite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite/mini_sprite.dart';
+import 'package:mini_sprite_editor/config/config.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
 

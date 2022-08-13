@@ -1,4 +1,3 @@
-export 'config_dialog.dart';
 export 'confirm_dialog.dart';
 export 'library_panel.dart';
 export 'page_shortcuts.dart';
