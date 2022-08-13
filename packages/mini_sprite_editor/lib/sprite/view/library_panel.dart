@@ -69,6 +69,18 @@ class _LibraryPanelState extends State<LibraryPanel> {
                     );
                   },
                   icon: const Icon(Icons.add),
+                ),
+                IconButton(
+                  key: const Key('remove_sprite_key'),
+                  tooltip: context.l10n.renameSprite,
+                  onPressed: () async {
+                    final cubit = context.read<LibraryCubit>();
+                    final value = await ConfirmDialog.show(context);
+                    if (value ?? false) {
+                      cubit.removeSprite(cubit.state.selected);
+                    }
+                  },
+                  icon: const Icon(Icons.remove),
                 )
               ],
             ),
@@ -142,6 +154,16 @@ class _LibraryEntryState extends State<_LibraryEntry> {
     return InkWell(
       onTap: () {
         context.read<LibraryCubit>().select(widget.spriteKey);
+      },
+      onDoubleTap: () async {
+        final cubit = context.read<LibraryCubit>();
+        final newName = await RenameDialog.show(context, widget.spriteKey);
+        if (newName != null) {
+          cubit.rename(
+            widget.spriteKey,
+            newName,
+          );
+        }
       },
       child: Column(
         children: [
