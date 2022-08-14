@@ -45,7 +45,7 @@ extension TestWidgetText on WidgetTester {
             value: libraryCubit,
           ),
         ],
-        child: const SpriteView(),
+        child: const Scaffold(body: SpriteView()),
       ),
     );
   }
