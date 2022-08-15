@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_sprite_editor/map/map.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
 import 'package:mini_sprite_editor/workspace/workspace.dart';
 
@@ -13,7 +14,7 @@ class Panel extends StatelessWidget {
       case WorkspacePanel.sprite:
         return const SpritePage();
       case WorkspacePanel.map:
-        return const SizedBox();
+        return const MapPage();
       case WorkspacePanel.none:
         return const SizedBox();
     }
