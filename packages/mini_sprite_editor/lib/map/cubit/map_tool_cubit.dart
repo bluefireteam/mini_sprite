@@ -6,6 +6,10 @@ part 'map_tool_state.dart';
 class MapToolCubit extends Cubit<MapToolState> {
   MapToolCubit() : super(const MapToolState.initial());
 
+  void toogleGrid() {
+    emit(state.copyWith(gridActive: !state.gridActive));
+  }
+
   void selectTool(MapTool tool) {
     emit(
       state.copyWith(
@@ -25,7 +29,7 @@ class MapToolCubit extends Cubit<MapToolState> {
   void decreaseZoom() {
     emit(
       state.copyWith(
-        zoom: state.zoom + 0.1,
+        zoom: state.zoom - 0.1,
       ),
     );
   }

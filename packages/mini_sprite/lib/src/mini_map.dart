@@ -15,18 +15,34 @@ class MiniMap extends Equatable {
   ///
   /// Returns a new [MiniMap] parsed from the raw data.
   factory MiniMap.fromDataString(String data) {
-    final dataRaw = jsonDecode(data) as List<Map<String, dynamic>>;
+    final dataRaw = jsonDecode(data) as List<dynamic>;
 
-    final entries = dataRaw.map((dataEntry) {
-      final x = dataEntry['x'] as int;
-      final y = dataEntry['y'] as int;
+    final entries = dataRaw.map((dynamic dataEntry) {
+      final dataMap = dataEntry as Map<String, dynamic>;
+      final x = dataMap['x'] as int;
+      final y = dataMap['y'] as int;
 
-      final data = dataEntry['data'] as Map<String, dynamic>;
+      final data = dataMap['data'] as Map<String, dynamic>;
 
       return MapEntry(MapPosition(x, y), data);
     });
 
     return MiniMap(objects: Map.fromEntries(entries));
+  }
+
+  /// Returns this map serialized into a raw string.
+  String toDataString() {
+    final data = objects.entries.map((entry) {
+      final x = entry.key.x;
+      final y = entry.key.y;
+      final data = entry.value;
+      return {
+        'x': x,
+        'y': y,
+        'data': data,
+      };
+    }).toList();
+    return jsonEncode(data);
   }
 
   /// The objects on the map.

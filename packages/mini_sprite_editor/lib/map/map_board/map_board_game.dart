@@ -1,18 +1,14 @@
 import 'dart:async';
 
-import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame_bloc/flame_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_sprite_editor/config/config.dart';
 import 'package:mini_sprite_editor/library/cubit/library_cubit.dart';
 import 'package:mini_sprite_editor/map/map.dart';
-
-// TODO should be a config
-final tileSize = 16;
-
-final mapSize = Vector2(10, 10);
 
 class MapBoardGame extends FlameGame
     with HasHoverables, PanDetector, HasTappables {
@@ -27,7 +23,9 @@ class MapBoardGame extends FlameGame
   final LibraryCubit libraryCubit;
   final MapCubit mapCubit;
   final MapToolCubit mapToolCubit;
-  late final Component board;
+
+  late final BackgroundComponent board;
+  late Size _lastMapSize;
 
   @override
   void onPanUpdate(DragUpdateInfo info) {
@@ -36,25 +34,9 @@ class MapBoardGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
-    board = PositionComponent();
+    board = BackgroundComponent();
 
-    final tiles = <TileComponent>[];
-    for (var y = 0; y < mapSize.y; y++) {
-      for (var x = 0; x < mapSize.x; x++) {
-        final tile = TileComponent(
-          position: Vector2(
-            x * tileSize.toDouble(),
-            y * tileSize.toDouble(),
-          ),
-          mapPosition: MapPosition(x, y),
-          size: Vector2(tileSize.toDouble(), tileSize.toDouble()),
-        );
-
-        tiles.add(tile);
-      }
-    }
-
-    await board.addAll(tiles);
+    createTiles();
 
     await add(
       FlameMultiBlocProvider(
@@ -78,13 +60,57 @@ class MapBoardGame extends FlameGame
             listenWhen: (previous, current) => previous.zoom != current.zoom,
             onNewState: (state) {
               camera.zoom = state.zoom;
+              center();
+            },
+          ),
+          FlameBlocListener<MapCubit, MapState>(
+            listenWhen: (previous, current) =>
+                previous.mapSize != current.mapSize,
+            onNewState: (state) {
+              descendants()
+                  .whereType<TileComponent>()
+                  .forEach((e) => e.removeFromParent());
+              createTiles();
+              center();
             },
           ),
         ],
       ),
     );
+    center();
+  }
 
-    final center = ((mapSize * tileSize.toDouble()) - size) / 2;
+  void createTiles() {
+    final mapSize = _lastMapSize = mapCubit.state.mapSize;
+    final tileSize = configCubit.state.mapGridSize;
+
+    final tiles = <TileComponent>[];
+    for (var y = 0; y < mapSize.width; y++) {
+      for (var x = 0; x < mapSize.height; x++) {
+        final tile = TileComponent(
+          position: Vector2(
+            x * tileSize.toDouble(),
+            y * tileSize.toDouble(),
+          ),
+          mapPosition: MapPosition(x, y),
+          size: Vector2(tileSize.toDouble(), tileSize.toDouble()),
+        );
+
+        tiles.add(tile);
+      }
+    }
+
+    board.addAll(tiles);
+  }
+
+  void center() {
+    final mapSize = mapCubit.state.mapSize;
+    final tileSize = configCubit.state.mapGridSize;
+
+    final center = ((mapSize.toVector2() * tileSize.toDouble()) - size) / 2;
     camera.snapTo(center);
   }
+
+  @override
+  Color backgroundColor() => Colors.transparent;
 }

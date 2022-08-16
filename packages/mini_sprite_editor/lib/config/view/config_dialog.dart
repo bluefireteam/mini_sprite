@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:mini_sprite_editor/config/config.dart';
@@ -24,6 +25,15 @@ class ConfigDialog extends StatefulWidget {
 }
 
 class _ConfigDialogState extends State<ConfigDialog> {
+  late final TextEditingController _gridFieldController;
+
+  @override
+  void initState() {
+    super.initState();
+    _gridFieldController = TextEditingController()
+      ..text = context.read<ConfigCubit>().state.mapGridSize.toString();
+  }
+
   Future<Color?> _showColorPicker(Color color) {
     Color? _color = color;
     return showDialog<Color?>(
@@ -147,6 +157,19 @@ class _ConfigDialogState extends State<ConfigDialog> {
                         }
                       },
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16, top: 16),
+                      child: TextField(
+                        controller: _gridFieldController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: InputDecoration(
+                          labelText: l10n.mapGridSize,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -156,6 +179,9 @@ class _ConfigDialogState extends State<ConfigDialog> {
               padding: const EdgeInsets.all(16),
               child: ElevatedButton(
                 onPressed: () {
+                  cubit.setGridSize(
+                    int.parse(_gridFieldController.text),
+                  );
                   Navigator.of(context).pop();
                 },
                 child: Text(l10n.close),
