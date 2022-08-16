@@ -15,8 +15,6 @@ class Panel extends StatelessWidget {
         return const SpritePage();
       case WorkspacePanel.map:
         return const MapPage();
-      case WorkspacePanel.none:
-        return const SizedBox();
     }
   }
 }

@@ -121,8 +121,8 @@ class SpriteView extends StatelessWidget {
           ),
           Positioned(
             top: 8,
-            right: 32,
-            left: 32,
+            right: 8,
+            left: 8,
             child: Card(
               child: Row(
                 children: [
@@ -216,7 +216,7 @@ class SpriteView extends StatelessWidget {
           ),
           Positioned(
             top: 64,
-            right: 32,
+            right: 8,
             child: Card(
               child: Column(
                 children: [
@@ -290,7 +290,7 @@ class SpriteView extends StatelessWidget {
           ),
           Positioned(
             top: 64,
-            left: 32,
+            left: 8,
             bottom: libraryState.sprites.isEmpty ? null : 16,
             child: const LibraryPanel(),
           ),

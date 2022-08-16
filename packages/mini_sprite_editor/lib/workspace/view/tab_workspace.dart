@@ -17,24 +17,24 @@ class TabWorkspace extends StatelessWidget {
       children: [
         Row(
           children: [
-            PopupMenuButton<WorkspacePanel>(
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  value: WorkspacePanel.sprite,
-                  child: Text(l10n.openSpriteEditor),
-                ),
-                PopupMenuItem(
-                  value: WorkspacePanel.map,
-                  child: Text(l10n.openMapEditor),
-                ),
-              ],
-              onSelected: workspaceCubit.openPanel,
-              child: const Padding(
-                padding: EdgeInsets.all(8),
-                child: Icon(Icons.menu),
-              ),
-            ),
-            for (final panel in workspaceState.panels)
+            //PopupMenuButton<WorkspacePanel>(
+            //  itemBuilder: (context) => [
+            //    PopupMenuItem(
+            //      value: WorkspacePanel.sprite,
+            //      child: Text(l10n.openSpriteEditor),
+            //    ),
+            //    PopupMenuItem(
+            //      value: WorkspacePanel.map,
+            //      child: Text(l10n.openMapEditor),
+            //    ),
+            //  ],
+            //  onSelected: workspaceCubit.openPanel,
+            //  child: const Padding(
+            //    padding: EdgeInsets.all(8),
+            //    child: Icon(Icons.menu),
+            //  ),
+            //),
+            for (final panel in WorkspacePanel.values)
               _Tab(
                 panel: panel,
                 selected: panel == workspaceState.activePanel,
@@ -48,7 +48,12 @@ class TabWorkspace extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: Panel(panel: workspaceState.activePanel),
+          child: IndexedStack(
+            index: WorkspacePanel.values.indexOf(workspaceState.activePanel),
+            children: [
+              for (final panel in WorkspacePanel.values) Panel(panel: panel),
+            ],
+          ),
         ),
       ],
     );
@@ -86,11 +91,12 @@ class _Tab extends StatelessWidget {
           child: Row(
             children: [
               const SizedBox(width: 16),
-              Text(panel.name),
-              IconButton(
-                onPressed: onRemoved,
-                icon: const Icon(Icons.close),
-              ),
+              SizedBox(height: 32, child: Center(child: Text(panel.name))),
+              const SizedBox(width: 16),
+              //IconButton(
+              //  onPressed: onRemoved,
+              //  icon: const Icon(Icons.close),
+              //),
             ],
           ),
         ),

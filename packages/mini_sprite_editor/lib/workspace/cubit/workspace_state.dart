@@ -1,7 +1,6 @@
 part of 'workspace_cubit.dart';
 
 enum WorkspacePanel {
-  none,
   sprite,
   map,
 }
@@ -23,7 +22,7 @@ class WorkspaceState extends Equatable {
       : this(
           panels: const [],
           mode: WorkspaceMode.tabs,
-          activePanel: WorkspacePanel.none,
+          activePanel: WorkspacePanel.sprite,
         );
 
   final List<WorkspacePanel> panels;
