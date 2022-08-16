@@ -76,7 +76,17 @@ class MapBoardGame extends FlameGame
         ],
       ),
     );
+    autoZoom();
     center();
+  }
+
+  void autoZoom() {
+    final mapSize = mapCubit.state.mapSize;
+    final tileSize = configCubit.state.mapGridSize;
+
+    final rate = (size.x - 250) / (mapSize * tileSize.toDouble()).width;
+    camera.zoom = rate;
+    mapToolCubit.setZoom(rate);
   }
 
   void createTiles() {
