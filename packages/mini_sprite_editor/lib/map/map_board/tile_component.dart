@@ -74,7 +74,7 @@ class TileComponent extends PositionComponent
     final spriteId = object?['sprite'] as String?;
     final miniSprite = gameRef.libraryCubit.state.sprites[spriteId];
     if (miniSprite != null) {
-      // TODO cache this somehow.
+      // TODO(erickzanardo): cache this somehow.
       miniSprite
           .toSprite(
             pixelSize: 1,

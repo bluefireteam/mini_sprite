@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mini_sprite_editor/l10n/l10n.dart';
 import 'package:mini_sprite_editor/workspace/workspace.dart';
 
 class TabWorkspace extends StatelessWidget {
@@ -11,29 +10,10 @@ class TabWorkspace extends StatelessWidget {
     final workspaceCubit = context.watch<WorkspaceCubit>();
     final workspaceState = workspaceCubit.state;
 
-    final l10n = context.l10n;
-
     return Column(
       children: [
         Row(
           children: [
-            //PopupMenuButton<WorkspacePanel>(
-            //  itemBuilder: (context) => [
-            //    PopupMenuItem(
-            //      value: WorkspacePanel.sprite,
-            //      child: Text(l10n.openSpriteEditor),
-            //    ),
-            //    PopupMenuItem(
-            //      value: WorkspacePanel.map,
-            //      child: Text(l10n.openMapEditor),
-            //    ),
-            //  ],
-            //  onSelected: workspaceCubit.openPanel,
-            //  child: const Padding(
-            //    padding: EdgeInsets.all(8),
-            //    child: Icon(Icons.menu),
-            //  ),
-            //),
             for (final panel in WorkspacePanel.values)
               _Tab(
                 panel: panel,

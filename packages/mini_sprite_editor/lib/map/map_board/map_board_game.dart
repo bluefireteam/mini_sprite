@@ -25,7 +25,6 @@ class MapBoardGame extends FlameGame
   final MapToolCubit mapToolCubit;
 
   late final BackgroundComponent board;
-  late Size _lastMapSize;
 
   @override
   void onPanUpdate(DragUpdateInfo info) {
@@ -81,7 +80,7 @@ class MapBoardGame extends FlameGame
   }
 
   void createTiles() {
-    final mapSize = _lastMapSize = mapCubit.state.mapSize;
+    final mapSize = mapCubit.state.mapSize;
     final tileSize = configCubit.state.mapGridSize;
 
     final tiles = <TileComponent>[];
