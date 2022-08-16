@@ -17,6 +17,7 @@ void main() {
           filledColor: Colors.white,
           unfilledColor: Colors.transparent,
           backgroundColor: Colors.black,
+          mapGridSize: 16,
         ),
         equals(
           ConfigState(
@@ -24,6 +25,7 @@ void main() {
             filledColor: Colors.white,
             unfilledColor: Colors.transparent,
             backgroundColor: Colors.black,
+            mapGridSize: 16,
           ),
         ),
       );
@@ -34,6 +36,7 @@ void main() {
           filledColor: Colors.white,
           unfilledColor: Colors.transparent,
           backgroundColor: Colors.black,
+          mapGridSize: 16,
         ),
         isNot(
           equals(
@@ -42,6 +45,7 @@ void main() {
               filledColor: Colors.white,
               unfilledColor: Colors.transparent,
               backgroundColor: Colors.black,
+              mapGridSize: 16,
             ),
           ),
         ),
@@ -53,6 +57,7 @@ void main() {
           filledColor: Colors.red,
           unfilledColor: Colors.transparent,
           backgroundColor: Colors.black,
+          mapGridSize: 16,
         ),
         isNot(
           equals(
@@ -61,6 +66,7 @@ void main() {
               filledColor: Colors.white,
               unfilledColor: Colors.transparent,
               backgroundColor: Colors.black,
+              mapGridSize: 16,
             ),
           ),
         ),
@@ -72,6 +78,7 @@ void main() {
           filledColor: Colors.white,
           unfilledColor: Colors.red,
           backgroundColor: Colors.black,
+          mapGridSize: 16,
         ),
         isNot(
           equals(
@@ -80,6 +87,7 @@ void main() {
               filledColor: Colors.white,
               unfilledColor: Colors.transparent,
               backgroundColor: Colors.black,
+              mapGridSize: 16,
             ),
           ),
         ),
@@ -91,6 +99,7 @@ void main() {
           filledColor: Colors.white,
           unfilledColor: Colors.transparent,
           backgroundColor: Colors.red,
+          mapGridSize: 16,
         ),
         isNot(
           equals(
@@ -99,6 +108,7 @@ void main() {
               filledColor: Colors.white,
               unfilledColor: Colors.transparent,
               backgroundColor: Colors.black,
+              mapGridSize: 16,
             ),
           ),
         ),
@@ -112,6 +122,7 @@ void main() {
           filledColor: Colors.white,
           unfilledColor: Colors.transparent,
           backgroundColor: Colors.black,
+          mapGridSize: 16,
         ).copyWith(),
         equals(
           ConfigState(
@@ -119,6 +130,7 @@ void main() {
             filledColor: Colors.white,
             unfilledColor: Colors.transparent,
             backgroundColor: Colors.black,
+            mapGridSize: 16,
           ),
         ),
       );
@@ -129,6 +141,7 @@ void main() {
           filledColor: Colors.white,
           unfilledColor: Colors.transparent,
           backgroundColor: Colors.black,
+          mapGridSize: 16,
         ).copyWith(
           themeMode: ThemeMode.light,
         ),
@@ -138,6 +151,7 @@ void main() {
             filledColor: Colors.white,
             unfilledColor: Colors.transparent,
             backgroundColor: Colors.black,
+            mapGridSize: 16,
           ),
         ),
       );
@@ -148,6 +162,7 @@ void main() {
           filledColor: Colors.white,
           unfilledColor: Colors.transparent,
           backgroundColor: Colors.black,
+          mapGridSize: 16,
         ).copyWith(
           filledColor: Colors.red,
         ),
@@ -157,6 +172,7 @@ void main() {
             filledColor: Colors.red,
             unfilledColor: Colors.transparent,
             backgroundColor: Colors.black,
+            mapGridSize: 16,
           ),
         ),
       );
@@ -167,6 +183,7 @@ void main() {
           filledColor: Colors.white,
           unfilledColor: Colors.transparent,
           backgroundColor: Colors.black,
+          mapGridSize: 16,
         ).copyWith(
           unfilledColor: Colors.red,
         ),
@@ -176,6 +193,7 @@ void main() {
             filledColor: Colors.white,
             unfilledColor: Colors.red,
             backgroundColor: Colors.black,
+            mapGridSize: 16,
           ),
         ),
       );
@@ -186,6 +204,7 @@ void main() {
           filledColor: Colors.white,
           unfilledColor: Colors.transparent,
           backgroundColor: Colors.black,
+          mapGridSize: 16,
         ).copyWith(
           backgroundColor: Colors.red,
         ),
@@ -195,6 +214,7 @@ void main() {
             filledColor: Colors.white,
             unfilledColor: Colors.transparent,
             backgroundColor: Colors.red,
+            mapGridSize: 16,
           ),
         ),
       );
