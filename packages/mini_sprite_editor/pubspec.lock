@@ -183,6 +183,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.1"
+  flame_bloc:
+    dependency: "direct main"
+    description:
+      name: flame_bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.6.0"
   flame_mini_sprite:
     dependency: "direct main"
     description:

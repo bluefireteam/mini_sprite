@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:mini_sprite_editor/config/config.dart';
+import 'package:mini_sprite_editor/library/library.dart';
 import 'package:mini_sprite_editor/sprite/cubit/tools_cubit.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
 import 'package:mocktail/mocktail.dart';

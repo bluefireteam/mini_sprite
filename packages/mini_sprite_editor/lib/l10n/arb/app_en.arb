@@ -143,5 +143,25 @@
     "removeSprite": "Remove selected sprite",
     "@removeSprite": {
         "description": "Label for the remove sprite button"
+    },
+    "openSpriteEditor": "Open sprite editor",
+    "@openSpriteEditor": {
+        "description": "Label for the sprite editor"
+    },
+    "openMapEditor": "Open map editor",
+    "@openMapEditor": {
+        "description": "Label for the sprite editor"
+    },
+    "mapSizeTitle": "Edit map size",
+    "@mapSizeTitle": {
+        "description": "Label for the map size"
+    },
+    "clearMap": "Clear map",
+    "@clearMap": {
+        "description": "Label for the clear map"
+    },
+    "mapGridSize": "Map grid size",
+    "@mapGridSize": {
+        "description": "Label for the map grid size"
     }
 }

@@ -23,6 +23,10 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
     emit(state.copyWith(backgroundColor: color));
   }
 
+  void setGridSize(int value) {
+    emit(state.copyWith(mapGridSize: value));
+  }
+
   @override
   ConfigState? fromJson(Map<String, dynamic> json) {
     final themeModeRaw = json['theme_mode'] as String?;
@@ -36,6 +40,7 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
       filledColor: Color(json['filled_color'] as int),
       unfilledColor: Color(json['unfilled_color'] as int),
       backgroundColor: Color(json['background_color'] as int),
+      mapGridSize: json['map_grid_size'] as int,
     );
   }
 
@@ -46,6 +51,7 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
       'filled_color': state.filledColor.value,
       'unfilled_color': state.unfilledColor.value,
       'background_color': state.backgroundColor.value,
+      'map_grid_size': state.mapGridSize,
     };
   }
 }

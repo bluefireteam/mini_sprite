@@ -2,7 +2,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mini_sprite/mini_sprite.dart';
-import 'package:mini_sprite_editor/sprite/sprite.dart';
+import 'package:mini_sprite_editor/library/library.dart';
 
 void main() {
   group('LibraryState', () {
