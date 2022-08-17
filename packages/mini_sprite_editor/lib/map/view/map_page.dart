@@ -115,6 +115,7 @@ class MapView extends StatelessWidget {
                 Expanded(
                   child: ClipRect(
                     child: GameWidget.controlled(
+                      autofocus: false,
                       gameFactory: () {
                         return MapBoardGame(
                           configCubit: context.read<ConfigCubit>(),

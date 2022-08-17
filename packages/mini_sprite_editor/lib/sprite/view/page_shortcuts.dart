@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,53 +26,87 @@ class PageShortcuts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final toolsCubit = context.read<ToolsCubit>();
-    final spriteCubit = context.read<SpriteCubit>();
+
 
     return Shortcuts(
-      shortcuts: {
-        LogicalKeySet(LogicalKeyboardKey.keyB): const ToolIntent(
+      shortcuts: const {
+        SingleActivator(LogicalKeyboardKey.keyB): ToolIntent(
           SpriteTool.brush,
         ),
-        LogicalKeySet(LogicalKeyboardKey.keyE): const ToolIntent(
+        SingleActivator(LogicalKeyboardKey.keyE): ToolIntent(
           SpriteTool.eraser,
         ),
-        LogicalKeySet(LogicalKeyboardKey.keyF): const ToolIntent(
+        SingleActivator(LogicalKeyboardKey.keyF): ToolIntent(
           SpriteTool.bucket,
         ),
-        LogicalKeySet(LogicalKeyboardKey.keyD): const ToolIntent(
+        SingleActivator(LogicalKeyboardKey.keyD): ToolIntent(
           SpriteTool.bucketEraser,
         ),
-        LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyZ):
-            const UndoIntent(),
-        LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyY):
-            const RedoIntent(),
+        SingleActivator(LogicalKeyboardKey.keyZ, meta: true):
+            UndoIntent(),
+        SingleActivator(LogicalKeyboardKey.keyY, meta: true):
+            RedoIntent(),
       },
-      child: Actions(
-        actions: {
-          ToolIntent: CallbackAction<ToolIntent>(
-            onInvoke: (intent) {
-              toolsCubit.selectTool(intent.tool);
-              return null;
-            },
-          ),
-          UndoIntent: CallbackAction<UndoIntent>(
-            onInvoke: (intent) {
-              spriteCubit.undo();
-              return null;
-            },
-          ),
-          RedoIntent: CallbackAction<RedoIntent>(
-            onInvoke: (intent) {
-              spriteCubit.redo();
-              return null;
-            },
-          ),
-        },
-        child: Focus(
-          autofocus: true,
-          child: child,
+      child: child,
+    );
+  }
+}
+
+
+class PageActions extends StatefulWidget {
+  const PageActions({Key? key, required this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  State<PageActions> createState() => _PageActionsState();
+}
+
+class _PageActionsState extends State<PageActions> {
+
+  late final  fn = FocusScopeNode(
+    debugLabel: 'inside actions',
+  );
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    Future.delayed(Duration(seconds: 1), (){
+      fn.requestFocus();
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    final toolsCubit = context.read<ToolsCubit>();
+    final spriteCubit = context.read<SpriteCubit>();
+    return Actions(
+      actions: {
+        ToolIntent: CallbackAction<ToolIntent>(
+          onInvoke: (intent) {
+            toolsCubit.selectTool(intent.tool);
+            return null;
+          },
         ),
+        UndoIntent: CallbackAction<UndoIntent>(
+          onInvoke: (intent) {
+            spriteCubit.undo();
+            return null;
+          },
+        ),
+        RedoIntent: CallbackAction<RedoIntent>(
+          onInvoke: (intent) {
+            spriteCubit.redo();
+            return null;
+          },
+        ),
+      },
+      child: FocusScope(
+        autofocus: true,
+        node: fn,
+        child: Focus(child: widget.child),
       ),
     );
   }

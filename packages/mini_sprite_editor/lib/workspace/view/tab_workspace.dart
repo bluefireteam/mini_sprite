@@ -2,8 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/workspace/workspace.dart';
 
-class TabWorkspace extends StatelessWidget {
+class TabWorkspace extends StatefulWidget {
   const TabWorkspace({super.key});
+
+  @override
+  State<TabWorkspace> createState() => _TabWorkspaceState();
+}
+
+class _TabWorkspaceState extends State<TabWorkspace> {
+
+  late final  fn = FocusScopeNode(
+    debugLabel: 'hehe',
+  );
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    fn.requestFocus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +45,16 @@ class TabWorkspace extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: IndexedStack(
-            index: WorkspacePanel.values.indexOf(workspaceState.activePanel),
-            children: [
-              for (final panel in WorkspacePanel.values) Panel(panel: panel),
-            ],
+          child: FocusScope(
+            autofocus: true,
+            canRequestFocus: true,
+            node: fn,
+            child: IndexedStack(
+              index: WorkspacePanel.values.indexOf(workspaceState.activePanel),
+              children: [
+                for (final panel in WorkspacePanel.values) Panel(panel: panel),
+              ],
+            ),
           ),
         ),
       ],

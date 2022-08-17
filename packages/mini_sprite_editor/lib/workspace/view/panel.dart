@@ -10,6 +10,7 @@ class Panel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return const SpritePage();
     switch (panel) {
       case WorkspacePanel.sprite:
         return const SpritePage();

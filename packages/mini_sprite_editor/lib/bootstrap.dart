@@ -8,7 +8,7 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    log('onChange(${bloc.runtimeType}, $change)');
+   // log('onChange(${bloc.runtimeType}, $change)');
   }
 
   @override
@@ -23,11 +23,22 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
+  FocusManager.instance.addListener(() {
+    final fm = FocusManager.instance;
+    final ancestors = FocusManager.instance.primaryFocus?.ancestors ?? [];
+    for(final desce in ancestors) {
+      if(desce.canRequestFocus == false) {
+        print("the perpetrator $desce");
+      }
+    }
+    print("Santa merda: ${FocusManager.instance.primaryFocus?.ancestors}");
+  });
+
   await runZonedGuarded(
-    () async {
+        () async {
       Bloc.observer = AppBlocObserver();
       runApp(await builder());
     },
-    (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+        (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
