@@ -50,3 +50,28 @@ extension FlameMiniSpriteX on MiniSprite {
     return Sprite(image);
   }
 }
+
+/// Adds Flame methods to [MiniLibrary].
+extension FlameMiniLibraryX on MiniLibrary {
+  /// Returns a map of [Sprite]s of this [MiniLibrary].
+  Future<Map<String, Sprite>> toSprites({
+    required double pixelSize,
+    required Color color,
+    Color? blankColor,
+    Color? backgroundColor,
+  }) async {
+    final futureEntries = sprites.entries.map((entry) async {
+      final sprite = await entry.value.toSprite(
+        pixelSize: pixelSize,
+        color: color,
+        blankColor: blankColor,
+        backgroundColor: backgroundColor,
+      );
+
+      return MapEntry(entry.key, sprite);
+    });
+
+    final entries = await Future.wait(futureEntries);
+    return Map.fromEntries(entries);
+  }
+}
