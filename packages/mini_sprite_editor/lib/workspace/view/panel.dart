@@ -28,7 +28,7 @@ class _PanelState extends State<Panel> {
 
     if (!oldWidget.isActive && widget.isActive) {
       scheduleMicrotask(() {
-        if(mounted) {
+        if (mounted) {
           focusScopeNode.requestFocus();
         }
       });
