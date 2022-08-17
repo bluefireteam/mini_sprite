@@ -28,10 +28,13 @@ class TabWorkspace extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: IndexedStack(
-            index: WorkspacePanel.values.indexOf(workspaceState.activePanel),
+          child: Stack(
             children: [
-              for (final panel in WorkspacePanel.values) Panel(panel: panel),
+              for (final panel in WorkspacePanel.values)
+                Panel(
+                  panel: panel,
+                  isActive: workspaceState.activePanel == panel,
+                ),
             ],
           ),
         ),
