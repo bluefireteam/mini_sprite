@@ -14,20 +14,10 @@ class Assets {
   late Map<String, Sprite> gameSprites;
 
   Future<void> load() async {
-    final entries = await Future.wait(
-      sprites.entries.map((entry) async {
-        return MapEntry(
-          entry.key,
-          await MiniSprite.fromDataString(entry.value).toSprite(
-            color: Colors.white,
-            pixelSize: 1,
-          ),
-        );
-      }).toList(),
+    final miniLibrary = MiniLibrary.fromDataString(library);
+    gameSprites = await miniLibrary.toSprites(
+      pixelSize: 1,
+      color: Colors.white,
     );
-
-    gameSprites = {
-      for (final entry in entries) entry.key: entry.value,
-    };
   }
 }

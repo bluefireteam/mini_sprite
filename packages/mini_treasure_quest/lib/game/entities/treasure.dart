@@ -15,8 +15,7 @@ class Treasure extends BodyComponent<MiniTreasureQuest> with ContactCallbacks {
 
     await add(
       SpriteComponent(
-        sprite:
-            Assets.instance.gameSprites['TREASURE${gameRef.rng.nextInt(1)}'],
+        sprite: Assets.instance.gameSprites['CHEST'],
         size: Vector2.all(tileSize),
         anchor: Anchor.center,
       ),

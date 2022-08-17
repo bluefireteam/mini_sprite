@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flame/input.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_treasure_quest/game/entities/entities.dart';
 import 'package:mini_treasure_quest/game/stages.dart';
 import 'package:mini_treasure_quest/game/views/view.dart';
@@ -23,35 +24,26 @@ class MiniTreasureQuest extends Forge2DGame with HasKeyboardHandlerComponents {
   final int stage;
 
   Future<void> loadStage(String stage) async {
-    final matrix = stage.split('\n').map((line) => line.split(',')).toList();
+    final miniMap = MiniMap.fromDataString(stage);
 
-    for (var y = 0; y < matrix.length; y++) {
-      for (var x = 0; x < matrix[y].length; x++) {
-        final tile = matrix[y][x];
-        final position = Vector2(
-          x * tileSize,
-          y * tileSize,
-        );
-        if (tile == 'P') {
-          unawaited(add(Player(initialPosition: position)));
-        } else if (tile == 'G') {
-          unawaited(add(Treasure(initialPosition: position)));
-        } else if (tile == 'T') {
-          unawaited(add(Tile(initialPosition: position)));
-        }
+    for (final entry in miniMap.objects.entries) {
+      final sprite = entry.value['sprite'] as String?;
+      final position = Vector2(
+        entry.key.x.toDouble() * tileSize,
+        entry.key.y.toDouble() * tileSize,
+      );
+      if (sprite == 'PLAYER') {
+        unawaited(add(Player(initialPosition: position)));
+      } else if (sprite == 'CHEST') {
+        unawaited(add(Treasure(initialPosition: position)));
+      } else if (sprite != null) {
+        unawaited(add(Tile(initialPosition: position, sprite: sprite)));
       }
     }
 
-    final totalSize = Vector2(
-      matrix[0].length * tileSize,
-      matrix.length * tileSize,
-    );
-
-    final center = totalSize;
-
     camera
       ..zoom = 20
-      ..snapTo(-(size - center) / 2);
+      ..snapTo(-size / 2);
   }
 
   void win() {

@@ -4,9 +4,13 @@ import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
 class Tile extends BodyComponent<MiniTreasureQuest> {
-  Tile({required this.initialPosition});
+  Tile({
+    required this.initialPosition,
+    required this.sprite,
+  });
 
   final Vector2 initialPosition;
+  final String sprite;
 
   @override
   Future<void> onLoad() async {
@@ -14,7 +18,7 @@ class Tile extends BodyComponent<MiniTreasureQuest> {
 
     await add(
       SpriteComponent(
-        sprite: Assets.instance.gameSprites['TILE${gameRef.rng.nextInt(3)}'],
+        sprite: Assets.instance.gameSprites[sprite],
         size: Vector2.all(tileSize),
         anchor: Anchor.center,
       ),
