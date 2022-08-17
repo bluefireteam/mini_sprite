@@ -94,8 +94,8 @@ class MapBoardGame extends FlameGame
     final tileSize = configCubit.state.mapGridSize;
 
     final tiles = <TileComponent>[];
-    for (var y = 0; y < mapSize.width; y++) {
-      for (var x = 0; x < mapSize.height; x++) {
+    for (var y = 0; y < mapSize.height; y++) {
+      for (var x = 0; x < mapSize.width; x++) {
         final tile = TileComponent(
           position: Vector2(
             x * tileSize.toDouble(),
