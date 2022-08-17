@@ -20,14 +20,16 @@ class Panel extends StatelessWidget {
       maintainState: true,
       child: FocusScope(
         canRequestFocus: isActive,
-        child: Builder(builder: (context) {
-          switch (panel) {
-            case WorkspacePanel.sprite:
-              return const SpritePage();
-            case WorkspacePanel.map:
-              return const MapPage();
-          }
-        }),
+        child: Builder(
+          builder: (context) {
+            switch (panel) {
+              case WorkspacePanel.sprite:
+                return const SpritePage();
+              case WorkspacePanel.map:
+                return const MapPage();
+            }
+          },
+        ),
       ),
     );
   }
