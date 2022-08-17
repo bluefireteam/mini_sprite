@@ -105,7 +105,7 @@ packages:
       path: "../flame_mini_sprite"
       relative: true
     source: path
-    version: "1.0.0+1"
+    version: "0.0.1+1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -185,7 +185,7 @@ packages:
       path: "../mini_sprite"
       relative: true
     source: path
-    version: "1.0.0+1"
+    version: "0.0.1+1"
   ordered_set:
     dependency: transitive
     description:

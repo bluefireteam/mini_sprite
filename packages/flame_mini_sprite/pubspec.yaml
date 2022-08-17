@@ -1,6 +1,6 @@
 name: flame_mini_sprite
 description: Library to act as a bridge betwenn Mini Sprite and Flame Engine
-version: 1.0.0+1
+version: 0.0.1+1
 publish_to: none
 
 environment:
@@ -10,7 +10,7 @@ dependencies:
   flame: ^1.2.1
   flutter:
     sdk: flutter
-  mini_sprite: 1.0.0+1
+  mini_sprite: 0.0.1+1
 
 dev_dependencies:
   flame_test: ^1.6.0
