@@ -18,7 +18,7 @@ Mini Sprite is composed of several projects:
 
 ### [Mini Sprite](packages/mini_sprite)
 
-The core of it contains the engine/platform agnostic core code to handle the format for the
+The core package contains the engine/platform agnostic code to handle the format for the
 sprites and maps.
 
 ### [Mini Sprite Editor](packages/mini_sprite_editor)

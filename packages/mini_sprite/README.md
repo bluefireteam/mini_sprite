@@ -15,12 +15,12 @@ A simplified sprite format meant for 1bit styled games.
 Add mini sprite to your project pubspec:
 
 ```
-mini_sprite: <last_version>
+dart pub add mini_sprite
 ```
 
 ## MiniSprite
 
-`MiniSprite` holds the information for a single sprite, it can be generated in runtime or be loaded
+`MiniSprite` holds the information for a single sprite, it can be generated at runtime or be loaded
 from its raw format:
 
 ### Generating at runtime
@@ -47,7 +47,7 @@ print(miniSprite.pixels);
 `MiniLibrary` is a class that represents a collection of `MiniSprite`s. It is a helper class that
 makes it easy to store and load a collection of sprites.
 
-Just like MiniSprite it can be generated at runtime or loaded from its raw format.
+Just like `MiniSprite` it can be generated at runtime or loaded from its raw format.
 
 ### Generating at runtime
 
@@ -74,14 +74,14 @@ print(miniLibrary.sprite);
 ### MiniMap
 
 `MiniMap` is a class that holds information for a map (or stage) of a game. Its coordinate system
-is grid based and it contains a collections of objects.
+is grid based and contains a collections of objects.
 
-Objects are stored in a `Map` where the key is `MapPosition` (a simple object that holds the
+Objects are stored in a `Map` where the key is a `MapPosition` (a simple object that holds the
 `x` and `y` with the index of the object on the map grid) and the value is a map of the
 properties of the object.
 
 With the exception of the `sprite` key on the properties, which holds the sprite name from a
-`MiniLibrary`, all other properties are custom value set in the editor. 
+`MiniLibrary`, all other properties are custom values set in the editor. 
 
 Just like the other classes it can be generated at runtime or loaded from its raw format.
 

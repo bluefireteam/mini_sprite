@@ -15,14 +15,14 @@ Library to act as a bridge betwenn Mini Sprite and Flame Engine
 Add flame mini sprite to the project pubspec:
 
 ```
-flame_mini_sprite: <last_version>
+dart pub add flame_mini_sprite
 ```
 
 ## Helpers
 
 ### MiniSprite.toSprite
 
-Transform the stored data in a `MiniSprite` instance to a usable Flame `Sprite` instance:
+Convert a `MiniSprite` instance into a Flame `Sprite` instance:
 
 ```dart
 final miniSprite = MiniSprite.fromDataString('...');
@@ -34,7 +34,7 @@ final sprite = await miniSprite.toSprite(
 
 ### MiniLibrary.toSprites
 
-Transform the data stored in the `MiniLibrary` instance into a map of Flame `Sprite`s.
+Convert a `MiniLibrary` instance into a map of Flame `Sprite` instances.
 
 
 ```dart
