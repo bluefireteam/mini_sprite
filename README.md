@@ -10,7 +10,7 @@ Mini sprite is a simple, matrix based format for creating 1bit styled graphics.
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 
-![](art/logo.png)
+<img src="art/logo.png" width="250" />
 
 ## Project structure
 
