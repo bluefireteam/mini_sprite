@@ -87,6 +87,8 @@ class _HubEntryCardState extends State<HubEntryCard> {
                       ),
                       const SizedBox(height: 16),
                       Text(_entry!.description),
+                      const SizedBox(height: 8),
+                      Text('Grid size: ${_entry!.gridSize}'),
                       const SizedBox(height: 16),
                       Text('by: ${_entry!.author}'),
                       IconButton(
@@ -145,8 +147,8 @@ class _Thumbnail extends CustomPainter {
           Rect.fromLTWH(
             object.key.x * gridSize.toDouble() * rate,
             object.key.y * gridSize.toDouble() * rate,
-            gridSize.toDouble() * rate,
-            gridSize.toDouble() * rate,
+            sprite.image.width * rate,
+            sprite.image.height * rate,
           ),
         );
       }
