@@ -1,13 +1,14 @@
 import 'dart:ui';
 
-import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_sprite/mini_sprite.dart';
+import 'package:replay_bloc/replay_bloc.dart';
 
 part 'map_state.dart';
 
-class MapCubit extends Cubit<MapState> {
+class MapCubit extends ReplayCubit<MapState> {
   MapCubit({
     Future<void> Function(ClipboardData)? setClipboardData,
     Future<ClipboardData?> Function(String)? getClipboardData,
@@ -120,5 +121,11 @@ class MapCubit extends Cubit<MapState> {
         ),
       );
     }
+  }
+
+  @override
+  bool shouldReplay(MapState state) {
+    final eq = const MapEquality<MapPosition, Map<String, dynamic>>().equals;
+    return !eq(state.objects, this.state.objects);
   }
 }
