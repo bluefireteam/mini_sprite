@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/map/map.dart';
+import 'package:mini_sprite_editor/workspace/panel_focus.dart';
 
 class ToolIntent extends Intent {
   const ToolIntent(this.tool);
@@ -64,8 +65,7 @@ class MapPageShortcuts extends StatelessWidget {
             },
           ),
         },
-        child: Focus(
-          autofocus: true,
+        child: PanelFocus(
           child: child,
         ),
       ),

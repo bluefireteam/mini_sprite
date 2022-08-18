@@ -20,7 +20,9 @@ class Panel extends StatefulWidget {
 }
 
 class _PanelState extends State<Panel> {
-  late final FocusScopeNode focusScopeNode = FocusScopeNode();
+  late final FocusScopeNode focusScopeNode = FocusScopeNode(
+    debugLabel: 'Panel(${widget.panel.name})',
+  );
 
   @override
   void didUpdateWidget(Panel oldWidget) {
@@ -28,7 +30,7 @@ class _PanelState extends State<Panel> {
 
     if (!oldWidget.isActive && widget.isActive) {
       scheduleMicrotask(() {
-        if (mounted) {
+        if (mounted && !focusScopeNode.hasFocus) {
           focusScopeNode.requestFocus();
         }
       });
@@ -40,18 +42,23 @@ class _PanelState extends State<Panel> {
     return Visibility(
       visible: widget.isActive,
       maintainState: true,
-      child: FocusScope(
-        canRequestFocus: widget.isActive,
-        node: focusScopeNode,
-        child: Builder(
-          builder: (context) {
-            switch (widget.panel) {
-              case WorkspacePanel.sprite:
-                return const SpritePage();
-              case WorkspacePanel.map:
-                return const MapPage();
-            }
-          },
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: focusScopeNode.requestFocus,
+        child: FocusScope(
+          canRequestFocus: widget.isActive,
+          node: focusScopeNode,
+          debugLabel: 'FocusScope(${widget.panel.name})',
+          child: Builder(
+            builder: (context) {
+              switch (widget.panel) {
+                case WorkspacePanel.sprite:
+                  return const SpritePage();
+                case WorkspacePanel.map:
+                  return const MapPage();
+              }
+            },
+          ),
         ),
       ),
     );

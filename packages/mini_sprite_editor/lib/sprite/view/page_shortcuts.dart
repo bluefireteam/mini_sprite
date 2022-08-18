@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/sprite/cubit/tools_cubit.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
+import 'package:mini_sprite_editor/workspace/panel_focus.dart';
 
 class ToolIntent extends Intent {
   const ToolIntent(this.tool);
@@ -68,8 +69,7 @@ class PageShortcuts extends StatelessWidget {
             },
           ),
         },
-        child: Focus(
-          autofocus: true,
+        child: PanelFocus(
           child: child,
         ),
       ),

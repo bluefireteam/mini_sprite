@@ -59,7 +59,8 @@ class _Tab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      canRequestFocus: false,
+      onTap: !selected ? onPressed : null,
       child: Card(
         child: DecoratedBox(
           decoration: BoxDecoration(
