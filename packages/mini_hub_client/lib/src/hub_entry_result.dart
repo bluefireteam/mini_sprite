@@ -19,6 +19,9 @@ class HubEntryResult extends Equatable {
   factory HubEntryResult.fromJson(Map<String, dynamic> json) =>
       _$HubEntryResultFromJson(json);
 
+  /// This as a json.
+  Map<String, dynamic> toJson() => _$HubEntryResultToJson(this);
+
   /// The name of the entry.
   final String name;
 
