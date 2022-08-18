@@ -39,8 +39,8 @@ jobs:
       #- name: Run Tests
       #  run: melos exec --scope mini_hub_client flutter test --coverage
 
-      - name: Check Code Coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v1
-        with:
-          path: packages/mini_hub_client/coverage/lcov.info
-          min_coverage: 0
+      #- name: Check Code Coverage
+      #  uses: VeryGoodOpenSource/very_good_coverage@v1
+      #  with:
+      #    path: packages/mini_hub_client/coverage/lcov.info
+      #    min_coverage: 0
