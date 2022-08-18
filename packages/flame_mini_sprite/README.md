@@ -10,7 +10,7 @@ Library to act as a bridge betwenn Mini Sprite and Flame Engine
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 
-# How to use
+# How to use it
 
 Add flame mini sprite to the project pubspec:
 
@@ -22,7 +22,7 @@ flame_mini_sprite: <last_version>
 
 ### MiniSprite.toSprite
 
-Transform the data stored data into the `MiniSprite` instance into an usable Flame `Sprite` instance:
+Transform the stored data in a `MiniSprite` instance to a usable Flame `Sprite` instance:
 
 ```dart
 final miniSprite = MiniSprite.fromDataString('...');
@@ -34,7 +34,7 @@ final sprite = await miniSprite.toSprite(
 
 ### MiniLibrary.toSprites
 
-Transform the data stored data into all of the map's `MiniSprite`s into a map of Flame's `Sprite`.
+Transform the data stored in the `MiniLibrary` instance into a map of Flame `Sprite`s.
 
 
 ```dart

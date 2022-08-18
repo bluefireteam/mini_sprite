@@ -47,7 +47,7 @@ print(miniSprite.pixels);
 `MiniLibrary` is a class that represents a collection of `MiniSprite`s. It is a helper class that
 makes it easy to store and load a collection of sprites.
 
-Just like MiniSprite it can be generated in runtime or loaded from its raw format.
+Just like MiniSprite it can be generated at runtime or loaded from its raw format.
 
 ### Generating at runtime
 
@@ -73,14 +73,17 @@ print(miniLibrary.sprite);
 
 ### MiniMap
 
-`MiniMap` is class that holds information for a map (or stage) of a game, its coordinate system
+`MiniMap` is a class that holds information for a map (or stage) of a game. Its coordinate system
 is grid based and it contains a collections of objects.
 
-Objects are stored in a `Map` where the key is `MapPosition` (a simple object that holds the `x` and `y` with the index of the object on the map grid) and the value is a map of properties of the object.
+Objects are stored in a `Map` where the key is `MapPosition` (a simple object that holds the
+`x` and `y` with the index of the object on the map grid) and the value is a map of the
+properties of the object.
 
-With the exception of the `sprite` key on the properies, which holds the sprite name from a `MiniLibrary`, all other properties are custom value set on the editor. 
+With the exception of the `sprite` key on the properties, which holds the sprite name from a
+`MiniLibrary`, all other properties are custom value set in the editor. 
 
-Just like the other classes it can be generated in runtime or loaded from its raw format.
+Just like the other classes it can be generated at runtime or loaded from its raw format.
 
 ### Generating at runtime
 

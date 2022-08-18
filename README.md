@@ -14,17 +14,17 @@ Mini sprite is a simple, matrix based format for creating 1bit styled graphics.
 
 ## Project structure
 
-Mini Sprite is composed by several projects:
+Mini Sprite is composed of several projects:
 
 ### [Mini Sprite](packages/mini_sprite)
 
-The core of the it contains the engine/platform agnostic core code to handle the format for the
+The core of it contains the engine/platform agnostic core code to handle the format for the
 sprites and maps.
 
 ### [Mini Sprite Editor](packages/mini_sprite_editor)
 
-The flutter application deployed at [https://minisprit.es](https://minisprit.es) which is used to design sprites and
-maps using Mini Sprite's format.
+The flutter application, deployed at [https://minisprit.es](https://minisprit.es), which can be used to design sprites
+and maps using the Mini Sprite format.
 
 ### [Flame Mini Sprite](packages/flame_mini_sprite)
 
@@ -37,6 +37,6 @@ An example game made with Flame and Mini Sprite.
 
 ### Get help
 
-Check each provide listed above to read the documentation of each package.
+Check each link provided above to read the documentation for each package.
 
-Join Bluefire's [discord server](https://discord.gg/pxrBmy4) to ask question to the team and the community.
+Join Bluefire's [discord server](https://discord.gg/pxrBmy4) to ask questions to the team and the community.
