@@ -3,6 +3,7 @@ part of 'workspace_cubit.dart';
 enum WorkspacePanel {
   sprite,
   map,
+  hub,
 }
 
 enum WorkspaceMode {
