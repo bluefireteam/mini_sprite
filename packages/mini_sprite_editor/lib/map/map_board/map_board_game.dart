@@ -17,6 +17,7 @@ class MapBoardGame extends FlameGame
     required this.libraryCubit,
     required this.mapCubit,
     required this.mapToolCubit,
+    required this.primaryColor,
   });
 
   final ConfigCubit configCubit;
@@ -25,6 +26,7 @@ class MapBoardGame extends FlameGame
   final MapToolCubit mapToolCubit;
 
   late final BackgroundComponent board;
+  final Color primaryColor;
 
   @override
   void onPanUpdate(DragUpdateInfo info) {

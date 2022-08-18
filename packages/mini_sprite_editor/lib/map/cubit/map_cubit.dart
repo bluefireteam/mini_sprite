@@ -32,6 +32,28 @@ class MapCubit extends Cubit<MapState> {
     }
   }
 
+  void setObjectData(int x, int y, Map<String, dynamic> data) {
+    final position = MapPosition(x, y);
+    if (state.objects[position] == null) {
+      addObject(x, y, data);
+    } else {
+      final objData = state.objects[MapPosition(x, y)]!;
+      final newData = <String, dynamic>{
+        ...objData,
+        ...data,
+      };
+
+      emit(
+        state.copyWith(
+          objects: {
+            ...state.objects,
+            position: newData,
+          },
+        ),
+      );
+    }
+  }
+
   void addObject(int x, int y, Map<String, dynamic> data) {
     emit(
       state.copyWith(
@@ -70,5 +92,33 @@ class MapCubit extends Cubit<MapState> {
 
   void clearMap() {
     emit(state.copyWith(objects: {}));
+  }
+
+  void setSelected(MapPosition position) {
+    if (state.selectedObject == position) {
+      emit(state.copyWith(selectedObject: const MapPosition(-1, -1)));
+    } else {
+      emit(state.copyWith(selectedObject: position));
+    }
+  }
+
+  void removeProperty(MapPosition selected, String key) {
+    final selectedObject = state.objects[selected];
+    if (selectedObject != null) {
+      final data = <String, dynamic>{
+        ...Map<String, dynamic>.fromEntries(
+          selectedObject.entries.where((entry) => entry.key != key).toList(),
+        ),
+      };
+
+      emit(
+        state.copyWith(
+          objects: {
+            ...state.objects,
+            selected: data,
+          },
+        ),
+      );
+    }
   }
 }

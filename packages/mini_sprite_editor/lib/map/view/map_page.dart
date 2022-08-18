@@ -110,79 +110,111 @@ class MapView extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Row(
+            child: Stack(
               children: [
-                Expanded(
-                  child: ClipRect(
-                    child: GameWidget.controlled(
-                      gameFactory: () {
-                        return MapBoardGame(
-                          configCubit: context.read<ConfigCubit>(),
-                          libraryCubit: context.read<LibraryCubit>(),
-                          mapCubit: context.read<MapCubit>(),
-                          mapToolCubit: context.read<MapToolCubit>(),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: 122,
-                      child: Card(
-                        child: Center(
-                          child: Wrap(
-                            children: [
-                              IconButton(
-                                key: const Key('map_brush_key'),
-                                onPressed: tool == MapTool.brush
-                                    ? null
-                                    : () {
-                                        context
-                                            .read<MapToolCubit>()
-                                            .selectTool(MapTool.brush);
-                                      },
-                                tooltip: l10n.brush,
-                                icon: const Icon(Icons.brush),
-                              ),
-                              IconButton(
-                                key: const Key('map_eraser_key'),
-                                onPressed: tool == MapTool.eraser
-                                    ? null
-                                    : () {
-                                        context
-                                            .read<MapToolCubit>()
-                                            .selectTool(MapTool.eraser);
-                                      },
-                                tooltip: l10n.eraser,
-                                icon: const Icon(Icons.rectangle),
-                              ),
-                              IconButton(
-                                key: const Key('map_zoom_in_key'),
-                                onPressed: () {
-                                  context.read<MapToolCubit>().increaseZoom();
-                                },
-                                tooltip: l10n.zoomIn,
-                                icon: const Icon(Icons.zoom_in),
-                              ),
-                              IconButton(
-                                key: const Key('map_zoom_out_key'),
-                                onPressed: () {
-                                  context.read<MapToolCubit>().decreaseZoom();
-                                },
-                                tooltip: l10n.zoomOut,
-                                icon: const Icon(Icons.zoom_out),
-                              ),
-                            ],
+                Positioned.fill(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ClipRect(
+                          child: GameWidget.controlled(
+                            gameFactory: () {
+                              return MapBoardGame(
+                                configCubit: context.read<ConfigCubit>(),
+                                libraryCubit: context.read<LibraryCubit>(),
+                                mapCubit: context.read<MapCubit>(),
+                                mapToolCubit: context.read<MapToolCubit>(),
+                                primaryColor: Theme.of(context)
+                                        .buttonTheme
+                                        .colorScheme
+                                        ?.primary ??
+                                    Colors.blue,
+                              );
+                            },
                           ),
                         ),
                       ),
-                    ),
-                    const Expanded(
-                      child: LibraryPanel(readOnly: true),
-                    ),
-                  ],
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: 122,
+                            child: Card(
+                              child: Center(
+                                child: Wrap(
+                                  children: [
+                                    IconButton(
+                                      key: const Key('map_cursor_key'),
+                                      onPressed: tool == MapTool.none
+                                          ? null
+                                          : () {
+                                              context
+                                                  .read<MapToolCubit>()
+                                                  .selectTool(MapTool.none);
+                                            },
+                                      tooltip: l10n.cursor,
+                                      icon: const Icon(Icons.mouse),
+                                    ),
+                                    IconButton(
+                                      key: const Key('map_brush_key'),
+                                      onPressed: tool == MapTool.brush
+                                          ? null
+                                          : () {
+                                              context
+                                                  .read<MapToolCubit>()
+                                                  .selectTool(MapTool.brush);
+                                            },
+                                      tooltip: l10n.brush,
+                                      icon: const Icon(Icons.brush),
+                                    ),
+                                    IconButton(
+                                      key: const Key('map_eraser_key'),
+                                      onPressed: tool == MapTool.eraser
+                                          ? null
+                                          : () {
+                                              context
+                                                  .read<MapToolCubit>()
+                                                  .selectTool(MapTool.eraser);
+                                            },
+                                      tooltip: l10n.eraser,
+                                      icon: const Icon(Icons.rectangle),
+                                    ),
+                                    IconButton(
+                                      key: const Key('map_zoom_in_key'),
+                                      onPressed: () {
+                                        context
+                                            .read<MapToolCubit>()
+                                            .increaseZoom();
+                                      },
+                                      tooltip: l10n.zoomIn,
+                                      icon: const Icon(Icons.zoom_in),
+                                    ),
+                                    IconButton(
+                                      key: const Key('map_zoom_out_key'),
+                                      onPressed: () {
+                                        context
+                                            .read<MapToolCubit>()
+                                            .decreaseZoom();
+                                      },
+                                      tooltip: l10n.zoomOut,
+                                      icon: const Icon(Icons.zoom_out),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Expanded(
+                            child: LibraryPanel(readOnly: true),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const Positioned(
+                  top: 8,
+                  left: 8,
+                  child: ObjectPanel(),
                 ),
               ],
             ),

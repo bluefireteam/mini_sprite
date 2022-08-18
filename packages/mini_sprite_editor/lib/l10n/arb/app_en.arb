@@ -24,6 +24,10 @@
     "@importSuccess": {
         "description": "Message of data imported to clipboard"
     },
+    "cursor": "Cursor",
+    "@cursor": {
+        "description": "Cursor label"
+    },
     "brush": "Brush",
     "@brush": {
         "description": "Brush label"
@@ -163,5 +167,25 @@
     "mapGridSize": "Map grid size",
     "@mapGridSize": {
         "description": "Label for the map grid size"
+    },
+    "properties": "Properties",
+    "@properties": {
+        "description": "Label for the properties"
+    },
+    "removeProperty": "Remove property",
+    "@removeProperty": {
+        "description": "Label for the remove property"
+    },
+    "newPropery": "New property",
+    "@newPropery": {
+        "description": "Label for the new property"
+    },
+    "name": "Name",
+    "@name": {
+        "description": "Label for the name"
+    },
+    "value": "Value",
+    "@value": {
+        "description": "Label for the value"
     }
 }
