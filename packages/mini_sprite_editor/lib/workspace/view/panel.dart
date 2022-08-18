@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mini_sprite_editor/hub/view/hub_page.dart';
 import 'package:mini_sprite_editor/map/map.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
 import 'package:mini_sprite_editor/workspace/workspace.dart';
@@ -50,6 +51,8 @@ class _PanelState extends State<Panel> {
                 return const SpritePage();
               case WorkspacePanel.map:
                 return const MapPage();
+              case WorkspacePanel.hub:
+                return const HubPage();
             }
           },
         ),
