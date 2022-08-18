@@ -36,8 +36,8 @@ jobs:
       - name: Analyze
         run: melos exec --scope mini_hub_client dart analyze --fatal-infos --fatal-warnings .
 
-      - name: Run Tests
-        run: melos exec --scope mini_hub_client flutter test --coverage
+      #- name: Run Tests
+      #  run: melos exec --scope mini_hub_client flutter test --coverage
 
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1
