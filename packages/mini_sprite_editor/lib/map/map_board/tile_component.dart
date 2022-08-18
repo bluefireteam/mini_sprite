@@ -20,6 +20,11 @@ class TileComponent extends PositionComponent
   final MapPosition mapPosition;
 
   Sprite? _sprite;
+  bool _selected = false;
+  bool _hasData = false;
+
+  late final Paint _selectedPaint;
+  late final Paint _hasDataPaint;
 
   @override
   Future<void> onLoad() async {
@@ -28,21 +33,33 @@ class TileComponent extends PositionComponent
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
 
+    _selectedPaint = Paint()..color = gameRef.primaryColor.withOpacity(0.4);
+
+    _hasDataPaint = Paint()..color = gameRef.primaryColor.withOpacity(0.8);
+
     await addAll([
       FlameBlocListener<MapCubit, MapState>(
         listenWhen: (previous, current) {
-          return previous.objects[mapPosition] !=
-                  current.objects[mapPosition] ||
-              previous.objects[mapPosition]?['sprite'] !=
-                  current.objects[mapPosition]?['sprite'];
+          return previous.objects[mapPosition] != current.objects[mapPosition];
         },
         onNewState: (state) {
           final object = state.objects[mapPosition];
           if (object == null) {
             _sprite = null;
+            _hasData = false;
           } else {
             _updateSprite();
           }
+        },
+      ),
+      FlameBlocListener<MapCubit, MapState>(
+        listenWhen: (previous, current) {
+          return previous.selectedObject != current.selectedObject &&
+              (current.selectedObject == mapPosition ||
+                  previous.selectedObject == mapPosition);
+        },
+        onNewState: (state) {
+          _selected = state.selectedObject == mapPosition;
         },
       ),
       FlameBlocListener<LibraryCubit, LibraryState>(
@@ -85,6 +102,7 @@ class TileComponent extends PositionComponent
           .then((value) => _sprite = value);
     } else {
       _sprite = null;
+      _hasData = object?.isNotEmpty ?? false;
     }
   }
 
@@ -94,6 +112,9 @@ class TileComponent extends PositionComponent
     final tool = gameRef.mapToolCubit.state.tool;
 
     switch (tool) {
+      case MapTool.none:
+        gameRef.mapCubit.setSelected(mapPosition);
+        break;
       case MapTool.brush:
         gameRef.mapCubit.addObject(
           mapPosition.x,
@@ -109,17 +130,22 @@ class TileComponent extends PositionComponent
           mapPosition.y,
         );
         break;
-      case MapTool.none:
-        break;
     }
     return true;
   }
 
   @override
   void render(Canvas canvas) {
+    if (_hasData) {
+      canvas.drawRect(size.toRect(), _hasDataPaint);
+    } else {
+      _sprite?.render(canvas);
+    }
+    if (_selected) {
+      canvas.drawRect(size.toRect(), _selectedPaint);
+    }
     if (gameRef.mapToolCubit.state.gridActive) {
       canvas.drawRect(size.toRect(), paint);
     }
-    _sprite?.render(canvas);
   }
 }
