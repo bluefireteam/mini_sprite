@@ -23,7 +23,7 @@ sprites and maps.
 
 ### [Mini Sprite Editor](packages/mini_sprite_editor)
 
-The flutter application deployed at [](https://minisprit.es) which is used to design sprites and
+The flutter application deployed at [https://minisprit.es](https://minisprit.es) which is used to design sprites and
 maps using Mini Sprite's format.
 
 ### [Flame Mini Sprite](packages/flame_mini_sprite)
