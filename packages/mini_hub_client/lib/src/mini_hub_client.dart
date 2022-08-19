@@ -7,7 +7,7 @@ import 'package:mini_hub_client/mini_hub_client.dart';
 class MiniHubClient {
   /// {@macro mini_hub_client}
   const MiniHubClient({
-    this.apiUrl = 'https://bluefireteam.github.io/mini_hub/',
+    this.apiUrl = 'https://bluefireteam.github.io/mini_hub',
   });
 
   /// The url of the api.
