@@ -187,5 +187,17 @@
     "value": "Value",
     "@value": {
         "description": "Label for the value"
+    },
+    "themeSettings": "Theme settings",
+    "@value": {
+        "description": "Label for the theme settings"
+    },
+    "colorSettings": "Color settings",
+    "@value": {
+        "description": "Label for the color settings"
+    },
+    "mapSettings": "Map settings",
+    "@value": {
+        "description": "Label for the map settings"
     }
 }
