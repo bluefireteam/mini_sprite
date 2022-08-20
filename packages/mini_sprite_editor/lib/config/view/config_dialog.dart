@@ -67,114 +67,142 @@ class _ConfigDialogState extends State<ConfigDialog> {
 
     return Dialog(
       child: SizedBox(
-        width: 250,
+        width: 650,
         height: 450,
         child: Column(
           children: [
-            const SizedBox(width: 32),
+            const SizedBox(height: 32),
             Text(
               l10n.configurations,
               style: Theme.of(context).textTheme.headline4,
             ),
-            const SizedBox(width: 8),
+            const SizedBox(height: 32),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(l10n.system),
-                      leading: Radio<ThemeMode>(
-                        key: const Key('radio_system'),
-                        value: ThemeMode.system,
-                        groupValue: state.themeMode,
-                        onChanged: (ThemeMode? value) {
-                          if (value != null) {
-                            cubit.setThemeMode(value);
-                          }
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      title: Text(l10n.dark),
-                      leading: Radio<ThemeMode>(
-                        key: const Key('radio_dark'),
-                        value: ThemeMode.dark,
-                        groupValue: state.themeMode,
-                        onChanged: (ThemeMode? value) {
-                          if (value != null) {
-                            cubit.setThemeMode(value);
-                          }
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      title: Text(l10n.light),
-                      leading: Radio<ThemeMode>(
-                        key: const Key('radio_light'),
-                        value: ThemeMode.light,
-                        groupValue: state.themeMode,
-                        onChanged: (ThemeMode? value) {
-                          if (value != null) {
-                            cubit.setThemeMode(value);
-                          }
-                        },
-                      ),
-                    ),
-                    _ColorTile(
-                      buttonKey: const Key('filled_color_key'),
-                      color: state.filledColor,
-                      label: l10n.filledPixelColor,
-                      onPressed: () async {
-                        final color = await _showColorPicker(state.filledColor);
-                        if (color != null) {
-                          cubit.setFilledColor(color);
-                        }
-                      },
-                    ),
-                    _ColorTile(
-                      buttonKey: const Key('unfilled_color_key'),
-                      color: state.unfilledColor,
-                      label: l10n.unfilledPixelColor,
-                      onPressed: () async {
-                        final color = await _showColorPicker(
-                          state.unfilledColor,
-                        );
-                        if (color != null) {
-                          cubit.setUnfilledColor(color);
-                        }
-                      },
-                    ),
-                    _ColorTile(
-                      buttonKey: const Key('background_color_key'),
-                      color: state.backgroundColor,
-                      label: l10n.backgroundColor,
-                      onPressed: () async {
-                        final color = await _showColorPicker(
-                          state.backgroundColor,
-                        );
-                        if (color != null) {
-                          cubit.setBackgroundColor(color);
-                        }
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 16),
-                      child: TextField(
-                        controller: _gridFieldController,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        decoration: InputDecoration(
-                          labelText: l10n.mapGridSize,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          l10n.themeSettings,
+                          style: Theme.of(context).textTheme.headline6,
                         ),
-                      ),
+                        ListTile(
+                          title: Text(l10n.system),
+                          leading: Radio<ThemeMode>(
+                            key: const Key('radio_system'),
+                            value: ThemeMode.system,
+                            groupValue: state.themeMode,
+                            onChanged: (ThemeMode? value) {
+                              if (value != null) {
+                                cubit.setThemeMode(value);
+                              }
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(l10n.dark),
+                          leading: Radio<ThemeMode>(
+                            key: const Key('radio_dark'),
+                            value: ThemeMode.dark,
+                            groupValue: state.themeMode,
+                            onChanged: (ThemeMode? value) {
+                              if (value != null) {
+                                cubit.setThemeMode(value);
+                              }
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(l10n.light),
+                          leading: Radio<ThemeMode>(
+                            key: const Key('radio_light'),
+                            value: ThemeMode.light,
+                            groupValue: state.themeMode,
+                            onChanged: (ThemeMode? value) {
+                              if (value != null) {
+                                cubit.setThemeMode(value);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          l10n.colorSettings,
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        _ColorTile(
+                          buttonKey: const Key('filled_color_key'),
+                          color: state.filledColor,
+                          label: l10n.filledPixelColor,
+                          onPressed: () async {
+                            final color =
+                                await _showColorPicker(state.filledColor);
+                            if (color != null) {
+                              cubit.setFilledColor(color);
+                            }
+                          },
+                        ),
+                        _ColorTile(
+                          buttonKey: const Key('unfilled_color_key'),
+                          color: state.unfilledColor,
+                          label: l10n.unfilledPixelColor,
+                          onPressed: () async {
+                            final color = await _showColorPicker(
+                              state.unfilledColor,
+                            );
+                            if (color != null) {
+                              cubit.setUnfilledColor(color);
+                            }
+                          },
+                        ),
+                        _ColorTile(
+                          buttonKey: const Key('background_color_key'),
+                          color: state.backgroundColor,
+                          label: l10n.backgroundColor,
+                          onPressed: () async {
+                            final color = await _showColorPicker(
+                              state.backgroundColor,
+                            );
+                            if (color != null) {
+                              cubit.setBackgroundColor(color);
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          l10n.mapSettings,
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: TextField(
+                            controller: _gridFieldController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            decoration: InputDecoration(
+                              labelText: l10n.mapGridSize,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 32),
             Padding(
               padding: const EdgeInsets.all(16),
               child: ElevatedButton(
