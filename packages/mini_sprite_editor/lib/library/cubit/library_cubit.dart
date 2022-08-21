@@ -55,12 +55,24 @@ class LibraryCubit extends Cubit<LibraryState> {
     );
   }
 
+  String _newSpriteKey() {
+    var _idx = state.sprites.length + 1;
+    var _spriteKey = 'sprite_$_idx';
+
+    while (state.sprites.containsKey(_spriteKey)) {
+      _idx++;
+      _spriteKey = 'sprite_$_idx';
+    }
+
+    return _spriteKey;
+  }
+
   void addSprite(int width, int height) {
     emit(
       state.copyWith(
         sprites: {
           ...state.sprites,
-          'sprite_${state.sprites.length + 1}': MiniSprite(
+          _newSpriteKey(): MiniSprite(
             List.generate(
               height,
               (_) => List.generate(
