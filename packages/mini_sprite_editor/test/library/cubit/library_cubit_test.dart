@@ -250,6 +250,42 @@ void main() {
     );
 
     blocTest<LibraryCubit, LibraryState>(
+      'can handle name conflict on addSprite',
+      seed: () => const LibraryState(
+        sprites: {
+          'sprite_2': MiniSprite(
+            [
+              [false, false],
+              [false, false],
+            ],
+          ),
+        },
+        selected: '',
+      ),
+      build: LibraryCubit.new,
+      act: (cubit) => cubit.addSprite(2, 2),
+      expect: () => [
+        LibraryState(
+          sprites: const {
+            'sprite_2': MiniSprite(
+              [
+                [false, false],
+                [false, false],
+              ],
+            ),
+            'sprite_3': MiniSprite(
+              [
+                [false, false],
+                [false, false],
+              ],
+            ),
+          },
+          selected: '',
+        ),
+      ],
+    );
+
+    blocTest<LibraryCubit, LibraryState>(
       'selects a sprite',
       seed: () => LibraryState(
         sprites: {'player': MiniSprite.empty(1, 1)},
