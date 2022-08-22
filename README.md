@@ -49,15 +49,16 @@ This is the planned roadmap for the tool.
 Keep in mind that this is not "written in stone" so it can be changed as new ideas and feedback
 comes into play.
 
-Also, this roadmap does not consider bugfixes of any sort, as this is implicity on the planning,
+Also, this roadmap does not consider bugfixes of any sort, as this is implicitly in the planning,
 bug should be fixed as they are discovered (considering their tradeoff between impact and
-complexcity)
+complexity)
 
+ 
 ### Priorities
 
- - [ ] Tool stabilization and increase of code coverage: Mini Sprite had a rough couple of week before
+ - [ ] Tool stabilization and increase of code coverage: Mini Sprite had a rough couple of weeks before
  its release, some features was rushed in order to get done in time for the Midyear Flame Game Jam
- so some tests were omitted and some features could have been re thinked. This is an important
+ so some tests were omitted and some features could be re-organized. This is an important
  first step before we start to grown the tool.
  - [ ] Improve Map editor perfomance. One of the feedbacks received during the Game Jam, the map
  editor crashes the app if you try to create a big map (50x20 tiles).
