@@ -78,7 +78,7 @@ class _LibraryPanelState extends State<LibraryPanel> {
                   ),
                   IconButton(
                     key: const Key('remove_sprite_key'),
-                    tooltip: l10n.renameSprite,
+                    tooltip: l10n.removeSprite,
                     onPressed: () async {
                       final cubit = context.read<LibraryCubit>();
                       final value = await ConfirmDialog.show(context);
