@@ -61,6 +61,17 @@ void main() async {
       ],
     );
 
+    blocTest<ConfigCubit, ConfigState>(
+      'setGridSize',
+      build: ConfigCubit.new,
+      act: (cubit) {
+        cubit.setGridSize(20);
+      },
+      expect: () => [
+        const ConfigState.initial().copyWith(mapGridSize: 20),
+      ],
+    );
+
     test('toJson returns the state json', () {
       final state = ConfigState.initial().copyWith(themeMode: ThemeMode.dark);
       final cubit = ConfigCubit();

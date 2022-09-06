@@ -1,12 +1,30 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, one_member_abstracts
 
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_sprite_editor/library/library.dart';
+import 'package:mocktail/mocktail.dart';
+
+abstract class _SetClipboardStub {
+  Future<void> setClipboardData(ClipboardData data);
+}
+
+class SetClipboardStub extends Mock implements _SetClipboardStub {}
+
+abstract class _GetClipboardStub {
+  Future<ClipboardData?> getClipboardData(String format);
+}
+
+class GetClipboardStub extends Mock implements _GetClipboardStub {}
 
 void main() {
   group('LibraryCubit', () {
+    setUpAll(() {
+      registerFallbackValue(const ClipboardData(text: ''));
+    });
+
     blocTest<LibraryCubit, LibraryState>(
       'startCollection initializes the state',
       build: LibraryCubit.new,
@@ -301,4 +319,58 @@ void main() {
       ],
     );
   });
+
+  group('importFromClipboard', () {
+    late GetClipboardStub stub;
+    final sprite = MiniSprite(const [
+      [true, false],
+      [false, true]
+    ]);
+    final library = MiniLibrary({
+      'player': sprite,
+    });
+
+    setUp(() {
+      stub = GetClipboardStub();
+    });
+
+    blocTest<LibraryCubit, LibraryState>(
+      'emits the updated library when there is data',
+      build: () => LibraryCubit(getClipboardData: stub.getClipboardData),
+      setUp: () {
+        when(() => stub.getClipboardData('text/plain')).thenAnswer(
+          (_) async => ClipboardData(text: library.toDataString()),
+        );
+      },
+      act: (cubit) => cubit.importFromClipboard(),
+      expect: () => [
+        LibraryState(sprites: {'player': sprite}, selected: 'player'),
+      ],
+    );
+  });
+
+  test(
+    'copyToClipboard sets the serialized library to the clipboard',
+    () async {
+      final stub = SetClipboardStub();
+      when(() => stub.setClipboardData(any())).thenAnswer((_) async {});
+
+      final cubit = LibraryCubit(setClipboardData: stub.setClipboardData);
+
+      final expected = MiniLibrary(cubit.state.sprites).toDataString();
+      cubit.copyToClipboard();
+
+      verify(
+        () => stub.setClipboardData(
+          any(
+            that: isA<ClipboardData>().having(
+              (data) => data.text,
+              'text',
+              equals(expected),
+            ),
+          ),
+        ),
+      ).called(1);
+    },
+  );
 }
