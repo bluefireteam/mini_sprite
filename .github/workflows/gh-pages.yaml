@@ -1,12 +1,6 @@
 name: Gh-Pages
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - .github/workflows/gh-pages.yaml
-      - packages/mini_sprite_editor/**
+on: workflow_dispatch
 
 jobs:
   build:
