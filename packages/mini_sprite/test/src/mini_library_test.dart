@@ -18,14 +18,14 @@ void main() {
           const {
             'A': MiniSprite(
               [
-                [true, true],
-                [true, true],
+                [1, 1],
+                [1, 1],
               ],
             ),
             'B': MiniSprite(
               [
-                [false, false],
-                [false, false],
+                [0, 0],
+                [0, 0],
               ],
             ),
           },
@@ -42,14 +42,14 @@ void main() {
             const {
               'A': MiniSprite(
                 [
-                  [true, true],
-                  [true, true],
+                  [1, 1],
+                  [1, 1],
                 ],
               ),
               'B': MiniSprite(
                 [
-                  [false, false],
-                  [false, false],
+                  [0, 0],
+                  [0, 0],
                 ],
               ),
             },

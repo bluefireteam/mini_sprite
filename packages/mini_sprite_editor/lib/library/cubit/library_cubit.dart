@@ -20,7 +20,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     emit(state.copyWith(selected: key));
   }
 
-  void startCollection(List<List<bool>> firstSprite) {
+  void startCollection(List<List<int>> firstSprite) {
     emit(
       state.copyWith(
         sprites: {
@@ -31,7 +31,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     );
   }
 
-  void updateSelected(List<List<bool>> sprite) {
+  void updateSelected(List<List<int>> sprite) {
     emit(
       state.copyWith(
         sprites: {
@@ -77,7 +77,7 @@ class LibraryCubit extends Cubit<LibraryState> {
               height,
               (_) => List.generate(
                 width,
-                (_) => false,
+                (_) => -1,
               ),
             ),
           ),

@@ -9,14 +9,8 @@ void main() {
       expect(
         MiniSprite.empty(2, 2).pixels,
         equals([
-          [
-            false,
-            false,
-          ],
-          [
-            false,
-            false,
-          ],
+          [ -1, -1 ],
+          [ -1, -1 ],
         ]),
       );
     });
@@ -24,26 +18,26 @@ void main() {
     test('toDataString returns the correct data', () {
       expect(
         MiniSprite(const [
-          [true, true],
-          [true, true],
+          [0, 0],
+          [0, 0],
         ]).toDataString(),
-        equals('2,2;4,1'),
+        equals('2,2;4,0'),
       );
 
       expect(
         MiniSprite(const [
-          [true, true],
-          [true, false],
+          [0, 0],
+          [0, 1],
         ]).toDataString(),
-        equals('2,2;3,1;1,0'),
+        equals('2,2;3,0;1,1'),
       );
 
       expect(
         MiniSprite(const [
-          [true, false],
-          [true, false],
+          [0, 1],
+          [0, 1],
         ]).toDataString(),
-        equals('2,2;1,1;1,0;1,1;1,0'),
+        equals('2,2;1,0;1,1;1,0;1,1'),
       );
     });
 
@@ -51,24 +45,24 @@ void main() {
       expect(
         MiniSprite.fromDataString('2,2;4,1').pixels,
         equals([
-          [true, true],
-          [true, true],
+          [1, 1],
+          [1, 1],
         ]),
       );
 
       expect(
         MiniSprite.fromDataString('2,2;3,1;1,0').pixels,
         equals([
-          [true, true],
-          [true, false],
+          [1, 1],
+          [1, 0],
         ]),
       );
 
       expect(
         MiniSprite.fromDataString('2,2;1,1;1,0;1,1;1,0').pixels,
         equals([
-          [true, false],
-          [true, false],
+          [1, 0],
+          [1, 0],
         ]),
       );
     });
@@ -77,8 +71,8 @@ void main() {
       test('toDataString returns the correct data', () {
         expect(
           MiniSprite(const [
-            [true, true, true],
-            [true, false, false],
+            [1, 1, 1],
+            [1, 0, 0],
           ]).toDataString(),
           equals('2,3;4,1;2,0'),
         );
@@ -88,8 +82,8 @@ void main() {
         expect(
           MiniSprite.fromDataString('2,3;4,1;2,0').pixels,
           equals([
-            [true, true, true],
-            [true, false, false],
+            [1, 1, 1],
+            [1, 0, 0],
           ]),
         );
       });
@@ -98,27 +92,27 @@ void main() {
     test('supports equality', () {
       expect(
         MiniSprite(const [
-          [true],
-          [true]
+          [1],
+          [1]
         ]),
         equals(
           MiniSprite(const [
-            [true],
-            [true]
+            [1],
+            [1]
           ]),
         ),
       );
 
       expect(
         MiniSprite(const [
-          [true],
-          [false]
+          [1],
+          [0]
         ]),
         isNot(
           equals(
             MiniSprite(const [
-              [true],
-              [true]
+              [0],
+              [0]
             ]),
           ),
         ),

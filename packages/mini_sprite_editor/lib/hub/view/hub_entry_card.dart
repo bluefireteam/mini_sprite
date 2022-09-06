@@ -33,15 +33,16 @@ class _HubEntryCardState extends State<HubEntryCard> {
   }
 
   Future<void> _loadEntry() async {
-    final configState = context.read<ConfigCubit>().state;
+    final cubit = context.read<ConfigCubit>();
+    final configState = cubit.state;
+
     try {
       final entry = await client.fetchEntry(widget.entry.path);
       if (entry != null) {
         final library = MiniLibrary.fromDataString(entry.data);
         _sprites = await library.toSprites(
           pixelSize: 1,
-          color: configState.filledColor,
-          blankColor: configState.unfilledColor,
+          palette: cubit.palette(),
           backgroundColor: configState.backgroundColor,
         );
         setState(() {

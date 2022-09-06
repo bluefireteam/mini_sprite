@@ -12,16 +12,16 @@ class SpriteState extends Equatable {
       : this(
           pixels: List.filled(
             _defaultSpriteSize,
-            List.filled(_defaultSpriteSize, false),
+            List.filled(_defaultSpriteSize, -1),
           ),
           cursorPosition: const Offset(-1, -1),
         );
 
-  final List<List<bool>> pixels;
+  final List<List<int>> pixels;
   final Offset cursorPosition;
 
   SpriteState copyWith({
-    List<List<bool>>? pixels,
+    List<List<int>>? pixels,
     Offset? cursorPosition,
   }) {
     return SpriteState(

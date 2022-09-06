@@ -26,7 +26,11 @@ class SpriteView extends StatelessWidget {
     final l10n = context.l10n;
     final spriteState = context.watch<SpriteCubit>().state;
     final toolsState = context.watch<ToolsCubit>().state;
-    final configState = context.watch<ConfigCubit>().state;
+
+    final configCubit = context.watch<ConfigCubit>();
+    final palette = configCubit.palette();
+
+    final configState = configCubit.state;
     final libraryState = context.watch<LibraryCubit>().state;
 
     final pixels = spriteState.pixels;
@@ -54,6 +58,7 @@ class SpriteView extends StatelessWidget {
                               event.localPosition,
                               pixelSize.toDouble(),
                               tool,
+                              toolsState.currentColor,
                             );
                       },
                       child: GestureDetector(
@@ -62,16 +67,21 @@ class SpriteView extends StatelessWidget {
                                 event.localPosition,
                                 pixelSize.toDouble(),
                                 tool,
+                                toolsState.currentColor,
                               );
                         },
                         onPanEnd: (event) {
-                          context.read<SpriteCubit>().cursorUp(tool);
+                          context.read<SpriteCubit>().cursorUp(
+                                tool,
+                                toolsState.currentColor,
+                              );
                         },
                         onPanUpdate: (event) {
                           context.read<SpriteCubit>().cursorHover(
                                 event.localPosition,
                                 pixelSize.toDouble(),
                                 tool,
+                                toolsState.currentColor,
                               );
                         },
                         child: BlocListener<LibraryCubit, LibraryState>(
@@ -95,10 +105,9 @@ class SpriteView extends StatelessWidget {
                                       for (var x = 0; x < pixels[y].length; x++)
                                         PixelCell(
                                           pixelSize: pixelSize,
-                                          filledColor: configState.filledColor,
-                                          unfilledColor:
-                                              configState.unfilledColor,
-                                          selected: pixels[y][x],
+                                          color: pixels[y][x] >= 0
+                                              ? palette[pixels[y][x]]
+                                              : configState.backgroundColor,
                                           hasBorder: gridActive,
                                           hovered: cursorPosition ==
                                               Offset(
@@ -191,8 +200,7 @@ class SpriteView extends StatelessWidget {
                       final messenger = ScaffoldMessenger.of(context);
                       await context.read<SpriteCubit>().exportToImage(
                             pixelSize: pixelSize,
-                            filledColor: configState.filledColor,
-                            unfilledColor: configState.unfilledColor,
+                            palette: palette,
                             backgroundColor: configState.backgroundColor,
                           );
                       messenger.showSnackBar(
@@ -211,6 +219,43 @@ class SpriteView extends StatelessWidget {
                     icon: const Icon(Icons.settings),
                   ),
                 ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 64,
+            right: 64,
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        context.read<ToolsCubit>().setColor(0);
+                      },
+                      child: Container(
+                        color: configState.filledColor.withOpacity(
+                            toolsState.currentColor == 0 ? .2 : 1,
+                        ),
+                        width: 16,
+                        height: 16,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        context.read<ToolsCubit>().setColor(1);
+                      },
+                      child: Container(
+                        color: configState.unfilledColor.withOpacity(
+                            toolsState.currentColor == 1 ? .2 : 1,
+                        ),
+                        width: 16,
+                        height: 16,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

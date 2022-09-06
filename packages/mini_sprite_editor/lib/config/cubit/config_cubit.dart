@@ -54,4 +54,6 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
       'map_grid_size': state.mapGridSize,
     };
   }
+
+  List<Color> palette() => [state.filledColor, state.unfilledColor];
 }
