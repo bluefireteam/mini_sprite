@@ -28,8 +28,8 @@ void main() {
         LibraryState(
           sprites: const {
             'player': MiniSprite([
-              [true],
-              [true]
+              [1],
+              [1]
             ])
           },
           selected: '',
@@ -39,8 +39,8 @@ void main() {
             LibraryState(
               sprites: const {
                 'player': MiniSprite([
-                  [true],
-                  [false]
+                  [1],
+                  [0]
                 ])
               },
               selected: '',
@@ -53,8 +53,8 @@ void main() {
         LibraryState(
           sprites: const {
             'player': MiniSprite([
-              [true],
-              [true]
+              [1],
+              [1]
             ])
           },
           selected: '',
@@ -64,8 +64,8 @@ void main() {
             LibraryState(
               sprites: const {
                 'player': MiniSprite([
-                  [true],
-                  [true]
+                  [1],
+                  [1]
                 ])
               },
               selected: 'player',
@@ -80,8 +80,8 @@ void main() {
         LibraryState.initial().copyWith(
           sprites: {
             'player': MiniSprite(const [
-              [true],
-              [true]
+              [1],
+              [1]
             ]),
           },
         ),
@@ -89,8 +89,8 @@ void main() {
           LibraryState(
             sprites: const {
               'player': MiniSprite([
-                [true],
-                [true]
+                [1],
+                [1]
               ])
             },
             selected: '',

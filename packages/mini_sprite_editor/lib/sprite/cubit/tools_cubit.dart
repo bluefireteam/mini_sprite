@@ -22,4 +22,8 @@ class ToolsCubit extends Cubit<ToolsState> {
   void toogleGrid() {
     emit(state.copyWith(gridActive: !state.gridActive));
   }
+
+  void setColor(int color) {
+    emit(state.copyWith(currentColor: color));
+  }
 }

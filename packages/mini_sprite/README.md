@@ -26,7 +26,7 @@ from its raw format:
 ### Generating at runtime
 
 ```dart
-List<List<bool>> _generatePixels() {
+List<List<int>> _generatePixels() {
   // ...
 }
 
@@ -42,6 +42,9 @@ final miniSprite = MiniSprite.fromDataString(spriteData);
 print(miniSprite.pixels);
 ```
 
+Each value on the matrix represents a color index on a palette, where `-1`, means an unfilled
+pixel.
+
 ### MiniLibrary
 
 `MiniLibrary` is a class that represents a collection of `MiniSprite`s. It is a helper class that
@@ -52,7 +55,7 @@ Just like `MiniSprite` it can be generated at runtime or loaded from its raw for
 ### Generating at runtime
 
 ```dart
-List<List<bool>> _generatePixels() {
+List<List<1>> _generatePixels() {
   // ...
 }
 

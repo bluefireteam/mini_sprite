@@ -30,22 +30,20 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     _setClipboardData(ClipboardData(text: data));
   }
 
-  void setSprite(List<List<bool>> pixels) {
+  void setSprite(List<List<int>> pixels) {
     emit(state.copyWith(pixels: pixels));
     clearHistory();
   }
 
   Future<void> exportToImage({
     required int pixelSize,
-    required Color filledColor,
-    required Color unfilledColor,
+    required List<Color> palette,
     required Color backgroundColor,
   }) async {
     final miniSprite = MiniSprite(state.pixels);
     final sprite = await miniSprite.toSprite(
       pixelSize: pixelSize.toDouble(),
-      color: filledColor,
-      blankColor: unfilledColor,
+      palette: palette,
       backgroundColor: backgroundColor,
     );
 
@@ -89,7 +87,7 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     return Offset(x, y);
   }
 
-  void _setPixel(bool value) {
+  void _setPixel(int value) {
     final newPixels = [
       ...state.pixels.map((e) => [...e]),
     ];
@@ -100,7 +98,7 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     emit(state.copyWith(pixels: newPixels));
   }
 
-  void _floodFillSeek(int x, int y, bool value, List<List<bool>> pixels) {
+  void _floodFillSeek(int x, int y, int value, List<List<int>> pixels) {
     if (y < 0 || y >= pixels.length || x < 0 || x >= pixels[0].length) {
       return;
     }
@@ -115,7 +113,7 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     _floodFillSeek(x, y - 1, value, pixels);
   }
 
-  void _floodFill(bool value) {
+  void _floodFill(int value) {
     final newPixels = [
       ...state.pixels.map((e) => [...e]),
     ];
@@ -131,46 +129,64 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     toolActive = false;
   }
 
-  void _processTool(SpriteTool tool) {
+  void _processTool(SpriteTool tool, int selectedColor) {
     switch (tool) {
       case SpriteTool.brush:
+        if (toolActive) {
+          _setPixel(selectedColor);
+        }
+        break;
       case SpriteTool.eraser:
         if (toolActive) {
-          _setPixel(tool == SpriteTool.brush);
+          _setPixel(-1);
         }
         break;
       case SpriteTool.bucket:
+        if (toolActive) {
+          _floodFill(selectedColor);
+        }
+        break;
       case SpriteTool.bucketEraser:
         if (toolActive) {
-          _floodFill(tool == SpriteTool.bucket);
+          _floodFill(-1);
         }
         break;
     }
   }
 
-  void cursorHover(Offset position, double pixelSize, SpriteTool tool) {
+  void cursorHover(
+    Offset position,
+    double pixelSize,
+    SpriteTool tool,
+    int selectedColor,
+  ) {
     final projected = _projectOffset(position, pixelSize);
     if (projected != state.cursorPosition) {
       emit(state.copyWith(cursorPosition: projected));
-      _processTool(tool);
+      _processTool(tool, selectedColor);
     }
   }
 
-  void cursorDown(Offset position, double pixelSize, SpriteTool tool) {
+  void cursorDown(
+    Offset position,
+    double pixelSize,
+    SpriteTool tool,
+    int selectedColor,
+  ) {
     final projected = _projectOffset(position, pixelSize);
     emit(state.copyWith(cursorPosition: projected));
     toolActive = true;
-    _processTool(tool);
+    _processTool(tool, selectedColor);
   }
 
-  void cursorUp(SpriteTool tool) {
+  void cursorUp(SpriteTool tool, int selectedColor) {
     toolActive = false;
-    _processTool(tool);
+    _processTool(tool, selectedColor);
   }
 
   void setSize(int x, int y) {
     final newPixels = [
-      ...List.generate(y, (i) => List.generate(x, (j) => false)),
+      ...List.generate(y, (i) => List.generate(x, (j) => -1)),
     ];
 
     for (var y = 0; y < state.pixels.length; y++) {
@@ -188,7 +204,7 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     final newPixels = [
       ...List.generate(
         state.pixels.length,
-        (i) => List.generate(state.pixels[0].length, (j) => false),
+        (i) => List.generate(state.pixels[0].length, (j) => -1),
       ),
     ];
 
@@ -197,7 +213,7 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
 
   @override
   bool shouldReplay(SpriteState state) {
-    final eq = const ListEquality<List<bool>>(ListEquality()).equals;
+    final eq = const ListEquality<List<int>>(ListEquality()).equals;
     return !eq(state.pixels, this.state.pixels);
   }
 }

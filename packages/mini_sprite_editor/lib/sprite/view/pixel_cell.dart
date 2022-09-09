@@ -3,18 +3,14 @@ import 'package:flutter/material.dart';
 class PixelCell extends StatelessWidget {
   const PixelCell({
     super.key,
-    required this.selected,
+    required this.color,
     required this.hovered,
-    required this.filledColor,
-    required this.unfilledColor,
     required this.pixelSize,
     required this.hasBorder,
   });
 
-  final bool selected;
   final bool hovered;
-  final Color filledColor;
-  final Color unfilledColor;
+  final Color color;
   final int pixelSize;
   final bool hasBorder;
 
@@ -24,17 +20,9 @@ class PixelCell extends StatelessWidget {
       width: pixelSize.toDouble(),
       height: pixelSize.toDouble(),
       decoration: BoxDecoration(
-        color: selected
-            ? filledColor
-            : hovered
-                ? filledColor.withOpacity(.2)
-                : unfilledColor,
+        color: hovered ? color.withOpacity(.2) : color,
         border: Border.all(
-          color: hasBorder
-              ? filledColor
-              : selected
-                  ? filledColor
-                  : unfilledColor,
+          color: hasBorder ? Colors.black : Colors.transparent,
         ),
       ),
     );

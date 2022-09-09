@@ -13,8 +13,7 @@ class MiniSprite extends Equatable {
   ///
   /// Creates an empty sprite with the given width and height.
   MiniSprite.empty(int width, int height)
-      : pixels =
-            List.generate(height, (_) => List.generate(width, (_) => false));
+      : pixels = List.generate(height, (_) => List.generate(width, (_) => -1));
 
   /// {@macro mini_sprite}
   ///
@@ -30,10 +29,10 @@ class MiniSprite extends Equatable {
       final blockSplit = rawBlock.split(',');
 
       final count = int.parse(blockSplit[0]);
-      final value = int.parse(blockSplit[1]) == 1;
+      final value = int.parse(blockSplit[1]);
 
       return List.filled(count, value);
-    }).fold<List<bool>>(List<bool>.empty(), (value, list) {
+    }).fold<List<int>>(List<int>.empty(), (value, list) {
       return [
         ...value,
         ...list,
@@ -54,14 +53,14 @@ class MiniSprite extends Equatable {
   }
 
   /// The matrix of pixels.
-  final List<List<bool>> pixels;
+  final List<List<int>> pixels;
 
   /// Returns this as a data string.
   String toDataString() {
     final dimensions = '${pixels.length},${pixels[0].length}';
 
     var counter = 0;
-    bool? last;
+    int? last;
 
     final blocks = <String>[];
 
@@ -74,7 +73,7 @@ class MiniSprite extends Equatable {
           if (last == pixels[y][x]) {
             counter++;
           } else {
-            blocks.add('$counter,${last ? 1 : 0}');
+            blocks.add('$counter,$last');
             last = pixels[y][x];
             counter = 1;
           }
@@ -82,7 +81,7 @@ class MiniSprite extends Equatable {
       }
     }
     if (last != null) {
-      blocks.add('$counter,${last ? 1 : 0}');
+      blocks.add('$counter,$last');
     }
 
     return '$dimensions;${blocks.join(';')}';

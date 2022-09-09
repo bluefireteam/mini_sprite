@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, lines_longer_than_80_chars
+// ignore_for_file: prefer_const_constructors, lines_longer_than_80_chars, leading_newlines_in_multiline_strings
 import 'package:flame/components.dart';
 import 'package:flame_mini_sprite/flame_mini_sprite.dart';
 import 'package:flame_test/flame_test.dart';
@@ -7,16 +7,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mini_sprite/mini_sprite.dart';
 
 void main() {
+  const palette = [Colors.white, Colors.black];
   group('FlameMiniSpriteX', () {
     const raw =
-        '16,16;7,0;2,1;13,0;1,1;2,0;1,1;12,0;1,1;2,0;1,1;12,0;1,1;2,0;1,1;12,0;1,1;2,0;1,1;12,0;1,1;2,0;1,1;11,0;1,1;1,0;2,1;1,0;1,1;10,0;1,1;1,0;2,1;1,0;1,1;10,0;1,1;1,0;2,1;1,0;1,1;9,0;1,1;1,0;1,1;2,0;1,1;1,0;1,1;7,0;1,1;2,0;1,1;2,0;1,1;2,0;1,1;5,0;1,1;2,0;2,1;2,0;2,1;2,0;1,1;3,0;1,1;2,0;1,1;2,0;2,1;2,0;1,1;2,0;1,1;1,0;1,1;2,0;2,1;1,0;1,1;2,0;1,1;1,0;2,1;2,0;2,1;2,0;10,1;2,0;1,1;1,0;2,1;10,0;2,1;1,0';
+        '16,16;20,-1;1,0;7,-1;1,0;8,-1;7,0;8,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;1,-1;2,0;1,-1;2,0;1,-1;1,0;6,-1;1,0;9,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;9,-1;1,0;6,-1;9,0;51,-1';
 
     testGolden(
       'renders correctly',
       (game) async {
         final miniSprite = MiniSprite.fromDataString(raw);
         final sprite =
-            await miniSprite.toSprite(color: Colors.white, pixelSize: 4);
+            await miniSprite.toSprite(palette: palette, pixelSize: 4);
 
         game.camera.followVector2(Vector2.zero());
         await game
@@ -26,28 +27,11 @@ void main() {
     );
 
     testGolden(
-      'renders correctly when a blank color is used',
-      (game) async {
-        final miniSprite = MiniSprite.fromDataString(raw);
-        final sprite = await miniSprite.toSprite(
-          color: Colors.white,
-          pixelSize: 4,
-          blankColor: Colors.grey,
-        );
-
-        game.camera.followVector2(Vector2.zero());
-        await game
-            .ensureAdd(SpriteComponent(sprite: sprite, anchor: Anchor.center));
-      },
-      goldenFile: 'goldens/flame_mini_sprite_with_blank_color.png',
-    );
-
-    testGolden(
       'renders correctly when a background color is used',
       (game) async {
         final miniSprite = MiniSprite.fromDataString(raw);
         final sprite = await miniSprite.toSprite(
-          color: Colors.white,
+          palette: palette,
           pixelSize: 4,
           backgroundColor: Colors.blue,
         );
@@ -61,16 +45,16 @@ void main() {
   });
 
   group('FlameMiniLibraryX', () {
-    // ignore: leading_newlines_in_multiline_strings
-    const raw = '''ground|6,6;6,1;1,0;1,1;3,0;1,1;8,0;1,1;15,0
-flower|6,6;1,1;1,0;1,1;1,0;1,1;2,0;1,1;1,0;1,1;4,0;1,1;5,0;1,1;1,0;1,1;3,0;2,1;4,0;1,1;3,0''';
+    const raw =
+        '''flower|16,16;20,-1;1,0;7,-1;1,0;8,-1;7,0;8,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;1,-1;2,0;1,-1;2,0;1,-1;1,0;6,-1;1,0;9,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;9,-1;1,0;6,-1;9,0;51,-1
+ground|16,16;16,0;1,-1;15,0;224,-1''';
 
     testGolden(
       'renders correctly the ground',
       (game) async {
         final library = MiniLibrary.fromDataString(raw);
         final sprites = await library.toSprites(
-          color: Colors.white,
+          palette: palette,
           pixelSize: 4,
         );
 
@@ -88,7 +72,7 @@ flower|6,6;1,1;1,0;1,1;1,0;1,1;2,0;1,1;1,0;1,1;4,0;1,1;5,0;1,1;1,0;1,1;3,0;2,1;4
       (game) async {
         final library = MiniLibrary.fromDataString(raw);
         final sprites = await library.toSprites(
-          color: Colors.white,
+          palette: palette,
           pixelSize: 4,
         );
 

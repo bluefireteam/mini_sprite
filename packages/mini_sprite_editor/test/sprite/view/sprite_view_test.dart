@@ -100,10 +100,13 @@ void main() async {
         Stream.fromIterable([libraryState]),
         initialState: libraryState,
       );
+
+      when(configCubit.palette)
+          .thenReturn([Color(0xFFFFFFFF), Color(0xFF000000)]);
     }
 
     testWidgets('emits cursor down on pan start', (tester) async {
-      when(() => spriteCubit.cursorDown(any(), any(), any()))
+      when(() => spriteCubit.cursorDown(any(), any(), any(), any()))
           .thenAnswer((_) {});
       _mockState(
         spriteState: SpriteState.initial(),
@@ -126,12 +129,13 @@ void main() async {
           any(),
           any(),
           any(),
+          any(),
         ),
       ).called(1);
     });
 
     testWidgets('emits cursor hover on pan update', (tester) async {
-      when(() => spriteCubit.cursorHover(any(), any(), any()))
+      when(() => spriteCubit.cursorHover(any(), any(), any(), any()))
           .thenAnswer((_) {});
       _mockState(
         spriteState: SpriteState.initial(),
@@ -154,12 +158,13 @@ void main() async {
           any(),
           any(),
           any(),
+          any(),
         ),
       ).called(2);
     });
 
     testWidgets('emits cursor hover on hover', (tester) async {
-      when(() => spriteCubit.cursorHover(any(), any(), any()))
+      when(() => spriteCubit.cursorHover(any(), any(), any(), any()))
           .thenAnswer((_) {});
       _mockState(
         spriteState: SpriteState.initial(),
@@ -185,11 +190,12 @@ void main() async {
       );
       await tester.pump();
 
-      verify(() => spriteCubit.cursorHover(any(), any(), any())).called(1);
+      verify(() => spriteCubit.cursorHover(any(), any(), any(), any()))
+          .called(1);
     });
 
     testWidgets('emits cursor up on pan up', (tester) async {
-      when(() => spriteCubit.cursorHover(any(), any(), any()))
+      when(() => spriteCubit.cursorHover(any(), any(), any(), any()))
           .thenAnswer((_) {});
       _mockState(
         spriteState: SpriteState.initial(),
@@ -207,7 +213,7 @@ void main() async {
       await tester.drag(find.byKey(const Key('board_key')), Offset(30, 30));
       await tester.pump();
 
-      verify(() => spriteCubit.cursorUp(any())).called(1);
+      verify(() => spriteCubit.cursorUp(any(), any())).called(1);
     });
 
     group('tools', () {
@@ -543,8 +549,7 @@ void main() async {
           when(
             () => spriteCubit.exportToImage(
               pixelSize: any(named: 'pixelSize'),
-              filledColor: any(named: 'filledColor'),
-              unfilledColor: any(named: 'unfilledColor'),
+              palette: any(named: 'palette'),
               backgroundColor: any(named: 'backgroundColor'),
             ),
           ).thenAnswer((_) async {});
@@ -572,8 +577,7 @@ void main() async {
             verify(
               () => spriteCubit.exportToImage(
                 pixelSize: any(named: 'pixelSize'),
-                filledColor: any(named: 'filledColor'),
-                unfilledColor: any(named: 'unfilledColor'),
+                palette: any(named: 'palette'),
                 backgroundColor: any(named: 'backgroundColor'),
               ),
             ).called(1);

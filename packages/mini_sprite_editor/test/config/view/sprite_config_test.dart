@@ -98,6 +98,9 @@ void main() async {
         Stream.fromIterable([libraryState]),
         initialState: libraryState,
       );
+
+      when(configCubit.palette)
+          .thenReturn([Color(0xFFFFFFFF), Color(0xFF000000)]);
     }
 
     group('config', () {

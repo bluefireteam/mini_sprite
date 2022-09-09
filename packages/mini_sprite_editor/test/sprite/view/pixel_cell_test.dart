@@ -12,9 +12,7 @@ void main() {
       await tester.pumpApp(
         Scaffold(
           body: PixelCell(
-            selected: true,
-            filledColor: Colors.white,
-            unfilledColor: Colors.transparent,
+            color: Color(0xFFFFFFFF),
             hovered: false,
             pixelSize: 50,
             hasBorder: true,
@@ -32,9 +30,7 @@ void main() {
       await tester.pumpApp(
         Scaffold(
           body: PixelCell(
-            selected: false,
-            filledColor: Colors.white,
-            unfilledColor: Colors.transparent,
+            color: Color(0xFFFFFFFF),
             hovered: true,
             pixelSize: 50,
             hasBorder: true,
@@ -54,9 +50,7 @@ void main() {
         await tester.pumpApp(
           Scaffold(
             body: PixelCell(
-              selected: false,
-              filledColor: Colors.white,
-              unfilledColor: Colors.transparent,
+              color: Color(0xFFFFFFFF),
               hovered: false,
               pixelSize: 50,
               hasBorder: true,
@@ -77,9 +71,7 @@ void main() {
         await tester.pumpApp(
           Scaffold(
             body: PixelCell(
-              selected: false,
-              filledColor: Colors.white,
-              unfilledColor: Colors.transparent,
+              color: Color(0xFFFFFFFF),
               hovered: false,
               pixelSize: 50,
               hasBorder: false,
@@ -100,9 +92,7 @@ void main() {
         await tester.pumpApp(
           Scaffold(
             body: PixelCell(
-              selected: true,
-              filledColor: Colors.white,
-              unfilledColor: Colors.transparent,
+              color: Color(0xFFFFFFFF),
               hovered: false,
               pixelSize: 50,
               hasBorder: false,

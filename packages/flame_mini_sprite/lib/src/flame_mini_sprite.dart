@@ -8,16 +8,14 @@ extension FlameMiniSpriteX on MiniSprite {
   /// Returns a [Sprite] representation of the [MiniSprite].
   Future<Sprite> toSprite({
     required double pixelSize,
-    required Color color,
-    Color? blankColor,
+    required List<Color> palette,
     Color? backgroundColor,
   }) async {
     final recorder = PictureRecorder();
     final canvas = Canvas(recorder);
 
-    final paint = Paint()..color = color;
-    final blankPaint =
-        blankColor != null ? (Paint()..color = blankColor) : null;
+    final _paintPalette =
+        palette.map((color) => Paint()..color = color).toList();
 
     final w = pixels[0].length * pixelSize.toInt();
     final h = pixels.length * pixelSize.toInt();
@@ -37,10 +35,8 @@ extension FlameMiniSpriteX on MiniSprite {
           pixelSize,
           pixelSize,
         );
-        if (pixels[y][x]) {
-          canvas.drawRect(rect, paint);
-        } else if (blankPaint != null) {
-          canvas.drawRect(rect, blankPaint);
+        if (pixels[y][x] != -1) {
+          canvas.drawRect(rect, _paintPalette[pixels[y][x]]);
         }
       }
     }
@@ -56,15 +52,13 @@ extension FlameMiniLibraryX on MiniLibrary {
   /// Returns a map of [Sprite]s of this [MiniLibrary].
   Future<Map<String, Sprite>> toSprites({
     required double pixelSize,
-    required Color color,
-    Color? blankColor,
+    required List<Color> palette,
     Color? backgroundColor,
   }) async {
     final futureEntries = sprites.entries.map((entry) async {
       final sprite = await entry.value.toSprite(
         pixelSize: pixelSize,
-        color: color,
-        blankColor: blankColor,
+        palette: palette,
         backgroundColor: backgroundColor,
       );
 

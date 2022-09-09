@@ -95,8 +95,7 @@ class TileComponent extends PositionComponent
       miniSprite
           .toSprite(
             pixelSize: 1,
-            color: gameRef.configCubit.state.filledColor,
-            blankColor: gameRef.configCubit.state.unfilledColor,
+            palette: gameRef.configCubit.palette(),
             backgroundColor: gameRef.configCubit.state.backgroundColor,
           )
           .then((value) => _sprite = value);

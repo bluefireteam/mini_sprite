@@ -5,6 +5,7 @@ class ToolsState extends Equatable {
     required this.pixelSize,
     required this.tool,
     required this.gridActive,
+    required this.currentColor,
   });
 
   const ToolsState.initial()
@@ -12,21 +13,25 @@ class ToolsState extends Equatable {
           pixelSize: 25,
           tool: SpriteTool.brush,
           gridActive: true,
+          currentColor: 0,
         );
 
   final int pixelSize;
   final SpriteTool tool;
   final bool gridActive;
+  final int currentColor;
 
   ToolsState copyWith({
     int? pixelSize,
     SpriteTool? tool,
     bool? gridActive,
+    int? currentColor,
   }) {
     return ToolsState(
       pixelSize: pixelSize ?? this.pixelSize,
       tool: tool ?? this.tool,
       gridActive: gridActive ?? this.gridActive,
+      currentColor: currentColor ?? this.currentColor,
     );
   }
 
@@ -35,5 +40,6 @@ class ToolsState extends Equatable {
         pixelSize,
         tool,
         gridActive,
+        currentColor,
       ];
 }

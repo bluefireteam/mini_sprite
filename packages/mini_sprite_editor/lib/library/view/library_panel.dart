@@ -18,9 +18,9 @@ class LibraryPanel extends StatefulWidget {
 }
 
 class _LibraryPanelState extends State<LibraryPanel> {
-  List<List<bool>>? _valueToSet;
+  List<List<int>>? _valueToSet;
 
-  Future<void> _onSpriteChange(List<List<bool>> sprite) async {
+  Future<void> _onSpriteChange(List<List<int>> sprite) async {
     final libraryCubit = context.read<LibraryCubit>();
     if (_valueToSet == null) {
       _valueToSet = sprite;
@@ -168,11 +168,11 @@ class _LibraryEntryState extends State<_LibraryEntry> {
   }
 
   void _updateSprite() {
-    final configState = context.read<ConfigCubit>().state;
+    final cubit = context.read<ConfigCubit>();
+    final configState = cubit.state;
     _future = widget.sprite.toSprite(
       pixelSize: 2,
-      color: configState.filledColor,
-      blankColor: configState.unfilledColor,
+      palette: cubit.palette(),
       backgroundColor: configState.backgroundColor,
     );
   }
