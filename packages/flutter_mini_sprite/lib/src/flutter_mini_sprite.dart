@@ -7,7 +7,6 @@ import 'package:mini_sprite/mini_sprite.dart';
 ///
 /// {@endtemplate}
 class MiniSpriteWidget extends StatelessWidget {
-
   /// {@macro mini_sprite_widget}
   const MiniSpriteWidget({
     super.key,
@@ -18,8 +17,10 @@ class MiniSpriteWidget extends StatelessWidget {
 
   /// The size of each pixel of the sprite, defaults to 1.
   final double pixelSize;
+
   /// The palette of the sprite, defaults to white and black.
   final List<Color> palette;
+
   /// The sprite to render.
   final MiniSprite sprite;
 
@@ -55,8 +56,8 @@ class _MiniSpritePainter extends CustomPainter {
           final color = palette[sprite.pixels[y][x]];
           paint.color = color;
           canvas.drawRect(
-              Rect.fromLTWH(x * pixelSize, y * pixelSize, pixelSize, pixelSize),
-              paint,
+            Rect.fromLTWH(x * pixelSize, y * pixelSize, pixelSize, pixelSize),
+            paint,
           );
         }
       }
