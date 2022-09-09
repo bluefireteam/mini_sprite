@@ -9,8 +9,8 @@ void main() {
       expect(
         MiniSprite.empty(2, 2).pixels,
         equals([
-          [ -1, -1 ],
-          [ -1, -1 ],
+          [-1, -1],
+          [-1, -1],
         ]),
       );
     });

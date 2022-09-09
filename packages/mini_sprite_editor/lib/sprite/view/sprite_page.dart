@@ -236,7 +236,7 @@ class SpriteView extends StatelessWidget {
                       },
                       child: Container(
                         color: configState.filledColor.withOpacity(
-                            toolsState.currentColor == 0 ? .2 : 1,
+                          toolsState.currentColor == 0 ? .2 : 1,
                         ),
                         width: 16,
                         height: 16,
@@ -248,7 +248,7 @@ class SpriteView extends StatelessWidget {
                       },
                       child: Container(
                         color: configState.unfilledColor.withOpacity(
-                            toolsState.currentColor == 1 ? .2 : 1,
+                          toolsState.currentColor == 1 ? .2 : 1,
                         ),
                         width: 16,
                         height: 16,

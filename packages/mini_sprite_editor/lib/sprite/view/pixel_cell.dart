@@ -22,9 +22,7 @@ class PixelCell extends StatelessWidget {
       decoration: BoxDecoration(
         color: hovered ? color.withOpacity(.2) : color,
         border: Border.all(
-          color: hasBorder
-              ? Colors.black 
-              : Colors.transparent,
+          color: hasBorder ? Colors.black : Colors.transparent,
         ),
       ),
     );

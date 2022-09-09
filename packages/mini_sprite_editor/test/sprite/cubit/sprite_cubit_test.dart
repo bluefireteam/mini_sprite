@@ -162,7 +162,7 @@ void main() {
         build: SpriteCubit.new,
         act: (cubit) {
           cubit
-            ..toolActive = true 
+            ..toolActive = true
             ..cursorUp(SpriteTool.brush, 0);
         },
         verify: (bloc) {

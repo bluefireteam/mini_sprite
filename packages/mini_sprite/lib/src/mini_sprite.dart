@@ -13,8 +13,7 @@ class MiniSprite extends Equatable {
   ///
   /// Creates an empty sprite with the given width and height.
   MiniSprite.empty(int width, int height)
-      : pixels =
-            List.generate(height, (_) => List.generate(width, (_) => -1));
+      : pixels = List.generate(height, (_) => List.generate(width, (_) => -1));
 
   /// {@macro mini_sprite}
   ///
