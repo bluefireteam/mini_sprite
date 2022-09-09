@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, lines_longer_than_80_chars
+// ignore_for_file: prefer_const_constructors, lines_longer_than_80_chars, leading_newlines_in_multiline_strings
 import 'package:flame/components.dart';
 import 'package:flame_mini_sprite/flame_mini_sprite.dart';
 import 'package:flame_test/flame_test.dart';
@@ -45,7 +45,6 @@ void main() {
   });
 
   group('FlameMiniLibraryX', () {
-    // ignore: leading_newlines_in_multiline_strings
     const raw =
         '''flower|16,16;20,-1;1,0;7,-1;1,0;8,-1;7,0;8,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;1,-1;2,0;1,-1;2,0;1,-1;1,0;6,-1;1,0;9,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;9,-1;1,0;6,-1;9,0;51,-1
 ground|16,16;16,0;1,-1;15,0;224,-1''';
