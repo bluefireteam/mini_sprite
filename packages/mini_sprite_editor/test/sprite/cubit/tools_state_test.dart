@@ -12,6 +12,7 @@ void main() {
           pixelSize: 10,
           tool: SpriteTool.brush,
           gridActive: true,
+          currentColor: 0,
         ),
         isNotNull,
       );
@@ -23,12 +24,14 @@ void main() {
           pixelSize: 10,
           tool: SpriteTool.brush,
           gridActive: true,
+          currentColor: 0,
         ),
         equals(
           ToolsState(
             pixelSize: 10,
             tool: SpriteTool.brush,
             gridActive: true,
+            currentColor: 0,
           ),
         ),
       );
@@ -38,6 +41,7 @@ void main() {
           pixelSize: 10,
           tool: SpriteTool.brush,
           gridActive: true,
+          currentColor: 0,
         ),
         isNot(
           equals(
@@ -45,6 +49,7 @@ void main() {
               pixelSize: 11,
               tool: SpriteTool.brush,
               gridActive: true,
+              currentColor: 0,
             ),
           ),
         ),
@@ -55,6 +60,7 @@ void main() {
           pixelSize: 10,
           tool: SpriteTool.brush,
           gridActive: true,
+          currentColor: 0,
         ),
         isNot(
           equals(
@@ -62,6 +68,7 @@ void main() {
               pixelSize: 10,
               tool: SpriteTool.eraser,
               gridActive: true,
+              currentColor: 0,
             ),
           ),
         ),
@@ -72,6 +79,7 @@ void main() {
           pixelSize: 10,
           tool: SpriteTool.brush,
           gridActive: true,
+          currentColor: 0,
         ),
         isNot(
           equals(
@@ -79,6 +87,26 @@ void main() {
               pixelSize: 10,
               tool: SpriteTool.brush,
               gridActive: false,
+              currentColor: 0,
+            ),
+          ),
+        ),
+      );
+
+      expect(
+        ToolsState(
+          pixelSize: 10,
+          tool: SpriteTool.brush,
+          gridActive: true,
+          currentColor: 0,
+        ),
+        isNot(
+          equals(
+            ToolsState(
+              pixelSize: 10,
+              tool: SpriteTool.brush,
+              gridActive: false,
+              currentColor: 1,
             ),
           ),
         ),
@@ -91,12 +119,14 @@ void main() {
           pixelSize: 10,
           tool: SpriteTool.brush,
           gridActive: false,
+          currentColor: 0,
         ).copyWith(pixelSize: 11),
         equals(
           ToolsState(
             pixelSize: 11,
             tool: SpriteTool.brush,
             gridActive: false,
+            currentColor: 0,
           ),
         ),
       );
@@ -106,12 +136,14 @@ void main() {
           pixelSize: 10,
           tool: SpriteTool.brush,
           gridActive: false,
+          currentColor: 0,
         ).copyWith(tool: SpriteTool.eraser),
         equals(
           ToolsState(
             pixelSize: 10,
             tool: SpriteTool.eraser,
             gridActive: false,
+            currentColor: 0,
           ),
         ),
       );
@@ -121,12 +153,14 @@ void main() {
           pixelSize: 10,
           tool: SpriteTool.brush,
           gridActive: false,
+          currentColor: 0,
         ).copyWith(gridActive: true),
         equals(
           ToolsState(
             pixelSize: 10,
             tool: SpriteTool.brush,
             gridActive: true,
+            currentColor: 0,
           ),
         ),
       );

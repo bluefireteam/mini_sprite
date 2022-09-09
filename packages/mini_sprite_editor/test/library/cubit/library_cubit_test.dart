@@ -29,13 +29,13 @@ void main() {
       'startCollection initializes the state',
       build: LibraryCubit.new,
       act: (cubit) => cubit.startCollection([
-        [true]
+        [1]
       ]),
       expect: () => [
         LibraryState(
           sprites: const {
             'sprite_1': MiniSprite([
-              [true]
+              [1]
             ]),
           },
           selected: 'sprite_1',
@@ -49,14 +49,14 @@ void main() {
         sprites: const {
           'player': MiniSprite(
             [
-              [true, true],
-              [true, true],
+              [1, 1],
+              [1, 1],
             ],
           ),
           'tile': MiniSprite(
             [
-              [false, true],
-              [true, false],
+              [0, 1],
+              [1, 0],
             ],
           ),
         },
@@ -64,22 +64,22 @@ void main() {
       ),
       build: LibraryCubit.new,
       act: (cubit) => cubit.updateSelected([
-        [true, false],
-        [false, true],
+        [1, 0],
+        [0, 1],
       ]),
       expect: () => [
         LibraryState(
           sprites: const {
             'player': MiniSprite(
               [
-                [true, false],
-                [false, true],
+                [1, 0],
+                [0, 1],
               ],
             ),
             'tile': MiniSprite(
               [
-                [false, true],
-                [true, false],
+                [0, 1],
+                [1, 0],
               ],
             ),
           },
@@ -94,14 +94,14 @@ void main() {
         sprites: const {
           'player': MiniSprite(
             [
-              [true, true],
-              [true, true],
+              [1, 1],
+              [1, 1],
             ],
           ),
           'tile': MiniSprite(
             [
-              [false, true],
-              [true, false],
+              [0, 1],
+              [1, 0],
             ],
           ),
         },
@@ -114,14 +114,14 @@ void main() {
           sprites: const {
             'char': MiniSprite(
               [
-                [true, true],
-                [true, true],
+                [1, 1],
+                [1, 1],
               ],
             ),
             'tile': MiniSprite(
               [
-                [false, true],
-                [true, false],
+                [0, 1],
+                [1, 0],
               ],
             ),
           },
@@ -136,14 +136,14 @@ void main() {
         sprites: const {
           'player': MiniSprite(
             [
-              [true, true],
-              [true, true],
+              [1, 1],
+              [1, 1],
             ],
           ),
           'tile': MiniSprite(
             [
-              [false, true],
-              [true, false],
+              [0, 1],
+              [1, 0],
             ],
           ),
         },
@@ -156,14 +156,14 @@ void main() {
           sprites: const {
             'char': MiniSprite(
               [
-                [true, true],
-                [true, true],
+                [1, 1],
+                [1, 1],
               ],
             ),
             'tile': MiniSprite(
               [
-                [false, true],
-                [true, false],
+                [0, 1],
+                [1, 0],
               ],
             ),
           },
@@ -178,14 +178,14 @@ void main() {
         sprites: const {
           'player': MiniSprite(
             [
-              [true, true],
-              [true, true],
+              [1, 1],
+              [1, 1],
             ],
           ),
           'tile': MiniSprite(
             [
-              [false, true],
-              [true, false],
+              [0, 1],
+              [1, 0],
             ],
           ),
         },
@@ -198,8 +198,8 @@ void main() {
           sprites: const {
             'tile': MiniSprite(
               [
-                [false, true],
-                [true, false],
+                [0, 1],
+                [1, 0],
               ],
             ),
           },
@@ -214,14 +214,14 @@ void main() {
         sprites: const {
           'player': MiniSprite(
             [
-              [true, true],
-              [true, true],
+              [1, 1],
+              [1, 1],
             ],
           ),
           'tile': MiniSprite(
             [
-              [false, true],
-              [true, false],
+              [0, 1],
+              [1, 0],
             ],
           ),
         },
@@ -234,8 +234,8 @@ void main() {
           sprites: const {
             'tile': MiniSprite(
               [
-                [false, true],
-                [true, false],
+                [0, 1],
+                [1, 0],
               ],
             ),
           },
@@ -257,8 +257,8 @@ void main() {
           sprites: const {
             'sprite_1': MiniSprite(
               [
-                [false, false],
-                [false, false],
+                [-1, -1],
+                [-1, -1],
               ],
             ),
           },
@@ -273,8 +273,8 @@ void main() {
         sprites: {
           'sprite_2': MiniSprite(
             [
-              [false, false],
-              [false, false],
+              [0, 0],
+              [0, 0],
             ],
           ),
         },
@@ -287,14 +287,14 @@ void main() {
           sprites: const {
             'sprite_2': MiniSprite(
               [
-                [false, false],
-                [false, false],
+                [0, 0],
+                [0, 0],
               ],
             ),
             'sprite_3': MiniSprite(
               [
-                [false, false],
-                [false, false],
+                [-1, -1],
+                [-1, -1],
               ],
             ),
           },
@@ -323,8 +323,8 @@ void main() {
   group('importFromClipboard', () {
     late GetClipboardStub stub;
     final sprite = MiniSprite(const [
-      [true, false],
-      [false, true]
+      [1, 0],
+      [0, 1]
     ]);
     final library = MiniLibrary({
       'player': sprite,

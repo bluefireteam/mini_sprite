@@ -38,7 +38,7 @@ void main() {
           equals(
             SpriteState(
               pixels: const [
-                [true]
+                [1]
               ],
               cursorPosition: Offset.zero,
             ),
@@ -69,13 +69,13 @@ void main() {
           cursorPosition: Offset.zero,
         ).copyWith(
           pixels: [
-            [true]
+            [1]
           ],
         ),
         equals(
           SpriteState(
             pixels: const [
-              [true]
+              [1]
             ],
             cursorPosition: Offset.zero,
           ),
