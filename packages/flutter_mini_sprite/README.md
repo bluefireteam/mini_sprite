@@ -12,7 +12,7 @@ Provides Widgets to render mini sprites into Flutter
 
 # How to use it
 
-Add flutter mini sprite to the project pubspec:
+Add flutter mini sprite to the project's pubspec:
 
 ```
 dart pub add flutter_mini_sprite
