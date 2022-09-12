@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/packages/flame_mini_sprite/example/melos_example.iml" filepath="$PROJECT_DIR$/packages/flame_mini_sprite/example/melos_example.iml" />
       <module fileurl="file://$PROJECT_DIR$/packages/flame_mini_sprite/melos_flame_mini_sprite.iml" filepath="$PROJECT_DIR$/packages/flame_mini_sprite/melos_flame_mini_sprite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/flutter_mini_sprite/melos_flutter_mini_sprite.iml" filepath="$PROJECT_DIR$/packages/flutter_mini_sprite/melos_flutter_mini_sprite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/flutter_mini_sprite/example/melos_flutter_mini_sprite_example.iml" filepath="$PROJECT_DIR$/packages/flutter_mini_sprite/example/melos_flutter_mini_sprite_example.iml" />
       <module fileurl="file://$PROJECT_DIR$/packages/mini_hub_client/melos_mini_hub_client.iml" filepath="$PROJECT_DIR$/packages/mini_hub_client/melos_mini_hub_client.iml" />
       <module fileurl="file://$PROJECT_DIR$/packages/mini_sprite/melos_mini_sprite.iml" filepath="$PROJECT_DIR$/packages/mini_sprite/melos_mini_sprite.iml" />
       <module fileurl="file://$PROJECT_DIR$/packages/mini_sprite_editor/melos_mini_sprite_editor.iml" filepath="$PROJECT_DIR$/packages/mini_sprite_editor/melos_mini_sprite_editor.iml" />

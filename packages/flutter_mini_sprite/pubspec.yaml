@@ -1,0 +1,17 @@
+name: flutter_mini_sprite
+description: Provides Widgets to render mini sprites into Flutter
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  mini_sprite: ^0.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^3.0.1
