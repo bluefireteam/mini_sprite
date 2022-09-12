@@ -39,3 +39,5 @@ app.*.symbols
 app.*.map.json
 
 coverage
+
+pubspec.lock
