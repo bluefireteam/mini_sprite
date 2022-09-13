@@ -9,8 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  mini_sprite: ^0.0.2
-
+  mini_sprite: ^0.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
