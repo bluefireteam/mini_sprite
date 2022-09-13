@@ -1,7 +1,7 @@
 name: flutter_mini_sprite
 description: Provides Widgets to render mini sprites into Flutter
+homepage: https://github.com/bluefireteam/mini_sprite
 version: 0.0.1
-publish_to: none
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
