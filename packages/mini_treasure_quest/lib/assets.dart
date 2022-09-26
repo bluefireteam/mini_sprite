@@ -17,7 +17,7 @@ class Assets {
     final miniLibrary = MiniLibrary.fromDataString(library);
     gameSprites = await miniLibrary.toSprites(
       pixelSize: 1,
-      color: Colors.white,
+      palette: [Colors.black, Colors.white],
     );
   }
 }

@@ -22,6 +22,16 @@ class MyGame extends FlameGame {
 
     add(SpriteComponent(sprite: sprite, anchor: Anchor.center));
 
+    add(
+      MiniSpriteComponent(
+        position: Vector2(0, 150),
+        size: Vector2(150, 150),
+        miniSprite: miniSprite,
+        palette: [const Color(0xFFFFFFFF)],
+        anchor: Anchor.center,
+      ),
+    );
+
     camera.followVector2(Vector2.zero());
   }
 }
