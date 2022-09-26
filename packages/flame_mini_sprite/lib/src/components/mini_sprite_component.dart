@@ -17,7 +17,6 @@ class _PixelEntry {
 }
 
 /// {@template mini_sprite_component}
-///
 /// A [PositionComponent] that renders a [MiniSprite].
 ///
 /// {@endtemplate}
