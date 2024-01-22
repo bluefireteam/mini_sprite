@@ -39,7 +39,7 @@ class StagesView extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '${i + 1}',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                   ),
                 ),

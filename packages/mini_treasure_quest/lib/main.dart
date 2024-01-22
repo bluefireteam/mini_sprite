@@ -33,8 +33,11 @@ ThemeData _buildTheme(Brightness brightness) {
   );
 
   return baseTheme.copyWith(
-    primaryColor: Colors.black,
-    textTheme: GoogleFonts.pressStart2pTextTheme(baseTheme.textTheme),
+    primaryColor: Colors.white,
+    textTheme: GoogleFonts.pressStart2pTextTheme(baseTheme.textTheme).apply(
+      bodyColor: Colors.white,
+      displayColor: Colors.white,
+    ),
   );
 }
 

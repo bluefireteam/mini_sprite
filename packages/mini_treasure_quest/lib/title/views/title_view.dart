@@ -57,7 +57,7 @@ class TitleView extends StatelessWidget {
                 //
               },
               child: const Text('Credits'),
-            )
+            ),
           ],
         ),
       ),

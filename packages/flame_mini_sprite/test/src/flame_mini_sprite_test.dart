@@ -19,8 +19,7 @@ void main() {
         final sprite =
             await miniSprite.toSprite(palette: palette, pixelSize: 4);
 
-        game.camera.followVector2(Vector2.zero());
-        await game
+        await game.world
             .ensureAdd(SpriteComponent(sprite: sprite, anchor: Anchor.center));
       },
       goldenFile: 'goldens/flame_mini_sprite.png',
@@ -36,8 +35,7 @@ void main() {
           backgroundColor: Colors.blue,
         );
 
-        game.camera.followVector2(Vector2.zero());
-        await game
+        await game.world
             .ensureAdd(SpriteComponent(sprite: sprite, anchor: Anchor.center));
       },
       goldenFile: 'goldens/flame_mini_sprite_with_background_color.png',
@@ -60,8 +58,7 @@ ground|16,16;16,0;1,-1;15,0;224,-1''';
 
         final sprite = sprites['ground'];
 
-        game.camera.followVector2(Vector2.zero());
-        await game
+        await game.world
             .ensureAdd(SpriteComponent(sprite: sprite, anchor: Anchor.center));
       },
       goldenFile: 'goldens/flame_mini_library_ground.png',
@@ -78,8 +75,7 @@ ground|16,16;16,0;1,-1;15,0;224,-1''';
 
         final sprite = sprites['flower'];
 
-        game.camera.followVector2(Vector2.zero());
-        await game
+        await game.world
             .ensureAdd(SpriteComponent(sprite: sprite, anchor: Anchor.center));
       },
       goldenFile: 'goldens/flame_mini_library_flower.png',

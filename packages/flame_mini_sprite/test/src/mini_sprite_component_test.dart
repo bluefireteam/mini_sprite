@@ -18,8 +18,7 @@ void main() {
       'when no size is specified, pixel size is one',
       (game) async {
         final miniSprite = MiniSprite.fromDataString(raw);
-        game.camera.followVector2(Vector2.zero());
-        await game.ensureAdd(
+        await game.world.ensureAdd(
           MiniSpriteComponent(
             miniSprite: miniSprite,
             palette: palette,
@@ -33,8 +32,7 @@ void main() {
       'correctly calculates the pixel size given the size',
       (game) async {
         final miniSprite = MiniSprite.fromDataString(raw);
-        game.camera.followVector2(Vector2.zero());
-        await game.ensureAdd(
+        await game.world.ensureAdd(
           MiniSpriteComponent(
             miniSprite: miniSprite,
             size: Vector2.all(150),
@@ -49,10 +47,9 @@ void main() {
       'updates the pixel size when the size changes',
       (game) async {
         final miniSprite = MiniSprite.fromDataString(raw);
-        game.camera.followVector2(Vector2.zero());
         late MiniSpriteComponent component;
 
-        await game.ensureAdd(
+        await game.world.ensureAdd(
           component = MiniSpriteComponent(
             miniSprite: miniSprite,
             size: Vector2.all(150),

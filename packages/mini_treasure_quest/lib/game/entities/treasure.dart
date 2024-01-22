@@ -4,7 +4,8 @@ import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/game/entities/entities.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
-class Treasure extends BodyComponent<MiniTreasureQuest> with ContactCallbacks {
+class Treasure extends BodyComponent<MiniTreasureQuest>
+    with ContactCallbacks, HasGameRef<MiniTreasureQuest> {
   Treasure({required this.initialPosition});
 
   final Vector2 initialPosition;
