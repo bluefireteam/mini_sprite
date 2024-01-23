@@ -29,8 +29,8 @@ void main() {
           sprites: const {
             'player': MiniSprite([
               [1],
-              [1]
-            ])
+              [1],
+            ]),
           },
           selected: '',
         ),
@@ -40,8 +40,8 @@ void main() {
               sprites: const {
                 'player': MiniSprite([
                   [1],
-                  [0]
-                ])
+                  [0],
+                ]),
               },
               selected: '',
             ),
@@ -54,8 +54,8 @@ void main() {
           sprites: const {
             'player': MiniSprite([
               [1],
-              [1]
-            ])
+              [1],
+            ]),
           },
           selected: '',
         ),
@@ -65,8 +65,8 @@ void main() {
               sprites: const {
                 'player': MiniSprite([
                   [1],
-                  [1]
-                ])
+                  [1],
+                ]),
               },
               selected: 'player',
             ),
@@ -81,7 +81,7 @@ void main() {
           sprites: {
             'player': MiniSprite(const [
               [1],
-              [1]
+              [1],
             ]),
           },
         ),
@@ -90,8 +90,8 @@ void main() {
             sprites: const {
               'player': MiniSprite([
                 [1],
-                [1]
-              ])
+                [1],
+              ]),
             },
             selected: '',
           ),

@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flame/components.dart';
-import 'package:flame/input.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flame_mini_sprite/flame_mini_sprite.dart';
 import 'package:mini_sprite/mini_sprite.dart';

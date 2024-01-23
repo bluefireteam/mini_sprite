@@ -74,7 +74,7 @@ class _ConfigDialogState extends State<ConfigDialog> {
             const SizedBox(height: 32),
             Text(
               l10n.configurations,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 32),
             Expanded(
@@ -85,7 +85,7 @@ class _ConfigDialogState extends State<ConfigDialog> {
                       children: [
                         Text(
                           l10n.themeSettings,
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                         ListTile(
                           title: Text(l10n.system),
@@ -134,7 +134,7 @@ class _ConfigDialogState extends State<ConfigDialog> {
                       children: [
                         Text(
                           l10n.colorSettings,
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                         _ColorTile(
                           buttonKey: const Key('filled_color_key'),
@@ -182,7 +182,7 @@ class _ConfigDialogState extends State<ConfigDialog> {
                       children: [
                         Text(
                           l10n.mapSettings,
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(16),

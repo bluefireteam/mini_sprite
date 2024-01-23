@@ -61,7 +61,7 @@ void main() {
       late GetClipboardStub stub;
       final sprite = MiniSprite(const [
         [1, 0],
-        [0, 1]
+        [0, 1],
       ]);
 
       setUp(() {
