@@ -24,15 +24,14 @@ class ConfirmDialog extends StatelessWidget {
           children: [
             Text(
               l10n.confirmation,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(width: 8),
             Text(
               l10n.confirmationMessage,
             ),
             const SizedBox(height: 32),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
                 ElevatedButton(
                   onPressed: () {
@@ -40,7 +39,7 @@ class ConfirmDialog extends StatelessWidget {
                   },
                   child: Text(l10n.cancel),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);

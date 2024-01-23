@@ -31,7 +31,7 @@ jobs:
         run: melos bootstrap
 
       - name: Format
-        run: melos exec --scope mini_sprite_editor flutter format --set-exit-if-changed lib
+        run: melos exec --scope mini_sprite_editor dart format --set-exit-if-changed lib
 
       - name: Analyze
         run: melos exec --scope mini_sprite_editor flutter analyze --fatal-infos --fatal-warnings .

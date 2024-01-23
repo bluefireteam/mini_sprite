@@ -20,9 +20,9 @@ class MyGame extends FlameGame {
       palette: [const Color(0xFFFFFFFF)],
     );
 
-    add(SpriteComponent(sprite: sprite, anchor: Anchor.center));
+    world.add(SpriteComponent(sprite: sprite, anchor: Anchor.center));
 
-    add(
+    world.add(
       MiniSpriteComponent(
         position: Vector2(0, 150),
         size: Vector2(150, 150),
@@ -31,7 +31,5 @@ class MyGame extends FlameGame {
         anchor: Anchor.center,
       ),
     );
-
-    camera.followVector2(Vector2.zero());
   }
 }

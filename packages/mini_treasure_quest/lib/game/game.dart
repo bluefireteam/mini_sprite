@@ -33,21 +33,17 @@ class MiniTreasureQuest extends Forge2DGame with HasKeyboardHandlerComponents {
         entry.key.y.toDouble() * tileSize,
       );
       if (sprite == 'PLAYER') {
-        unawaited(add(Player(initialPosition: position)));
+        world.add(Player(initialPosition: position));
       } else if (sprite == 'CHEST') {
-        unawaited(add(Treasure(initialPosition: position)));
+        world.add(Treasure(initialPosition: position));
       } else if (sprite != null) {
-        unawaited(add(Tile(initialPosition: position, sprite: sprite)));
+        world.add(Tile(initialPosition: position, sprite: sprite));
       }
     }
-
-    camera
-      ..zoom = 20
-      ..snapTo(-size / 2);
   }
 
   void win() {
-    children.whereType<Treasure>().first.removeFromParent();
+    world.children.whereType<Treasure>().first.removeFromParent();
     showDialog<void>(
       context: buildContext!,
       builder: (context) {

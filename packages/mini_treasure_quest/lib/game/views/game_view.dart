@@ -1,4 +1,4 @@
-import 'package:flame/game.dart';
+import 'package:flame/game.dart' hide Route;
 import 'package:flutter/material.dart';
 import 'package:mini_treasure_quest/game/game.dart';
 

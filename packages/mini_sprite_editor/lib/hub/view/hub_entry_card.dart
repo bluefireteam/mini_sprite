@@ -84,7 +84,7 @@ class _HubEntryCardState extends State<HubEntryCard> {
                       const SizedBox(height: 8),
                       Text(
                         _entry!.name,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 16),
                       Text(_entry!.description),

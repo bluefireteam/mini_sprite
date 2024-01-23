@@ -39,7 +39,7 @@ class ObjectPanel extends StatelessWidget {
                     children: [
                       Text(
                         l10n.properties,
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       IconButton(
                         onPressed: () async {

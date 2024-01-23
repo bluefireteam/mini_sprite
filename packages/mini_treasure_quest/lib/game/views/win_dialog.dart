@@ -19,7 +19,7 @@ class WinDialog extends StatelessWidget {
           children: [
             Text(
               'Stage clear!',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             const SizedBox(height: 32),
             Row(

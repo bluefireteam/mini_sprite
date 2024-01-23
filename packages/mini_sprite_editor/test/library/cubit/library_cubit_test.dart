@@ -29,13 +29,13 @@ void main() {
       'startCollection initializes the state',
       build: LibraryCubit.new,
       act: (cubit) => cubit.startCollection([
-        [1]
+        [1],
       ]),
       expect: () => [
         LibraryState(
           sprites: const {
             'sprite_1': MiniSprite([
-              [1]
+              [1],
             ]),
           },
           selected: 'sprite_1',
@@ -324,7 +324,7 @@ void main() {
     late GetClipboardStub stub;
     final sprite = MiniSprite(const [
       [1, 0],
-      [0, 1]
+      [0, 1],
     ]);
     final library = MiniLibrary({
       'player': sprite,
