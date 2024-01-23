@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flame_mini_sprite/flame_mini_sprite.dart';
 import 'package:mini_sprite/mini_sprite.dart';
@@ -9,7 +10,7 @@ import 'package:mini_sprite_editor/library/library.dart';
 import 'package:mini_sprite_editor/map/map.dart';
 
 class TileComponent extends PositionComponent
-    with Hoverable, HasPaint, HasGameRef<MapBoardGame>, Tappable {
+    with HasPaint, HasGameRef<MapBoardGame>, TapCallbacks {
   TileComponent({
     super.position,
     super.size,
@@ -105,7 +106,7 @@ class TileComponent extends PositionComponent
   }
 
   @override
-  bool onTapUp(TapUpInfo info) {
+  void onTapUp(TapUpEvent event) {
     final library = gameRef.libraryCubit.state;
     final tool = gameRef.mapToolCubit.state.tool;
 
@@ -129,7 +130,7 @@ class TileComponent extends PositionComponent
         );
         break;
     }
-    return true;
+    event.handled = true;
   }
 
   @override

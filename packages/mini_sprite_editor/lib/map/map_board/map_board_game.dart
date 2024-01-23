@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
@@ -10,8 +11,7 @@ import 'package:mini_sprite_editor/config/config.dart';
 import 'package:mini_sprite_editor/library/cubit/library_cubit.dart';
 import 'package:mini_sprite_editor/map/map.dart';
 
-class MapBoardGame extends FlameGame
-    with HasHoverables, PanDetector, HasTappables {
+class MapBoardGame extends FlameGame with PanDetector {
   MapBoardGame({
     required this.configCubit,
     required this.libraryCubit,
@@ -30,7 +30,7 @@ class MapBoardGame extends FlameGame
 
   @override
   void onPanUpdate(DragUpdateInfo info) {
-    camera.snapTo(camera.position - info.delta.game);
+    camera.viewfinder.position = camera.viewfinder.position - info.delta.global;
   }
 
   @override
@@ -39,7 +39,7 @@ class MapBoardGame extends FlameGame
 
     createTiles();
 
-    await add(
+    await world.add(
       FlameMultiBlocProvider(
         providers: [
           FlameBlocProvider<ConfigCubit, ConfigState>.value(
@@ -60,7 +60,7 @@ class MapBoardGame extends FlameGame
           FlameBlocListener<MapToolCubit, MapToolState>(
             listenWhen: (previous, current) => previous.zoom != current.zoom,
             onNewState: (state) {
-              camera.zoom = state.zoom;
+              camera.viewfinder.zoom = state.zoom;
               center();
             },
           ),
@@ -87,7 +87,7 @@ class MapBoardGame extends FlameGame
     final tileSize = configCubit.state.mapGridSize;
 
     final rate = (size.y - 250) / (mapSize * tileSize.toDouble()).height;
-    camera.zoom = rate;
+    camera.viewfinder.zoom = rate;
     mapToolCubit.setZoom(rate);
   }
 
@@ -118,8 +118,8 @@ class MapBoardGame extends FlameGame
     final mapSize = mapCubit.state.mapSize;
     final tileSize = configCubit.state.mapGridSize;
 
-    final center = ((mapSize.toVector2() * tileSize.toDouble()) - size) / 2;
-    camera.snapTo(center);
+    final center = (mapSize.toVector2() * tileSize.toDouble()) / 2;
+    camera.viewfinder.position = center;
   }
 
   @override
