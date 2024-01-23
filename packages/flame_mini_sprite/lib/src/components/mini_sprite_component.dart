@@ -55,6 +55,7 @@ class MiniSpriteComponent extends PositionComponent {
   late final List<_PixelEntry> _entries;
 
   late double _pixelSize;
+  late double _bleedingValue;
 
   @override
   Future<void> onLoad() async {
@@ -65,6 +66,7 @@ class MiniSpriteComponent extends PositionComponent {
         miniSprite.pixels.length.toDouble(),
       );
       _pixelSize = 1;
+      _setBleedingValue();
     } else {
       _setPixelSize();
     }
@@ -74,6 +76,11 @@ class MiniSpriteComponent extends PositionComponent {
 
   void _setPixelSize() {
     _pixelSize = (size.x / miniSprite.pixels[0].length).floorToDouble();
+    _setBleedingValue();
+  }
+
+  void _setBleedingValue() {
+    _bleedingValue = _pixelSize * 1.05;
   }
 
   @override
@@ -92,8 +99,8 @@ class MiniSpriteComponent extends PositionComponent {
         Rect.fromLTWH(
           entry.currentPosition.x * _pixelSize,
           entry.currentPosition.y * _pixelSize,
-          _pixelSize,
-          _pixelSize,
+          _bleedingValue,
+          _bleedingValue,
         ),
         paint,
       );
