@@ -45,7 +45,7 @@ class _SpriteSizeDialogState extends State<SpriteSizeDialog> {
     return Dialog(
       child: SizedBox(
         width: 150,
-        height: 250,
+        height: 350,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -85,8 +85,7 @@ class _SpriteSizeDialogState extends State<SpriteSizeDialog> {
               ],
             ),
             const SizedBox(height: 32),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
                 ElevatedButton(
                   onPressed: () {
@@ -94,7 +93,7 @@ class _SpriteSizeDialogState extends State<SpriteSizeDialog> {
                   },
                   child: Text(l10n.cancel),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop(

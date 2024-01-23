@@ -11,6 +11,7 @@ void main() {
     testWidgets('renders correctly when selected', (tester) async {
       await tester.pumpApp(
         Scaffold(
+          backgroundColor: Colors.white,
           body: PixelCell(
             color: Color(0xFFFFFFFF),
             hovered: false,
@@ -29,6 +30,7 @@ void main() {
     testWidgets('renders correctly when hovered', (tester) async {
       await tester.pumpApp(
         Scaffold(
+          backgroundColor: Colors.white,
           body: PixelCell(
             color: Color(0xFFFFFFFF),
             hovered: true,
@@ -49,6 +51,7 @@ void main() {
       (tester) async {
         await tester.pumpApp(
           Scaffold(
+            backgroundColor: Colors.white,
             body: PixelCell(
               color: Color(0xFFFFFFFF),
               hovered: false,
@@ -70,6 +73,7 @@ void main() {
       (tester) async {
         await tester.pumpApp(
           Scaffold(
+            backgroundColor: Colors.white,
             body: PixelCell(
               color: Color(0xFFFFFFFF),
               hovered: false,
@@ -91,6 +95,7 @@ void main() {
       (tester) async {
         await tester.pumpApp(
           Scaffold(
+            backgroundColor: Colors.white,
             body: PixelCell(
               color: Color(0xFFFFFFFF),
               hovered: false,
