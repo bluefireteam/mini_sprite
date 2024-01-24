@@ -80,7 +80,7 @@ class MiniSpriteComponent extends PositionComponent {
   }
 
   void _setBleedingValue() {
-    _bleedingValue = _pixelSize * 1.05;
+    _bleedingValue = _pixelSize * .05;
   }
 
   @override
@@ -97,10 +97,10 @@ class MiniSpriteComponent extends PositionComponent {
 
       canvas.drawRect(
         Rect.fromLTWH(
-          entry.currentPosition.x * _pixelSize,
-          entry.currentPosition.y * _pixelSize,
-          _bleedingValue,
-          _bleedingValue,
+          (entry.currentPosition.x * _pixelSize) - _bleedingValue / 2,
+          (entry.currentPosition.y * _pixelSize) - _bleedingValue / 2,
+          _pixelSize + _bleedingValue,
+          _pixelSize + _bleedingValue,
         ),
         paint,
       );

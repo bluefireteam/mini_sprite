@@ -50,7 +50,7 @@ class _MiniSpritePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
 
-    final bleedingValue = pixelSize * 1.05;
+    final bleedingValue = pixelSize * .05;
 
     for (var y = 0; y < sprite.pixels.length; y++) {
       for (var x = 0; x < sprite.pixels[y].length; x++) {
@@ -59,10 +59,10 @@ class _MiniSpritePainter extends CustomPainter {
           paint.color = color;
           canvas.drawRect(
             Rect.fromLTWH(
-              x * pixelSize,
-              y * pixelSize,
-              bleedingValue,
-              bleedingValue,
+              (x * pixelSize) - bleedingValue / 2,
+              (y * pixelSize) - bleedingValue / 2,
+              pixelSize + bleedingValue,
+              pixelSize + bleedingValue,
             ),
             paint,
           );
