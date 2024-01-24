@@ -13,7 +13,7 @@ dependencies:
   file_selector: ^0.9.0
   flame: 1.14.0
   flame_bloc: ^1.6.0
-  flame_mini_sprite: 0.0.1+2
+  flame_mini_sprite: 0.0.2
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
