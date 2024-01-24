@@ -12,7 +12,7 @@ dependencies:
   flame: 1.14.0
   flame_behaviors: ^0.1.1
   flame_forge2d: ^0.16.0+4
-  flame_mini_sprite: 0.0.1+2
+  flame_mini_sprite: 0.0.2
   flutter:
     sdk: flutter
   google_fonts: ^6.1.0
