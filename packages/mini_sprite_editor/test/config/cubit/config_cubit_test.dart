@@ -122,6 +122,32 @@ void main() async {
     });
 
     test(
+        'fromJson returns colors in the new format when reading '
+        'the old one', () {
+      final state = ConfigCubit().fromJson(
+        <String, dynamic>{
+          'theme_mode': 'dark',
+          'filled_color': Colors.white.value,
+          'unfilled_color': Colors.black.value,
+          'background_color': Colors.black.value,
+          'map_grid_size': 16,
+        },
+      );
+
+      expect(
+        state,
+        equals(
+          ConfigState(
+            themeMode: ThemeMode.dark,
+            colors: const [Colors.white, Colors.black],
+            backgroundColor: Colors.black,
+            mapGridSize: 16,
+          ),
+        ),
+      );
+    });
+
+    test(
       'fromJson returns theme mode system when serialized has invalid value',
       () {
         final state = ConfigCubit().fromJson(

@@ -45,9 +45,20 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
       orElse: () => ThemeMode.system,
     );
 
+    final oldFilledValue = json['filled_color'];
+    final oldUnfilledValue = json['unfilled_color'];
+
+    late List<Color> colors;
+
+    if (oldFilledValue != null && oldUnfilledValue != null) {
+      colors = [Color(oldFilledValue as int), Color(oldUnfilledValue as int)];
+    } else {
+      colors = (json['colors'] as List).map((e) => Color(e as int)).toList();
+    }
+
     return ConfigState(
       themeMode: themeMode,
-      colors: (json['colors'] as List).map((e) => Color(e as int)).toList(),
+      colors: colors,
       backgroundColor: Color(json['background_color'] as int),
       mapGridSize: json['map_grid_size'] as int,
     );
