@@ -82,8 +82,7 @@ void main() async {
         equals(
           {
             'theme_mode': 'dark',
-            'filled_color': state.filledColor.value,
-            'unfilled_color': state.unfilledColor.value,
+            'colors': state.colors.map((e) => e.value).toList(),
             'background_color': state.backgroundColor.value,
             'map_grid_size': state.mapGridSize,
           },
@@ -95,8 +94,7 @@ void main() async {
       final state = ConfigCubit().fromJson(
         <String, dynamic>{
           'theme_mode': 'dark',
-          'filled_color': Colors.white.value,
-          'unfilled_color': Colors.transparent.value,
+          'colors': [Colors.white.value, Colors.transparent.value],
           'background_color': Colors.black.value,
           'map_grid_size': 16,
         },
@@ -107,8 +105,7 @@ void main() async {
         equals(
           ConfigState(
             themeMode: ThemeMode.dark,
-            filledColor: Colors.white,
-            unfilledColor: Colors.transparent,
+            colors: const [Colors.white, Colors.transparent],
             backgroundColor: Colors.black,
             mapGridSize: 16,
           ),
@@ -122,8 +119,7 @@ void main() async {
         final state = ConfigCubit().fromJson(
           <String, dynamic>{
             'theme_mode': 'bla',
-            'filled_color': Colors.white.value,
-            'unfilled_color': Colors.transparent.value,
+            'colors': [Colors.white.value, Colors.transparent.value],
             'background_color': Colors.black.value,
             'map_grid_size': 16,
           },
@@ -134,8 +130,7 @@ void main() async {
           equals(
             ConfigState(
               themeMode: ThemeMode.system,
-              filledColor: Colors.white,
-              unfilledColor: Colors.transparent,
+              colors: const [Colors.white, Colors.transparent],
               backgroundColor: Colors.black,
               mapGridSize: 16,
             ),

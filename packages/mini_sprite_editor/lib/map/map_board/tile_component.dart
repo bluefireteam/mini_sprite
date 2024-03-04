@@ -29,7 +29,7 @@ class TileComponent extends PositionComponent
   @override
   Future<void> onLoad() async {
     paint = Paint()
-      ..color = gameRef.configCubit.state.filledColor
+      ..color = const Color(0xFFFFFFFF)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
 
@@ -95,7 +95,7 @@ class TileComponent extends PositionComponent
       miniSprite
           .toSprite(
             pixelSize: 1,
-            palette: gameRef.configCubit.palette(),
+            palette: gameRef.configCubit.state.colors,
             backgroundColor: gameRef.configCubit.state.backgroundColor,
           )
           .then((value) => _sprite = value);

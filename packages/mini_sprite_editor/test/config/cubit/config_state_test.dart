@@ -14,16 +14,14 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          filledColor: Colors.white,
-          unfilledColor: Colors.transparent,
+          colors: const [Colors.white, Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
         ),
         equals(
           ConfigState(
             themeMode: ThemeMode.dark,
-            filledColor: Colors.white,
-            unfilledColor: Colors.transparent,
+            colors: const [Colors.white,  Colors.transparent],
             backgroundColor: Colors.black,
             mapGridSize: 16,
           ),
@@ -33,8 +31,7 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          filledColor: Colors.white,
-          unfilledColor: Colors.transparent,
+          colors: const [Colors.white,  Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
         ),
@@ -42,8 +39,7 @@ void main() {
           equals(
             ConfigState(
               themeMode: ThemeMode.light,
-              filledColor: Colors.white,
-              unfilledColor: Colors.transparent,
+              colors: const [Colors.white, Colors.transparent],
               backgroundColor: Colors.black,
               mapGridSize: 16,
             ),
@@ -54,8 +50,7 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          filledColor: Colors.red,
-          unfilledColor: Colors.transparent,
+          colors: const [Colors.red, Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
         ),
@@ -63,8 +58,7 @@ void main() {
           equals(
             ConfigState(
               themeMode: ThemeMode.light,
-              filledColor: Colors.white,
-              unfilledColor: Colors.transparent,
+              colors: const [Colors.white, Colors.transparent],
               backgroundColor: Colors.black,
               mapGridSize: 16,
             ),
@@ -75,8 +69,7 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          filledColor: Colors.white,
-          unfilledColor: Colors.red,
+          colors: const [Colors.white,  Colors.red],
           backgroundColor: Colors.black,
           mapGridSize: 16,
         ),
@@ -84,8 +77,7 @@ void main() {
           equals(
             ConfigState(
               themeMode: ThemeMode.light,
-              filledColor: Colors.white,
-              unfilledColor: Colors.transparent,
+              colors: const [Colors.white, Colors.transparent],
               backgroundColor: Colors.black,
               mapGridSize: 16,
             ),
@@ -96,8 +88,7 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          filledColor: Colors.white,
-          unfilledColor: Colors.transparent,
+          colors: const [Colors.white, Colors.transparent],
           backgroundColor: Colors.red,
           mapGridSize: 16,
         ),
@@ -105,8 +96,7 @@ void main() {
           equals(
             ConfigState(
               themeMode: ThemeMode.light,
-              filledColor: Colors.white,
-              unfilledColor: Colors.transparent,
+              colors: const [Colors.white, Colors.transparent],
               backgroundColor: Colors.black,
               mapGridSize: 16,
             ),
@@ -119,16 +109,14 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          filledColor: Colors.white,
-          unfilledColor: Colors.transparent,
+          colors: const [Colors.white, Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
         ).copyWith(),
         equals(
           ConfigState(
             themeMode: ThemeMode.dark,
-            filledColor: Colors.white,
-            unfilledColor: Colors.transparent,
+            colors: const [Colors.white, Colors.transparent],
             backgroundColor: Colors.black,
             mapGridSize: 16,
           ),
@@ -138,8 +126,7 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          filledColor: Colors.white,
-          unfilledColor: Colors.transparent,
+          colors: const [Colors.white, Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
         ).copyWith(
@@ -148,8 +135,7 @@ void main() {
         equals(
           ConfigState(
             themeMode: ThemeMode.light,
-            filledColor: Colors.white,
-            unfilledColor: Colors.transparent,
+            colors: const [Colors.white, Colors.transparent],
             backgroundColor: Colors.black,
             mapGridSize: 16,
           ),
@@ -159,18 +145,16 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          filledColor: Colors.white,
-          unfilledColor: Colors.transparent,
+          colors: const [Colors.white, Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
         ).copyWith(
-          filledColor: Colors.red,
+          colors: const [Colors.red],
         ),
         equals(
           ConfigState(
             themeMode: ThemeMode.dark,
-            filledColor: Colors.red,
-            unfilledColor: Colors.transparent,
+            colors: const [Colors.red],
             backgroundColor: Colors.black,
             mapGridSize: 16,
           ),
@@ -180,29 +164,7 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          filledColor: Colors.white,
-          unfilledColor: Colors.transparent,
-          backgroundColor: Colors.black,
-          mapGridSize: 16,
-        ).copyWith(
-          unfilledColor: Colors.red,
-        ),
-        equals(
-          ConfigState(
-            themeMode: ThemeMode.dark,
-            filledColor: Colors.white,
-            unfilledColor: Colors.red,
-            backgroundColor: Colors.black,
-            mapGridSize: 16,
-          ),
-        ),
-      );
-
-      expect(
-        ConfigState(
-          themeMode: ThemeMode.dark,
-          filledColor: Colors.white,
-          unfilledColor: Colors.transparent,
+          colors: const [Colors.white, Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
         ).copyWith(
@@ -211,8 +173,7 @@ void main() {
         equals(
           ConfigState(
             themeMode: ThemeMode.dark,
-            filledColor: Colors.white,
-            unfilledColor: Colors.transparent,
+            colors: const [Colors.white, Colors.transparent],
             backgroundColor: Colors.red,
             mapGridSize: 16,
           ),

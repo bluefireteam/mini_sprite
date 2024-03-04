@@ -193,11 +193,19 @@
         "description": "Label for the theme settings"
     },
     "colorSettings": "Color settings",
-    "@value": {
+    "@colorSettings": {
         "description": "Label for the color settings"
     },
     "mapSettings": "Map settings",
-    "@value": {
+    "@mapSettings": {
         "description": "Label for the map settings"
+    },
+    "palette": "Palette",
+    "@palette": {
+        "description": "Label Palette"
+    },
+    "addColor": "Add color",
+    "@addColor": {
+        "description": "Label for add color"
     }
 }

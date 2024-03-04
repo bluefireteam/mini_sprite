@@ -11,16 +11,26 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
     emit(state.copyWith(themeMode: mode));
   }
 
-  void setFilledColor(Color color) {
-    emit(state.copyWith(filledColor: color));
-  }
-
-  void setUnfilledColor(Color color) {
-    emit(state.copyWith(unfilledColor: color));
-  }
-
   void setBackgroundColor(Color color) {
     emit(state.copyWith(backgroundColor: color));
+  }
+
+  void setColor(int index, Color color) {
+    final colors = List<Color>.from(state.colors);
+    colors[index] = color;
+    emit(state.copyWith(colors: colors));
+  }
+
+  void addColor(Color color) {
+    emit(state.copyWith(colors: List<Color>.from(state.colors)..add(color)));
+  }
+
+  void removeColor(int index) {
+    emit(
+      state.copyWith(
+        colors: List<Color>.from(state.colors)..removeAt(index),
+      ),
+    );
   }
 
   void setGridSize(int value) {
@@ -37,8 +47,7 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
 
     return ConfigState(
       themeMode: themeMode,
-      filledColor: Color(json['filled_color'] as int),
-      unfilledColor: Color(json['unfilled_color'] as int),
+      colors: (json['colors'] as List).map((e) => Color(e as int)).toList(),
       backgroundColor: Color(json['background_color'] as int),
       mapGridSize: json['map_grid_size'] as int,
     );
@@ -48,12 +57,9 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
   Map<String, dynamic>? toJson(ConfigState state) {
     return <String, dynamic>{
       'theme_mode': state.themeMode.name,
-      'filled_color': state.filledColor.value,
-      'unfilled_color': state.unfilledColor.value,
+      'colors': state.colors.map((e) => e.value).toList(),
       'background_color': state.backgroundColor.value,
       'map_grid_size': state.mapGridSize,
     };
   }
-
-  List<Color> palette() => [state.filledColor, state.unfilledColor];
 }

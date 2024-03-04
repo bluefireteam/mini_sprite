@@ -4,6 +4,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:mini_sprite_editor/config/config.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
+import 'package:mini_sprite_editor/sprite/sprite.dart';
+
+Future<Color?> _showColorPicker(Color color, BuildContext context) {
+  Color? _color = color;
+  return showDialog<Color?>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(context.l10n.chooseColor),
+      content: SingleChildScrollView(
+        child: ColorPicker(
+          pickerColor: color,
+          onColorChanged: (color) => _color = color,
+        ),
+      ),
+      actions: <Widget>[
+        ElevatedButton(
+          child: Text(context.l10n.confirm),
+          onPressed: () {
+            Navigator.of(context).pop(_color);
+          },
+        ),
+      ],
+    ),
+  );
+}
 
 class ConfigDialog extends StatefulWidget {
   const ConfigDialog({super.key});
@@ -32,30 +57,6 @@ class _ConfigDialogState extends State<ConfigDialog> {
     super.initState();
     _gridFieldController = TextEditingController()
       ..text = context.read<ConfigCubit>().state.mapGridSize.toString();
-  }
-
-  Future<Color?> _showColorPicker(Color color) {
-    Color? _color = color;
-    return showDialog<Color?>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(context.l10n.chooseColor),
-        content: SingleChildScrollView(
-          child: ColorPicker(
-            pickerColor: color,
-            onColorChanged: (color) => _color = color,
-          ),
-        ),
-        actions: <Widget>[
-          ElevatedButton(
-            child: Text(context.l10n.confirm),
-            onPressed: () {
-              Navigator.of(context).pop(_color);
-            },
-          ),
-        ],
-      ),
-    );
   }
 
   @override
@@ -131,35 +132,46 @@ class _ConfigDialogState extends State<ConfigDialog> {
                   ),
                   Expanded(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           l10n.colorSettings,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
-                        _ColorTile(
-                          buttonKey: const Key('filled_color_key'),
-                          color: state.filledColor,
-                          label: l10n.filledPixelColor,
-                          onPressed: () async {
-                            final color =
-                                await _showColorPicker(state.filledColor);
-                            if (color != null) {
-                              cubit.setFilledColor(color);
-                            }
-                          },
-                        ),
-                        _ColorTile(
-                          buttonKey: const Key('unfilled_color_key'),
-                          color: state.unfilledColor,
-                          label: l10n.unfilledPixelColor,
-                          onPressed: () async {
-                            final color = await _showColorPicker(
-                              state.unfilledColor,
-                            );
-                            if (color != null) {
-                              cubit.setUnfilledColor(color);
-                            }
-                          },
+                        const SizedBox(height: 16),
+                        Text(l10n.palette),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          children: [
+                            for (var i = 0; i < state.colors.length; i++)
+                              _ColorEntry(
+                                key: Key('color_$i'),
+                                index: i,
+                                color: state.colors[i],
+                                onChanged: (color) {
+                                  cubit.setColor(i, color);
+                                },
+                                onRemove: () {
+                                  cubit.removeColor(i);
+                                },
+                              ),
+                            Tooltip(
+                              message: l10n.addColor,
+                              child: IconButton(
+                                key: const Key('add_color_button'),
+                                icon: const Icon(Icons.add),
+                                onPressed: () async {
+                                  final color = await _showColorPicker(
+                                    Colors.white,
+                                    context,
+                                  );
+                                  if (color != null) {
+                                    cubit.addColor(color);
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                         _ColorTile(
                           buttonKey: const Key('background_color_key'),
@@ -168,6 +180,7 @@ class _ConfigDialogState extends State<ConfigDialog> {
                           onPressed: () async {
                             final color = await _showColorPicker(
                               state.backgroundColor,
+                              context,
                             );
                             if (color != null) {
                               cubit.setBackgroundColor(color);
@@ -222,12 +235,54 @@ class _ConfigDialogState extends State<ConfigDialog> {
   }
 }
 
+class _ColorEntry extends StatelessWidget {
+  const _ColorEntry({
+    required this.index,
+    required this.color,
+    required this.onChanged,
+    required this.onRemove,
+  });
+
+  final int index;
+  final Color color;
+  final ValueChanged<Color> onChanged;
+  final VoidCallback onRemove;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onLongPress: () async {
+        final confirmaiton = await ConfirmDialog.show(
+          context,
+        );
+        if (confirmaiton ?? false) {
+          onRemove();
+        }
+      },
+      onTap: () async {
+        final newColor = await _showColorPicker(
+          color,
+          context,
+        );
+        if (newColor != null) {
+          onChanged(newColor);
+        }
+      },
+      child: ColoredBox(
+        color: color,
+        child: const SizedBox.square(dimension: 32),
+      ),
+    );
+  }
+}
+
 class _ColorTile extends StatelessWidget {
   const _ColorTile({
     required this.color,
     required this.label,
     required this.onPressed,
     this.buttonKey,
+    super.key,
   });
 
   final Color color;
