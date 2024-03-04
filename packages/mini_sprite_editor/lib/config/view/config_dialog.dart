@@ -145,7 +145,7 @@ class _ConfigDialogState extends State<ConfigDialog> {
                           children: [
                             for (var i = 0; i < state.colors.length; i++)
                               _ColorEntry(
-                                key: Key('color_$i'),
+                                key: Key('color_entry_$i'),
                                 index: i,
                                 color: state.colors[i],
                                 onChanged: (color) {
@@ -241,6 +241,7 @@ class _ColorEntry extends StatelessWidget {
     required this.color,
     required this.onChanged,
     required this.onRemove,
+    super.key,
   });
 
   final int index;
@@ -282,7 +283,6 @@ class _ColorTile extends StatelessWidget {
     required this.label,
     required this.onPressed,
     this.buttonKey,
-    super.key,
   });
 
   final Color color;

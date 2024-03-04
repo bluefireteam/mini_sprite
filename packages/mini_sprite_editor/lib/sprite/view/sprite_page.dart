@@ -231,19 +231,19 @@ class SpriteView extends StatelessWidget {
                 child: Column(
                   children: [
                     for (var i = 0; i < palette.length; i++)
-                    InkWell(
-                      onTap: () {
-                        context.read<ToolsCubit>().setColor(i);
-                      },
-                      child: ColoredBox(
-                        color: configState.colors[i].withOpacity(
-                          toolsState.currentColor == i ? .2 : 1,
-                        ),
-                        child: const SizedBox.square(
-                          dimension: 16,
+                      InkWell(
+                        onTap: () {
+                          context.read<ToolsCubit>().setColor(i);
+                        },
+                        child: ColoredBox(
+                          color: configState.colors[i].withOpacity(
+                            toolsState.currentColor == i ? .2 : 1,
+                          ),
+                          child: const SizedBox.square(
+                            dimension: 16,
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),

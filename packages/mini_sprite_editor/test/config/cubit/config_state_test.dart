@@ -21,7 +21,7 @@ void main() {
         equals(
           ConfigState(
             themeMode: ThemeMode.dark,
-            colors: const [Colors.white,  Colors.transparent],
+            colors: const [Colors.white, Colors.transparent],
             backgroundColor: Colors.black,
             mapGridSize: 16,
           ),
@@ -31,7 +31,7 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          colors: const [Colors.white,  Colors.transparent],
+          colors: const [Colors.white, Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
         ),
@@ -69,7 +69,7 @@ void main() {
       expect(
         ConfigState(
           themeMode: ThemeMode.dark,
-          colors: const [Colors.white,  Colors.red],
+          colors: const [Colors.white, Colors.red],
           backgroundColor: Colors.black,
           mapGridSize: 16,
         ),

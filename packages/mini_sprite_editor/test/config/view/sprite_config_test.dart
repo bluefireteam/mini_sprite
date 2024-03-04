@@ -62,6 +62,7 @@ void main() async {
     setUpAll(() {
       registerFallbackValue(SpriteTool.brush);
       registerFallbackValue(Offset.zero);
+      registerFallbackValue(Colors.white);
     });
 
     setUp(() {
@@ -236,7 +237,7 @@ void main() async {
         await tester.tap(find.byKey(const Key('config_key')));
         await tester.pumpAndSettle();
 
-        const addColorKey  = Key('add_color_button');
+        const addColorKey = Key('add_color_button');
         await tester.ensureVisible(find.byKey(addColorKey));
         await tester.tap(find.byKey(addColorKey));
         await tester.pumpAndSettle();
@@ -248,38 +249,40 @@ void main() async {
         verify(() => configCubit.addColor(Colors.white)).called(1);
       });
 
-      //testWidgets('can change the unfilled color', (tester) async {
-      //  const state = ConfigState.initial();
-      //  _mockState(
-      //    spriteState: SpriteState.initial(),
-      //    toolsState: ToolsState.initial(),
-      //    configState: state,
-      //    libraryState: LibraryState.initial(),
-      //  );
+      testWidgets('can change a color', (tester) async {
+        const state = ConfigState.initial();
+        _mockState(
+          spriteState: SpriteState.initial(),
+          toolsState: ToolsState.initial(),
+          configState: state.copyWith(
+            colors: const [Colors.red, Colors.green],
+          ),
+          libraryState: LibraryState.initial(),
+        );
 
-      //  await tester.pumpTest(
-      //    spriteCubit: spriteCubit,
-      //    toolsCubit: toolsCubit,
-      //    configCubit: configCubit,
-      //    libraryCubit: libraryCubit,
-      //  );
+        await tester.pumpTest(
+          spriteCubit: spriteCubit,
+          toolsCubit: toolsCubit,
+          configCubit: configCubit,
+          libraryCubit: libraryCubit,
+        );
 
-      //  await tester.tap(find.byKey(const Key('config_key')));
-      //  await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const Key('config_key')));
+        await tester.pumpAndSettle();
 
-      //  const unfilledColorKey = Key('unfilled_color_key');
-      //  await tester.ensureVisible(find.byKey(unfilledColorKey));
-      //  await tester.tap(find.byKey(unfilledColorKey));
-      //  await tester.pumpAndSettle();
+        const colorKey = Key('color_entry_0');
+        await tester.ensureVisible(find.byKey(colorKey));
+        await tester.tap(find.byKey(colorKey));
+        await tester.pumpAndSettle();
 
-      //  await tester.tap(find.text('Confirm'));
-      //  await tester.pumpAndSettle();
-      //  await tester.idle();
+        await tester.tap(find.text('Confirm'));
+        await tester.pumpAndSettle();
+        await tester.idle();
 
-      //  verify(
-      //    () => configCubit.setUnfilledColor(state.unfilledColor),
-      //  ).called(1);
-      //});
+        verify(
+          () => configCubit.setColor(0, captureAny()),
+        ).called(1);
+      });
 
       testWidgets('can change the background color', (tester) async {
         const state = ConfigState.initial();

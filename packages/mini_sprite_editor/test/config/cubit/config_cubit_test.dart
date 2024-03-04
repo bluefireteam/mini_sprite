@@ -29,24 +29,32 @@ void main() async {
     );
 
     blocTest<ConfigCubit, ConfigState>(
-      'setFilledColor',
+      'setColor',
       build: ConfigCubit.new,
+      seed: () => const ConfigState.initial().copyWith(
+        colors: [Colors.white, Colors.transparent],
+      ),
       act: (cubit) {
-        cubit.setFilledColor(Colors.red);
+        cubit.setColor(1, Colors.red);
       },
       expect: () => [
-        const ConfigState.initial().copyWith(filledColor: Colors.red),
+        const ConfigState.initial().copyWith(
+          colors: [Colors.white, Colors.red],
+        ),
       ],
     );
 
     blocTest<ConfigCubit, ConfigState>(
-      'setUnfilledColor',
+      'removeColor',
       build: ConfigCubit.new,
+      seed: () => const ConfigState.initial().copyWith(
+        colors: [Colors.white, Colors.transparent],
+      ),
       act: (cubit) {
-        cubit.setUnfilledColor(Colors.red);
+        cubit.removeColor(1);
       },
       expect: () => [
-        const ConfigState.initial().copyWith(unfilledColor: Colors.red),
+        const ConfigState.initial().copyWith(colors: [Colors.white]),
       ],
     );
 
