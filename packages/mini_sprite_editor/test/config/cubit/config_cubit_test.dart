@@ -29,24 +29,32 @@ void main() async {
     );
 
     blocTest<ConfigCubit, ConfigState>(
-      'setFilledColor',
+      'setColor',
       build: ConfigCubit.new,
+      seed: () => const ConfigState.initial().copyWith(
+        colors: [Colors.white, Colors.transparent],
+      ),
       act: (cubit) {
-        cubit.setFilledColor(Colors.red);
+        cubit.setColor(1, Colors.red);
       },
       expect: () => [
-        const ConfigState.initial().copyWith(filledColor: Colors.red),
+        const ConfigState.initial().copyWith(
+          colors: [Colors.white, Colors.red],
+        ),
       ],
     );
 
     blocTest<ConfigCubit, ConfigState>(
-      'setUnfilledColor',
+      'removeColor',
       build: ConfigCubit.new,
+      seed: () => const ConfigState.initial().copyWith(
+        colors: [Colors.white, Colors.transparent],
+      ),
       act: (cubit) {
-        cubit.setUnfilledColor(Colors.red);
+        cubit.removeColor(1);
       },
       expect: () => [
-        const ConfigState.initial().copyWith(unfilledColor: Colors.red),
+        const ConfigState.initial().copyWith(colors: [Colors.white]),
       ],
     );
 
@@ -82,8 +90,7 @@ void main() async {
         equals(
           {
             'theme_mode': 'dark',
-            'filled_color': state.filledColor.value,
-            'unfilled_color': state.unfilledColor.value,
+            'colors': state.colors.map((e) => e.value).toList(),
             'background_color': state.backgroundColor.value,
             'map_grid_size': state.mapGridSize,
           },
@@ -95,8 +102,7 @@ void main() async {
       final state = ConfigCubit().fromJson(
         <String, dynamic>{
           'theme_mode': 'dark',
-          'filled_color': Colors.white.value,
-          'unfilled_color': Colors.transparent.value,
+          'colors': [Colors.white.value, Colors.transparent.value],
           'background_color': Colors.black.value,
           'map_grid_size': 16,
         },
@@ -107,8 +113,33 @@ void main() async {
         equals(
           ConfigState(
             themeMode: ThemeMode.dark,
-            filledColor: Colors.white,
-            unfilledColor: Colors.transparent,
+            colors: const [Colors.white, Colors.transparent],
+            backgroundColor: Colors.black,
+            mapGridSize: 16,
+          ),
+        ),
+      );
+    });
+
+    test(
+        'fromJson returns colors in the new format when reading '
+        'the old one', () {
+      final state = ConfigCubit().fromJson(
+        <String, dynamic>{
+          'theme_mode': 'dark',
+          'filled_color': Colors.white.value,
+          'unfilled_color': Colors.black.value,
+          'background_color': Colors.black.value,
+          'map_grid_size': 16,
+        },
+      );
+
+      expect(
+        state,
+        equals(
+          ConfigState(
+            themeMode: ThemeMode.dark,
+            colors: const [Colors.white, Colors.black],
             backgroundColor: Colors.black,
             mapGridSize: 16,
           ),
@@ -122,8 +153,7 @@ void main() async {
         final state = ConfigCubit().fromJson(
           <String, dynamic>{
             'theme_mode': 'bla',
-            'filled_color': Colors.white.value,
-            'unfilled_color': Colors.transparent.value,
+            'colors': [Colors.white.value, Colors.transparent.value],
             'background_color': Colors.black.value,
             'map_grid_size': 16,
           },
@@ -134,8 +164,7 @@ void main() async {
           equals(
             ConfigState(
               themeMode: ThemeMode.system,
-              filledColor: Colors.white,
-              unfilledColor: Colors.transparent,
+              colors: const [Colors.white, Colors.transparent],
               backgroundColor: Colors.black,
               mapGridSize: 16,
             ),

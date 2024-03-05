@@ -100,9 +100,6 @@ void main() async {
         Stream.fromIterable([libraryState]),
         initialState: libraryState,
       );
-
-      when(configCubit.palette)
-          .thenReturn([Color(0xFFFFFFFF), Color(0xFF000000)]);
     }
 
     testWidgets('emits cursor down on pan start', (tester) async {

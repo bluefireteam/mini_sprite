@@ -28,7 +28,7 @@ class SpriteView extends StatelessWidget {
     final toolsState = context.watch<ToolsCubit>().state;
 
     final configCubit = context.watch<ConfigCubit>();
-    final palette = configCubit.palette();
+    final palette = configCubit.state.colors;
 
     final configState = configCubit.state;
     final libraryState = context.watch<LibraryCubit>().state;
@@ -230,30 +230,20 @@ class SpriteView extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        context.read<ToolsCubit>().setColor(0);
-                      },
-                      child: Container(
-                        color: configState.filledColor.withOpacity(
-                          toolsState.currentColor == 0 ? .2 : 1,
+                    for (var i = 0; i < palette.length; i++)
+                      InkWell(
+                        onTap: () {
+                          context.read<ToolsCubit>().setColor(i);
+                        },
+                        child: ColoredBox(
+                          color: configState.colors[i].withOpacity(
+                            toolsState.currentColor == i ? .2 : 1,
+                          ),
+                          child: const SizedBox.square(
+                            dimension: 16,
+                          ),
                         ),
-                        width: 16,
-                        height: 16,
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        context.read<ToolsCubit>().setColor(1);
-                      },
-                      child: Container(
-                        color: configState.unfilledColor.withOpacity(
-                          toolsState.currentColor == 1 ? .2 : 1,
-                        ),
-                        width: 16,
-                        height: 16,
-                      ),
-                    ),
                   ],
                 ),
               ),

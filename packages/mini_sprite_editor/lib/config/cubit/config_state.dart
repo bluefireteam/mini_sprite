@@ -3,8 +3,7 @@ part of 'config_cubit.dart';
 class ConfigState extends Equatable {
   const ConfigState({
     required this.themeMode,
-    required this.filledColor,
-    required this.unfilledColor,
+    required this.colors,
     required this.backgroundColor,
     required this.mapGridSize,
   });
@@ -12,29 +11,25 @@ class ConfigState extends Equatable {
   const ConfigState.initial()
       : this(
           themeMode: ThemeMode.system,
-          filledColor: Colors.white,
-          unfilledColor: Colors.transparent,
-          backgroundColor: Colors.black,
+          colors: const [Colors.black, Colors.white],
+          backgroundColor: Colors.transparent,
           mapGridSize: 16,
         );
 
   final ThemeMode themeMode;
-  final Color filledColor;
+  final List<Color> colors;
   final Color backgroundColor;
-  final Color unfilledColor;
   final int mapGridSize;
 
   ConfigState copyWith({
     ThemeMode? themeMode,
-    Color? filledColor,
-    Color? unfilledColor,
+    List<Color>? colors,
     Color? backgroundColor,
     int? mapGridSize,
   }) {
     return ConfigState(
       themeMode: themeMode ?? this.themeMode,
-      filledColor: filledColor ?? this.filledColor,
-      unfilledColor: unfilledColor ?? this.unfilledColor,
+      colors: colors ?? this.colors,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       mapGridSize: mapGridSize ?? this.mapGridSize,
     );
@@ -43,8 +38,7 @@ class ConfigState extends Equatable {
   @override
   List<Object?> get props => [
         themeMode,
-        filledColor,
-        unfilledColor,
+        colors,
         backgroundColor,
         mapGridSize,
       ];

@@ -172,7 +172,7 @@ class _LibraryEntryState extends State<_LibraryEntry> {
     final configState = cubit.state;
     _future = widget.sprite.toSprite(
       pixelSize: 2,
-      palette: cubit.palette(),
+      palette: cubit.state.colors,
       backgroundColor: configState.backgroundColor,
     );
   }

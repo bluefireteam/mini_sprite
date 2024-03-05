@@ -42,7 +42,7 @@ class _HubEntryCardState extends State<HubEntryCard> {
         final library = MiniLibrary.fromDataString(entry.data);
         _sprites = await library.toSprites(
           pixelSize: 1,
-          palette: cubit.palette(),
+          palette: cubit.state.colors,
           backgroundColor: configState.backgroundColor,
         );
         setState(() {
