@@ -2,15 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/hub/hub.dart';
 
-class HubPage extends StatelessWidget {
+class HubPage extends StatefulWidget {
   const HubPage({super.key});
 
   @override
+  State<HubPage> createState() => _HubPageState();
+}
+
+class _HubPageState extends State<HubPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<HubCubit>().load();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider<HubCubit>(
-      create: (_) => HubCubit()..load(),
-      child: const HubView(),
-    );
+    return const HubView();
   }
 }
 

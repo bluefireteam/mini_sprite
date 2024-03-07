@@ -15,6 +15,10 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
     emit(state.copyWith(backgroundColor: color));
   }
 
+  void setColors(List<Color> colors) {
+    emit(state.copyWith(colors: colors));
+  }
+
   void setColor(int index, Color color) {
     final colors = List<Color>.from(state.colors);
     colors[index] = color;
