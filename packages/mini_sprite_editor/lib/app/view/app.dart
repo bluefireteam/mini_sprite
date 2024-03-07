@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_sprite_editor/config/config.dart';
 import 'package:mini_sprite_editor/hub/hub.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
@@ -46,9 +47,19 @@ class App extends StatelessWidget {
                     colors.split(',').map(int.parse).map(Color.new).toList();
               }
 
+              final spriteRaw = uri.queryParameters['sprite'];
+              MiniSprite? sprite;
+              if (spriteRaw != null) {
+                try {
+                  sprite = MiniSprite.fromDataString(spriteRaw);
+                } catch (_) {
+                  // ignore on invalid sprite data
+                }
+              }
               return MaterialPageRoute(
                 builder: (_) => WorkspaceView(
                   colorList: colorList,
+                  sprite: sprite,
                 ),
               );
             }

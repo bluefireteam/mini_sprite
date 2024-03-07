@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_sprite_editor/config/config.dart';
 import 'package:mini_sprite_editor/hub/hub.dart';
 import 'package:mini_sprite_editor/library/library.dart';
@@ -38,6 +39,7 @@ extension TestWidgetText on WidgetTester {
     required MapCubit mapCubit,
     required HubCubit hubCubit,
     List<Color>? colors,
+    MiniSprite? sprite,
   }) async {
     await pumpApp(
       MultiBlocProvider(
@@ -64,7 +66,12 @@ extension TestWidgetText on WidgetTester {
             value: hubCubit,
           ),
         ],
-        child: Scaffold(body: WorkspaceView(colorList: colors)),
+        child: Scaffold(
+          body: WorkspaceView(
+            colorList: colors,
+            sprite: sprite,
+          ),
+        ),
       ),
     );
   }
@@ -194,6 +201,39 @@ void main() {
 
         verify(() => configCubit.setColors([Colors.red, Colors.blue]))
             .called(1);
+      },
+    );
+
+    testWidgets(
+      'set the sprite when receiving one',
+      (tester) async {
+        _mockState(
+          spriteState: SpriteState.initial(),
+          toolsState: const ToolsState.initial(),
+          configState: const ConfigState.initial(),
+          libraryState: const LibraryState.initial(),
+          workspaceState: const WorkspaceState.initial(),
+          mapState: const MapState.initial(),
+        );
+
+        const sprite = MiniSprite(
+          [
+            [1],
+            [0],
+          ],
+        );
+        await tester.pumpTest(
+          spriteCubit: spriteCubit,
+          toolsCubit: toolsCubit,
+          configCubit: configCubit,
+          libraryCubit: libraryCubit,
+          workspaceCubit: workspaceCubit,
+          mapCubit: mapCubit,
+          hubCubit: hubCubit,
+          sprite: sprite,
+        );
+
+        verify(() => spriteCubit.setSprite(sprite.pixels)).called(1);
       },
     );
   });
