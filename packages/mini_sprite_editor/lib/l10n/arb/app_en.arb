@@ -207,5 +207,14 @@
     "addColor": "Add color",
     "@addColor": {
         "description": "Label for add color"
+    },
+    "flipVertically": "Flip vertically",
+    "@flipVertically": {
+        "description": "Label for flipping the sprite vertically"
+    },
+    "flipHorizontally": "Flip horizontally",
+    "@flipHorizontally": {
+        "description": "Label for flipping the sprite horizontally"
     }
+
 }

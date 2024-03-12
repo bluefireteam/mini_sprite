@@ -173,6 +173,25 @@ class SpriteView extends StatelessWidget {
                     ),
                   ),
                   IconButton(
+                    key: const Key('flip_vertically_key'),
+                    onPressed: () async {
+                      context.read<SpriteCubit>().flipSpriteVertically();
+                    },
+                    tooltip: l10n.flipVertically,
+                    icon: const Icon(Icons.transform),
+                  ),
+                  IconButton(
+                    key: const Key('flip_horizontally_key'),
+                    onPressed: () async {
+                      context.read<SpriteCubit>().flipSpriteHorizontally();
+                    },
+                    tooltip: l10n.flipHorizontally,
+                    icon: Transform.rotate(
+                      angle: 1.5708,
+                      child: const Icon(Icons.transform),
+                    ),
+                  ),
+                  IconButton(
                     key: const Key('copy_to_clipboard_key'),
                     onPressed: () {
                       context.read<SpriteCubit>().copyToClipboard();

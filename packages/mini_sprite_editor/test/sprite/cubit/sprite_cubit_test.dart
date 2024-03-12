@@ -57,6 +57,46 @@ void main() {
       },
     );
 
+    test('flip vertically', () {
+      final cubit = SpriteCubit();
+      final state = SpriteState.initial().copyWith(
+        pixels: [
+          [1, 1],
+          [0, 0],
+        ],
+      );
+      final expected = SpriteState.initial().copyWith(
+        pixels: [
+          [0, 0],
+          [1, 1],
+        ],
+      );
+      cubit
+        ..setSprite(state.pixels)
+        ..flipSpriteVertically();
+      expect(cubit.state, equals(expected));
+    });
+
+    test('flip horizontally', () {
+      final cubit = SpriteCubit();
+      final state = SpriteState.initial().copyWith(
+        pixels: [
+          [1, 1],
+          [0, 0],
+        ],
+      );
+      final expected = SpriteState.initial().copyWith(
+        pixels: [
+          [1, 1],
+          [0, 0],
+        ],
+      );
+      cubit
+        ..setSprite(state.pixels)
+        ..flipSpriteHorizontally();
+      expect(cubit.state, equals(expected));
+    });
+
     group('importFromClipboard', () {
       late GetClipboardStub stub;
       final sprite = MiniSprite(const [
