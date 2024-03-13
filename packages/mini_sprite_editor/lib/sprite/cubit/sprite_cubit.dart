@@ -79,6 +79,20 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     emit(state.copyWith(cursorPosition: const Offset(-1, -1)));
   }
 
+  void flipSpriteVertically() {
+    final newPixels = [
+      ...state.pixels.reversed.map((e) => [...e]),
+    ];
+    emit(state.copyWith(pixels: newPixels));
+  }
+
+  void flipSpriteHorizontally() {
+    final newPixels = [
+      ...state.pixels.map((e) => [...e.reversed]),
+    ];
+    emit(state.copyWith(pixels: newPixels));
+  }
+
   Offset _projectOffset(Offset position, double pixelSize) {
     final projected = position / pixelSize;
     final x = projected.dx.floorToDouble();

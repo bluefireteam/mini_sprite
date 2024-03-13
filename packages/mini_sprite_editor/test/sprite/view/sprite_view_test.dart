@@ -213,6 +213,48 @@ void main() async {
       verify(() => spriteCubit.cursorUp(any(), any())).called(1);
     });
 
+    group('flip', () {
+      testWidgets('flips horizontally', (tester) async {
+        _mockState(
+          spriteState: SpriteState.initial(),
+          toolsState: ToolsState.initial(),
+          configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
+        );
+        await tester.pumpTest(
+          spriteCubit: spriteCubit,
+          toolsCubit: toolsCubit,
+          configCubit: configCubit,
+          libraryCubit: libraryCubit,
+        );
+
+        await tester.tap(find.byKey(const Key('flip_horizontally_key')));
+        await tester.pump();
+
+        verify(() => spriteCubit.flipSpriteHorizontally()).called(1);
+      });
+
+      testWidgets('flips vertically', (tester) async {
+        _mockState(
+          spriteState: SpriteState.initial(),
+          toolsState: ToolsState.initial(),
+          configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
+        );
+        await tester.pumpTest(
+          spriteCubit: spriteCubit,
+          toolsCubit: toolsCubit,
+          configCubit: configCubit,
+          libraryCubit: libraryCubit,
+        );
+
+        await tester.tap(find.byKey(const Key('flip_vertically_key')));
+        await tester.pump();
+
+        verify(() => spriteCubit.flipSpriteVertically()).called(1);
+      });
+    });
+
     group('tools', () {
       group('brush', () {
         testWidgets(
