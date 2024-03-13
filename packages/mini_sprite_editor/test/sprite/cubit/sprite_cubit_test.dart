@@ -97,6 +97,46 @@ void main() {
       expect(cubit.state, equals(expected));
     });
 
+    test('rotate clockwise', () {
+      final cubit = SpriteCubit();
+      final state = SpriteState.initial().copyWith(
+        pixels: [
+          [1, 1],
+          [0, 0],
+        ],
+      );
+      final expected = SpriteState.initial().copyWith(
+        pixels: [
+          [0, 1],
+          [0, 1],
+        ],
+      );
+      cubit
+        ..setSprite(state.pixels)
+        ..rotateSpriteClockwise();
+      expect(cubit.state, equals(expected));
+    });
+
+    test('rotate counter clockwise', () {
+      final cubit = SpriteCubit();
+      final state = SpriteState.initial().copyWith(
+        pixels: [
+          [1, 1],
+          [0, 0],
+        ],
+      );
+      final expected = SpriteState.initial().copyWith(
+        pixels: [
+          [1, 0],
+          [1, 0],
+        ],
+      );
+      cubit
+        ..setSprite(state.pixels)
+        ..rotateSpriteCounterClockwise();
+      expect(cubit.state, equals(expected));
+    });
+
     group('importFromClipboard', () {
       late GetClipboardStub stub;
       final sprite = MiniSprite(const [

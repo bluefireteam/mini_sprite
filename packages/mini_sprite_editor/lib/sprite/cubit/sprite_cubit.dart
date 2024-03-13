@@ -93,6 +93,36 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     emit(state.copyWith(pixels: newPixels));
   }
 
+  void rotateSpriteClockwise() {
+    final newPixels = List.generate(
+      state.pixels[0].length,
+      (i) => List.generate(state.pixels.length, (j) => -1),
+    );
+
+    for (var y = 0; y < state.pixels.length; y++) {
+      for (var x = 0; x < state.pixels[y].length; x++) {
+        newPixels[x][state.pixels.length - y - 1] = state.pixels[y][x];
+      }
+    }
+
+    emit(state.copyWith(pixels: newPixels));
+  }
+
+  void rotateSpriteCounterClockwise() {
+    final newPixels = List.generate(
+      state.pixels[0].length,
+      (i) => List.generate(state.pixels.length, (j) => -1),
+    );
+
+    for (var y = 0; y < state.pixels.length; y++) {
+      for (var x = 0; x < state.pixels[y].length; x++) {
+        newPixels[state.pixels[0].length - x - 1][y] = state.pixels[y][x];
+      }
+    }
+
+    emit(state.copyWith(pixels: newPixels));
+  }
+
   Offset _projectOffset(Offset position, double pixelSize) {
     final projected = position / pixelSize;
     final x = projected.dx.floorToDouble();
