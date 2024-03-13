@@ -255,6 +255,48 @@ void main() async {
       });
     });
 
+    group('rotate', () {
+      testWidgets('rotates clockwise', (tester) async {
+        _mockState(
+          spriteState: SpriteState.initial(),
+          toolsState: ToolsState.initial(),
+          configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
+        );
+        await tester.pumpTest(
+          spriteCubit: spriteCubit,
+          toolsCubit: toolsCubit,
+          configCubit: configCubit,
+          libraryCubit: libraryCubit,
+        );
+
+        await tester.tap(find.byKey(const Key('rotate_clockwise_key')));
+        await tester.pump();
+
+        verify(() => spriteCubit.rotateSpriteClockwise()).called(1);
+      });
+
+      testWidgets('rotates counter clockwise', (tester) async {
+        _mockState(
+          spriteState: SpriteState.initial(),
+          toolsState: ToolsState.initial(),
+          configState: ConfigState.initial(),
+          libraryState: LibraryState.initial(),
+        );
+        await tester.pumpTest(
+          spriteCubit: spriteCubit,
+          toolsCubit: toolsCubit,
+          configCubit: configCubit,
+          libraryCubit: libraryCubit,
+        );
+
+        await tester.tap(find.byKey(const Key('rotate_counter_clockwise_key')));
+        await tester.pump();
+
+        verify(() => spriteCubit.rotateSpriteCounterClockwise()).called(1);
+      });
+    });
+
     group('tools', () {
       group('brush', () {
         testWidgets(

@@ -215,6 +215,13 @@
     "flipHorizontally": "Flip horizontally",
     "@flipHorizontally": {
         "description": "Label for flipping the sprite horizontally"
+    },
+    "rotateClockwise": "Rotate clockwise",
+    "@rotateClockwise": {
+        "description": "Label for rotating the sprite clockwise"
+    },
+    "rotateCounterClockwise": "Rotate counter clockwise",
+    "@rotateCounterClockwise": {
+        "description": "Label for rotating the sprite counter clockwise"
     }
-
 }
