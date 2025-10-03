@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flame/image_composition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/config/config.dart';
