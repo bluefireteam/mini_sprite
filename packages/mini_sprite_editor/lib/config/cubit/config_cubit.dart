@@ -1,11 +1,19 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'config_state.dart';
 
 class ConfigCubit extends HydratedCubit<ConfigState> {
-  ConfigCubit() : super(const ConfigState.initial());
+  ConfigCubit({
+    Future<void> Function(ClipboardData)? setClipboardData,
+  }) : _setClipboardData = setClipboardData ?? Clipboard.setData,
+       super(const ConfigState.initial());
+
+  final Future<void> Function(ClipboardData) _setClipboardData;
 
   void setThemeMode(ThemeMode mode) {
     emit(state.copyWith(themeMode: mode));
@@ -37,6 +45,13 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
 
   void setGridSize(int value) {
     emit(state.copyWith(mapGridSize: value));
+  }
+
+  void copyPaletteToClipboard() {
+    final colorsInHex = state.colors
+        .map((e) => e.toARGB32().toRadixString(16).padLeft(8, '0'))
+        .join('\n');
+    unawaited(_setClipboardData(ClipboardData(text: colorsInHex)));
   }
 
   @override

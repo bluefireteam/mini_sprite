@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame/image_composition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/config/config.dart';
@@ -7,6 +8,7 @@ import 'package:mini_sprite_editor/l10n/l10n.dart';
 import 'package:mini_sprite_editor/library/library.dart';
 import 'package:mini_sprite_editor/sprite/cubit/tools_cubit.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
+import 'package:mini_sprite_editor/widgets/composed_icon.dart';
 
 class SpritePage extends StatelessWidget {
   const SpritePage({super.key});
@@ -219,6 +221,22 @@ class SpriteView extends StatelessWidget {
                     },
                     tooltip: l10n.copyToClipboard,
                     icon: const Icon(Icons.download),
+                  ),
+                  Tooltip(
+                    message: l10n.copyToClipboard,
+                    child: GestureDetector(
+                      key: const Key('copy_palette_clipboard_key'),
+                      onTap: () {
+                        context.read<ConfigCubit>().copyPaletteToClipboard();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(l10n.copiedWithSuccess)),
+                        );
+                      },
+                      child: const ComposedIcon(
+                        primary: Icons.palette,
+                        secondary: Icons.download,
+                      ),
+                    ),
                   ),
                   IconButton(
                     key: const Key('import_from_clipboard_key'),
