@@ -429,6 +429,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rotate counter clockwise'**
   String get rotateCounterClockwise;
+
+  /// Import from image label
+  ///
+  /// In en, this message translates to:
+  /// **'Import from image'**
+  String get importFromImage;
 }
 
 class _AppLocalizationsDelegate

@@ -223,5 +223,9 @@
     "rotateCounterClockwise": "Rotate counter clockwise",
     "@rotateCounterClockwise": {
         "description": "Label for rotating the sprite counter clockwise"
+    },
+    "importFromImage": "Import from image",
+    "@importFromImage": {
+        "description": "Import from image label"
     }
 }
