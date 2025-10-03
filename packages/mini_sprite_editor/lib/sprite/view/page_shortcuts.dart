@@ -68,10 +68,7 @@ class PageShortcuts extends StatelessWidget {
             },
           ),
         },
-        child: Focus(
-          autofocus: true,
-          child: child,
-        ),
+        child: Focus(autofocus: true, child: child),
       ),
     );
   }

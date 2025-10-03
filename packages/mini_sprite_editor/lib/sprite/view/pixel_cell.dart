@@ -20,7 +20,7 @@ class PixelCell extends StatelessWidget {
       width: pixelSize.toDouble(),
       height: pixelSize.toDouble(),
       decoration: BoxDecoration(
-        color: hovered ? color.withOpacity(.2) : color,
+        color: hovered ? color.withValues(alpha: .2) : color,
         border: Border.all(
           color: hasBorder ? Colors.black : Colors.transparent,
         ),

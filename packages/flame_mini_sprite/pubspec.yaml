@@ -7,7 +7,7 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  flame: ^1.14.0
+  flame: ^1.32.0
   flutter:
     sdk: flutter
   mini_sprite: ^0.1.0

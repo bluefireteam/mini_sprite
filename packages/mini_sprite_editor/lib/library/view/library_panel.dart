@@ -187,10 +187,7 @@ class _LibraryEntryState extends State<_LibraryEntry> {
         final cubit = context.read<LibraryCubit>();
         final newName = await RenameDialog.show(context, widget.spriteKey);
         if (newName != null) {
-          cubit.rename(
-            widget.spriteKey,
-            newName,
-          );
+          cubit.rename(widget.spriteKey, newName);
         }
       },
       child: Column(
@@ -203,9 +200,10 @@ class _LibraryEntryState extends State<_LibraryEntry> {
               border: Border(
                 bottom: BorderSide(
                   width: 2,
-                  color: widget.selected
-                      ? Theme.of(context).buttonTheme.colorScheme!.primary
-                      : Colors.transparent,
+                  color:
+                      widget.selected
+                          ? Theme.of(context).buttonTheme.colorScheme!.primary
+                          : Colors.transparent,
                 ),
               ),
             ),

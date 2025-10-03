@@ -9,9 +9,9 @@ class LibraryCubit extends Cubit<LibraryState> {
   LibraryCubit({
     Future<void> Function(ClipboardData)? setClipboardData,
     Future<ClipboardData?> Function(String)? getClipboardData,
-  })  : _setClipboardData = setClipboardData ?? Clipboard.setData,
-        _getClipboardData = getClipboardData ?? Clipboard.getData,
-        super(const LibraryState.initial());
+  }) : _setClipboardData = setClipboardData ?? Clipboard.setData,
+       _getClipboardData = getClipboardData ?? Clipboard.getData,
+       super(const LibraryState.initial());
 
   final Future<void> Function(ClipboardData) _setClipboardData;
   final Future<ClipboardData?> Function(String) _getClipboardData;
@@ -23,9 +23,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   void startCollection(List<List<int>> firstSprite) {
     emit(
       state.copyWith(
-        sprites: {
-          'sprite_1': MiniSprite(firstSprite),
-        },
+        sprites: {'sprite_1': MiniSprite(firstSprite)},
         selected: 'sprite_1',
       ),
     );
@@ -34,10 +32,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   void updateSelected(List<List<int>> sprite) {
     emit(
       state.copyWith(
-        sprites: {
-          ...state.sprites,
-          state.selected: MiniSprite(sprite),
-        },
+        sprites: {...state.sprites, state.selected: MiniSprite(sprite)},
       ),
     );
   }
@@ -46,25 +41,22 @@ class LibraryCubit extends Cubit<LibraryState> {
     final newSprites = {...state.sprites}..remove(key);
     emit(
       state.copyWith(
-        sprites: {
-          ...newSprites,
-          newKey: state.sprites[key]!,
-        },
+        sprites: {...newSprites, newKey: state.sprites[key]!},
         selected: state.selected == key ? newKey : state.selected,
       ),
     );
   }
 
   String _newSpriteKey() {
-    var _idx = state.sprites.length + 1;
-    var _spriteKey = 'sprite_$_idx';
+    var idx = state.sprites.length + 1;
+    var spriteKey = 'sprite_$idx';
 
-    while (state.sprites.containsKey(_spriteKey)) {
-      _idx++;
-      _spriteKey = 'sprite_$_idx';
+    while (state.sprites.containsKey(spriteKey)) {
+      idx++;
+      spriteKey = 'sprite_$idx';
     }
 
-    return _spriteKey;
+    return spriteKey;
   }
 
   void addSprite(int width, int height) {
@@ -73,13 +65,7 @@ class LibraryCubit extends Cubit<LibraryState> {
         sprites: {
           ...state.sprites,
           _newSpriteKey(): MiniSprite(
-            List.generate(
-              height,
-              (_) => List.generate(
-                width,
-                (_) => -1,
-              ),
-            ),
+            List.generate(height, (_) => List.generate(width, (_) => -1)),
           ),
         },
       ),

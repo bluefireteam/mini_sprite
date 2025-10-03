@@ -9,12 +9,12 @@ class ToolsState extends Equatable {
   });
 
   const ToolsState.initial()
-      : this(
-          pixelSize: 25,
-          tool: SpriteTool.brush,
-          gridActive: true,
-          currentColor: 0,
-        );
+    : this(
+        pixelSize: 25,
+        tool: SpriteTool.brush,
+        gridActive: true,
+        currentColor: 0,
+      );
 
   final int pixelSize;
   final SpriteTool tool;
@@ -36,10 +36,5 @@ class ToolsState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        pixelSize,
-        tool,
-        gridActive,
-        currentColor,
-      ];
+  List<Object?> get props => [pixelSize, tool, gridActive, currentColor];
 }

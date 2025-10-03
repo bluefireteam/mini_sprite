@@ -129,9 +129,7 @@ void main() {
           colors: const [Colors.white, Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
-        ).copyWith(
-          themeMode: ThemeMode.light,
-        ),
+        ).copyWith(themeMode: ThemeMode.light),
         equals(
           ConfigState(
             themeMode: ThemeMode.light,
@@ -148,9 +146,7 @@ void main() {
           colors: const [Colors.white, Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
-        ).copyWith(
-          colors: const [Colors.red],
-        ),
+        ).copyWith(colors: const [Colors.red]),
         equals(
           ConfigState(
             themeMode: ThemeMode.dark,
@@ -167,9 +163,7 @@ void main() {
           colors: const [Colors.white, Colors.transparent],
           backgroundColor: Colors.black,
           mapGridSize: 16,
-        ).copyWith(
-          backgroundColor: Colors.red,
-        ),
+        ).copyWith(backgroundColor: Colors.red),
         equals(
           ConfigState(
             themeMode: ThemeMode.dark,

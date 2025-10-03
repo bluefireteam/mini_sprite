@@ -45,10 +45,7 @@ class MapView extends StatelessWidget {
                     final cubit = context.read<MapCubit>();
                     final value = await MapSizeDialog.show(context);
                     if (value != null) {
-                      cubit.setSize(
-                        value.dx.toInt(),
-                        value.dy.toInt(),
-                      );
+                      cubit.setSize(value.dx.toInt(), value.dy.toInt());
                     }
                   },
                   tooltip: l10n.mapSizeTitle,
@@ -72,9 +69,7 @@ class MapView extends StatelessWidget {
                     context.read<MapToolCubit>().toogleGrid();
                   },
                   tooltip: l10n.toogleGrid,
-                  icon: Icon(
-                    gridActive ? Icons.grid_on : Icons.grid_off,
-                  ),
+                  icon: Icon(gridActive ? Icons.grid_on : Icons.grid_off),
                 ),
                 IconButton(
                   key: const Key('copy_to_clipboard_key'),
@@ -91,9 +86,9 @@ class MapView extends StatelessWidget {
                   key: const Key('import_from_clipboard_key'),
                   onPressed: () {
                     context.read<MapCubit>().importFromClipboard();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(l10n.importSuccess)),
-                    );
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(l10n.importSuccess)));
                   },
                   tooltip: l10n.importFromClipBoard,
                   icon: const Icon(Icons.import_export),
@@ -124,10 +119,10 @@ class MapView extends StatelessWidget {
                                 libraryCubit: context.read<LibraryCubit>(),
                                 mapCubit: context.read<MapCubit>(),
                                 mapToolCubit: context.read<MapToolCubit>(),
-                                primaryColor: Theme.of(context)
-                                        .buttonTheme
-                                        .colorScheme
-                                        ?.primary ??
+                                primaryColor:
+                                    Theme.of(
+                                      context,
+                                    ).buttonTheme.colorScheme?.primary ??
                                     Colors.blue,
                               );
                             },
@@ -144,37 +139,40 @@ class MapView extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       key: const Key('map_cursor_key'),
-                                      onPressed: tool == MapTool.none
-                                          ? null
-                                          : () {
-                                              context
-                                                  .read<MapToolCubit>()
-                                                  .selectTool(MapTool.none);
-                                            },
+                                      onPressed:
+                                          tool == MapTool.none
+                                              ? null
+                                              : () {
+                                                context
+                                                    .read<MapToolCubit>()
+                                                    .selectTool(MapTool.none);
+                                              },
                                       tooltip: l10n.cursor,
                                       icon: const Icon(Icons.mouse),
                                     ),
                                     IconButton(
                                       key: const Key('map_brush_key'),
-                                      onPressed: tool == MapTool.brush
-                                          ? null
-                                          : () {
-                                              context
-                                                  .read<MapToolCubit>()
-                                                  .selectTool(MapTool.brush);
-                                            },
+                                      onPressed:
+                                          tool == MapTool.brush
+                                              ? null
+                                              : () {
+                                                context
+                                                    .read<MapToolCubit>()
+                                                    .selectTool(MapTool.brush);
+                                              },
                                       tooltip: l10n.brush,
                                       icon: const Icon(Icons.brush),
                                     ),
                                     IconButton(
                                       key: const Key('map_eraser_key'),
-                                      onPressed: tool == MapTool.eraser
-                                          ? null
-                                          : () {
-                                              context
-                                                  .read<MapToolCubit>()
-                                                  .selectTool(MapTool.eraser);
-                                            },
+                                      onPressed:
+                                          tool == MapTool.eraser
+                                              ? null
+                                              : () {
+                                                context
+                                                    .read<MapToolCubit>()
+                                                    .selectTool(MapTool.eraser);
+                                              },
                                       tooltip: l10n.eraser,
                                       icon: const Icon(Icons.rectangle),
                                     ),
@@ -203,19 +201,13 @@ class MapView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const Expanded(
-                            child: LibraryPanel(readOnly: true),
-                          ),
+                          const Expanded(child: LibraryPanel(readOnly: true)),
                         ],
                       ),
                     ],
                   ),
                 ),
-                const Positioned(
-                  top: 8,
-                  left: 8,
-                  child: ObjectPanel(),
-                ),
+                const Positioned(top: 8, left: 8, child: ObjectPanel()),
               ],
             ),
           ),

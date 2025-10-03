@@ -1,16 +1,8 @@
 part of 'workspace_cubit.dart';
 
-enum WorkspacePanel {
-  sprite,
-  map,
-  hub,
-}
+enum WorkspacePanel { sprite, map }
 
-enum WorkspaceMode {
-  verticalSplit,
-  horizontalSplit,
-  tabs,
-}
+enum WorkspaceMode { verticalSplit, horizontalSplit, tabs }
 
 class WorkspaceState extends Equatable {
   const WorkspaceState({
@@ -20,11 +12,11 @@ class WorkspaceState extends Equatable {
   });
 
   const WorkspaceState.initial()
-      : this(
-          panels: const [],
-          mode: WorkspaceMode.tabs,
-          activePanel: WorkspacePanel.sprite,
-        );
+    : this(
+        panels: const [],
+        mode: WorkspaceMode.tabs,
+        activePanel: WorkspacePanel.sprite,
+      );
 
   final List<WorkspacePanel> panels;
   final WorkspaceMode mode;

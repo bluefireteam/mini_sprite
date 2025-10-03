@@ -1,4 +1,5 @@
-// ignore_for_file: prefer_const_constructors, lines_longer_than_80_chars
+// Ignoring for test
+// ignore_for_file: lines_longer_than_80_chars
 import 'package:flutter/material.dart';
 import 'package:flutter_mini_sprite/flutter_mini_sprite.dart';
 import 'package:flutter_test/flutter_test.dart';

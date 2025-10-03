@@ -9,10 +9,10 @@ import 'package:mini_sprite/mini_sprite.dart';
 class MiniSpriteWidget extends StatelessWidget {
   /// {@macro mini_sprite_widget}
   const MiniSpriteWidget({
-    super.key,
     required this.sprite,
     this.pixelSize = 1,
     this.palette = const [Color(0xFFFFFFFF), Color(0xFF000000)],
+    super.key,
   });
 
   /// The size of each pixel of the sprite, defaults to 1.

@@ -93,12 +93,12 @@ void main() {
       expect(
         MiniSprite(const [
           [1],
-          [1]
+          [1],
         ]),
         equals(
           MiniSprite(const [
             [1],
-            [1]
+            [1],
           ]),
         ),
       );
@@ -106,13 +106,13 @@ void main() {
       expect(
         MiniSprite(const [
           [1],
-          [0]
+          [0],
         ]),
         isNot(
           equals(
             MiniSprite(const [
               [0],
-              [0]
+              [0],
             ]),
           ),
         ),

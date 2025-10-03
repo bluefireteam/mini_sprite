@@ -32,10 +32,10 @@ class _SpriteSizeDialogState extends State<SpriteSizeDialog> {
     super.initState();
 
     final state = context.read<SpriteCubit>().state;
-    _widthController = TextEditingController()
-      ..text = state.pixels[0].length.toString();
-    _heightController = TextEditingController()
-      ..text = state.pixels.length.toString();
+    _widthController =
+        TextEditingController()..text = state.pixels[0].length.toString();
+    _heightController =
+        TextEditingController()..text = state.pixels.length.toString();
   }
 
   @override
@@ -64,9 +64,7 @@ class _SpriteSizeDialogState extends State<SpriteSizeDialog> {
                     decoration: InputDecoration(label: Text(l10n.width)),
                     textAlign: TextAlign.center,
                     controller: _widthController,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
                 const SizedBox(width: 50),
@@ -76,9 +74,7 @@ class _SpriteSizeDialogState extends State<SpriteSizeDialog> {
                     decoration: InputDecoration(label: Text(l10n.height)),
                     textAlign: TextAlign.center,
                     controller: _heightController,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
                 const SizedBox(width: 50),
@@ -89,7 +85,7 @@ class _SpriteSizeDialogState extends State<SpriteSizeDialog> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop(null);
+                    Navigator.of(context).pop();
                   },
                   child: Text(l10n.cancel),
                 ),

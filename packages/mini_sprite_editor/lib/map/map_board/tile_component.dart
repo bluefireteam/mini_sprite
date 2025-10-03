@@ -11,11 +11,7 @@ import 'package:mini_sprite_editor/map/map.dart';
 
 class TileComponent extends PositionComponent
     with HasPaint, HasGameRef<MapBoardGame>, TapCallbacks {
-  TileComponent({
-    super.position,
-    super.size,
-    required this.mapPosition,
-  });
+  TileComponent({super.position, super.size, required this.mapPosition});
 
   final MapPosition mapPosition;
 
@@ -28,14 +24,17 @@ class TileComponent extends PositionComponent
 
   @override
   Future<void> onLoad() async {
-    paint = Paint()
-      ..color = const Color(0xFFFFFFFF)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
+    paint =
+        Paint()
+          ..color = const Color(0xFFFFFFFF)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1;
 
-    _selectedPaint = Paint()..color = gameRef.primaryColor.withOpacity(0.4);
+    _selectedPaint =
+        Paint()..color = gameRef.primaryColor.withValues(alpha: 0.4);
 
-    _hasDataPaint = Paint()..color = gameRef.primaryColor.withOpacity(0.8);
+    _hasDataPaint =
+        Paint()..color = gameRef.primaryColor.withValues(alpha: 0.8);
 
     await addAll([
       FlameBlocListener<MapCubit, MapState>(
@@ -76,10 +75,8 @@ class TileComponent extends PositionComponent
         },
         onNewState: (state) {
           size = Vector2.all(state.mapGridSize.toDouble());
-          position = Vector2(
-                mapPosition.x.toDouble(),
-                mapPosition.y.toDouble(),
-              ) *
+          position =
+              Vector2(mapPosition.x.toDouble(), mapPosition.y.toDouble()) *
               state.mapGridSize.toDouble();
         },
       ),
@@ -118,16 +115,11 @@ class TileComponent extends PositionComponent
         gameRef.mapCubit.addObject(
           mapPosition.x,
           mapPosition.y,
-          <String, dynamic>{
-            'sprite': library.selected,
-          },
+          <String, dynamic>{'sprite': library.selected},
         );
         break;
       case MapTool.eraser:
-        gameRef.mapCubit.removeObject(
-          mapPosition.x,
-          mapPosition.y,
-        );
+        gameRef.mapCubit.removeObject(mapPosition.x, mapPosition.y);
         break;
     }
     event.handled = true;

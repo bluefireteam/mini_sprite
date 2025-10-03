@@ -22,4 +22,9 @@ class MockHydratedStorage implements HydratedStorage {
   Future<void> write(String key, dynamic value) async {
     _values[key] = value;
   }
+
+  @override
+  Future<void> close() async {
+    // noop
+  }
 }

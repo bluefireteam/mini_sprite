@@ -6,11 +6,7 @@ import 'package:mini_sprite_editor/sprite/sprite.dart';
 import 'package:mini_sprite_editor/workspace/workspace.dart';
 
 class WorkspaceView extends StatefulWidget {
-  const WorkspaceView({
-    this.colorList,
-    this.sprite,
-    super.key,
-  });
+  const WorkspaceView({this.colorList, this.sprite, super.key});
 
   final List<Color>? colorList;
   final MiniSprite? sprite;
@@ -35,8 +31,6 @@ class _WorkspaceViewState extends State<WorkspaceView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: TabWorkspace(),
-    );
+    return const Scaffold(body: TabWorkspace());
   }
 }

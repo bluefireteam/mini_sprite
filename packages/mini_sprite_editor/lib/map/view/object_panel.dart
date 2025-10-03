@@ -11,10 +11,11 @@ class ObjectPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MapCubit, MapState>(
-      buildWhen: (previous, current) =>
-          previous.selectedObject != current.selectedObject ||
-          previous.objects[previous.selectedObject] !=
-              current.objects[current.selectedObject],
+      buildWhen:
+          (previous, current) =>
+              previous.selectedObject != current.selectedObject ||
+              previous.objects[previous.selectedObject] !=
+                  current.objects[current.selectedObject],
       builder: (context, state) {
         if (state.selectedObject == const MapPosition(-1, -1)) {
           return const SizedBox();
@@ -29,9 +30,7 @@ class ObjectPanel extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'x ${state.selectedObject.x}, ${state.selectedObject.y}',
-                ),
+                Text('x ${state.selectedObject.x}, ${state.selectedObject.y}'),
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Row(
@@ -64,9 +63,7 @@ class ObjectPanel extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
-                        '${entry.key}: ${entry.value}',
-                      ),
+                      Text('${entry.key}: ${entry.value}'),
                       IconButton(
                         onPressed: () async {
                           final cubit = context.read<MapCubit>();

@@ -63,16 +63,14 @@ class _RenameDialogState extends State<RenameDialog> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop(null);
+                    Navigator.of(context).pop();
                   },
                   child: Text(l10n.cancel),
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop(
-                      _textController.text,
-                    );
+                    Navigator.of(context).pop(_textController.text);
                   },
                   child: Text(l10n.confirm),
                 ),

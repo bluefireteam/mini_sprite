@@ -11,34 +11,18 @@ class MapToolCubit extends Cubit<MapToolState> {
   }
 
   void selectTool(MapTool tool) {
-    emit(
-      state.copyWith(
-        tool: tool,
-      ),
-    );
+    emit(state.copyWith(tool: tool));
   }
 
   void setZoom(double zoom) {
-    emit(
-      state.copyWith(
-        zoom: zoom,
-      ),
-    );
+    emit(state.copyWith(zoom: zoom));
   }
 
   void increaseZoom() {
-    emit(
-      state.copyWith(
-        zoom: state.zoom + 0.1,
-      ),
-    );
+    emit(state.copyWith(zoom: state.zoom + 0.1));
   }
 
   void decreaseZoom() {
-    emit(
-      state.copyWith(
-        zoom: state.zoom - 0.1,
-      ),
-    );
+    emit(state.copyWith(zoom: state.zoom - 0.1));
   }
 }

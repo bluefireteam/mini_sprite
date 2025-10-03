@@ -46,49 +46,47 @@ void main() {
       );
     });
 
-    testWidgets(
-      'renders correctly when not selected or hovered',
-      (tester) async {
-        await tester.pumpApp(
-          Scaffold(
-            backgroundColor: Colors.white,
-            body: PixelCell(
-              color: Color(0xFFFFFFFF),
-              hovered: false,
-              pixelSize: 50,
-              hasBorder: true,
-            ),
+    testWidgets('renders correctly when not selected or hovered', (
+      tester,
+    ) async {
+      await tester.pumpApp(
+        Scaffold(
+          backgroundColor: Colors.white,
+          body: PixelCell(
+            color: Color(0xFFFFFFFF),
+            hovered: false,
+            pixelSize: 50,
+            hasBorder: true,
           ),
-        );
+        ),
+      );
 
-        await expectLater(
-          find.byType(Scaffold),
-          matchesGoldenFile('goldens/pixel_cell_empty.png'),
-        );
-      },
-    );
+      await expectLater(
+        find.byType(Scaffold),
+        matchesGoldenFile('goldens/pixel_cell_empty.png'),
+      );
+    });
 
-    testWidgets(
-      'renders correctly when there is no grid active',
-      (tester) async {
-        await tester.pumpApp(
-          Scaffold(
-            backgroundColor: Colors.white,
-            body: PixelCell(
-              color: Color(0xFFFFFFFF),
-              hovered: false,
-              pixelSize: 50,
-              hasBorder: false,
-            ),
+    testWidgets('renders correctly when there is no grid active', (
+      tester,
+    ) async {
+      await tester.pumpApp(
+        Scaffold(
+          backgroundColor: Colors.white,
+          body: PixelCell(
+            color: Color(0xFFFFFFFF),
+            hovered: false,
+            pixelSize: 50,
+            hasBorder: false,
           ),
-        );
+        ),
+      );
 
-        await expectLater(
-          find.byType(Scaffold),
-          matchesGoldenFile('goldens/pixel_cell_no_border.png'),
-        );
-      },
-    );
+      await expectLater(
+        find.byType(Scaffold),
+        matchesGoldenFile('goldens/pixel_cell_no_border.png'),
+      );
+    });
 
     testWidgets(
       'renders correctly when there is no grid active and is selected',

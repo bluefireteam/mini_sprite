@@ -32,10 +32,10 @@ class _MapSizeDialogState extends State<MapSizeDialog> {
     super.initState();
 
     final state = context.read<MapCubit>().state;
-    _widthController = TextEditingController()
-      ..text = state.mapSize.width.toInt().toString();
-    _heightController = TextEditingController()
-      ..text = state.mapSize.height.toInt().toString();
+    _widthController =
+        TextEditingController()..text = state.mapSize.width.toInt().toString();
+    _heightController =
+        TextEditingController()..text = state.mapSize.height.toInt().toString();
   }
 
   @override
@@ -64,9 +64,7 @@ class _MapSizeDialogState extends State<MapSizeDialog> {
                     decoration: InputDecoration(label: Text(l10n.width)),
                     textAlign: TextAlign.center,
                     controller: _widthController,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
                 const SizedBox(width: 50),
@@ -76,9 +74,7 @@ class _MapSizeDialogState extends State<MapSizeDialog> {
                     decoration: InputDecoration(label: Text(l10n.height)),
                     textAlign: TextAlign.center,
                     controller: _heightController,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
                 const SizedBox(width: 50),
@@ -90,7 +86,7 @@ class _MapSizeDialogState extends State<MapSizeDialog> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop(null);
+                    Navigator.of(context).pop();
                   },
                   child: Text(l10n.cancel),
                 ),

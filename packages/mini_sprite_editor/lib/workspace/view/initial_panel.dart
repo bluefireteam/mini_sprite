@@ -20,8 +20,8 @@ class InitialPanel extends StatelessWidget {
               child: IconButton(
                 onPressed: () {
                   context.read<WorkspaceCubit>().openPanel(
-                        WorkspacePanel.sprite,
-                      );
+                    WorkspacePanel.sprite,
+                  );
                 },
                 tooltip: l10n.openSpriteEditor,
                 icon: const Icon(Icons.brush),
@@ -35,9 +35,7 @@ class InitialPanel extends StatelessWidget {
               height: 100,
               child: IconButton(
                 onPressed: () {
-                  context.read<WorkspaceCubit>().openPanel(
-                        WorkspacePanel.map,
-                      );
+                  context.read<WorkspaceCubit>().openPanel(WorkspacePanel.map);
                 },
                 tooltip: l10n.openMapEditor,
                 icon: const Icon(Icons.map),

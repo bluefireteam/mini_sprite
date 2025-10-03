@@ -91,7 +91,7 @@ class MiniSpriteComponent extends PositionComponent {
       }
 
       final paint = _palette[entry.color];
-      if (paint.color.alpha == 0) {
+      if (((paint.color.a * 255.0).round() & 0xff) == 0) {
         continue;
       }
 
