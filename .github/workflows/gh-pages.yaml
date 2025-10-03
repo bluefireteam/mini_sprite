@@ -17,7 +17,7 @@ jobs:
       - name: Install Dependencies
         run: melos bootstrap
 
-      - run: melos exec --scope mini_sprite_editor  flutter build web --release --web-renderer=canvaskit --base-href /
+      - run: melos exec --scope mini_sprite_editor  flutter build web --release --base-href /
 
         shell: bash
 
