@@ -175,4 +175,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rotateCounterClockwise => 'Rotate counter clockwise';
+
+  @override
+  String get importFromImage => 'Import from image';
 }

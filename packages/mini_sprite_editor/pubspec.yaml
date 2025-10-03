@@ -21,6 +21,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   hydrated_bloc: ^9.0.0-dev.3
+  image: ^4.5.4
   intl: ^0.20.2
   mini_sprite: 0.1.0
   path_provider: ^2.0.11

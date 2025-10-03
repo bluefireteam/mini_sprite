@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/config/config.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
 import 'package:mini_sprite_editor/library/library.dart';
+import 'package:mini_sprite_editor/services/services.dart';
 import 'package:mini_sprite_editor/sprite/cubit/tools_cubit.dart';
 import 'package:mini_sprite_editor/sprite/sprite.dart';
 import 'package:mini_sprite_editor/widgets/composed_icon.dart';
@@ -249,6 +250,34 @@ class SpriteView extends StatelessWidget {
                     },
                     tooltip: l10n.importFromClipBoard,
                     icon: const Icon(Icons.import_export),
+                  ),
+                  Tooltip(
+                    message: l10n.importFromImage,
+                    child: GestureDetector(
+                      key: const Key('import_image_key'),
+                      onTap: () async {
+                        final spriteCubit = context.read<SpriteCubit>();
+                        final configCubit = context.read<ConfigCubit>();
+
+                        final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+                        final imageService =
+                            context.read<ImageImporterService>();
+                        final result = await imageService.importImage();
+                        if (result != null) {
+                          final (pixels, colors) = result;
+                          spriteCubit.setSprite(pixels);
+                          configCubit.setColors(colors);
+                          scaffoldMessenger.showSnackBar(
+                            SnackBar(content: Text(l10n.importSuccess)),
+                          );
+                        }
+                      },
+                      child: const ComposedIcon(
+                        primary: Icons.image,
+                        secondary: Icons.download,
+                      ),
+                    ),
                   ),
                   IconButton(
                     key: const Key('export_to_image'),
