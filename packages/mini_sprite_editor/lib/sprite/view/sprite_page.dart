@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_sprite_editor/config/config.dart';
@@ -55,42 +57,43 @@ class SpriteView extends StatelessWidget {
                     child: MouseRegion(
                       onHover: (event) {
                         context.read<SpriteCubit>().cursorHover(
-                              event.localPosition,
-                              pixelSize.toDouble(),
-                              tool,
-                              toolsState.currentColor,
-                            );
+                          event.localPosition,
+                          pixelSize.toDouble(),
+                          tool,
+                          toolsState.currentColor,
+                        );
                       },
                       child: GestureDetector(
                         onPanStart: (event) {
                           context.read<SpriteCubit>().cursorDown(
-                                event.localPosition,
-                                pixelSize.toDouble(),
-                                tool,
-                                toolsState.currentColor,
-                              );
+                            event.localPosition,
+                            pixelSize.toDouble(),
+                            tool,
+                            toolsState.currentColor,
+                          );
                         },
                         onPanEnd: (event) {
                           context.read<SpriteCubit>().cursorUp(
-                                tool,
-                                toolsState.currentColor,
-                              );
+                            tool,
+                            toolsState.currentColor,
+                          );
                         },
                         onPanUpdate: (event) {
                           context.read<SpriteCubit>().cursorHover(
-                                event.localPosition,
-                                pixelSize.toDouble(),
-                                tool,
-                                toolsState.currentColor,
-                              );
+                            event.localPosition,
+                            pixelSize.toDouble(),
+                            tool,
+                            toolsState.currentColor,
+                          );
                         },
                         child: BlocListener<LibraryCubit, LibraryState>(
-                          listenWhen: (previous, current) =>
-                              previous.selected != current.selected,
+                          listenWhen:
+                              (previous, current) =>
+                                  previous.selected != current.selected,
                           listener: (context, state) {
                             context.read<SpriteCubit>().setSprite(
-                                  state.sprites[state.selected]!.pixels,
-                                );
+                              state.sprites[state.selected]!.pixels,
+                            );
                           },
                           child: Container(
                             color: configState.backgroundColor,
@@ -105,11 +108,13 @@ class SpriteView extends StatelessWidget {
                                       for (var x = 0; x < pixels[y].length; x++)
                                         PixelCell(
                                           pixelSize: pixelSize,
-                                          color: pixels[y][x] >= 0
-                                              ? palette[pixels[y][x]]
-                                              : configState.backgroundColor,
+                                          color:
+                                              pixels[y][x] >= 0
+                                                  ? palette[pixels[y][x]]
+                                                  : configState.backgroundColor,
                                           hasBorder: gridActive,
-                                          hovered: cursorPosition ==
+                                          hovered:
+                                              cursorPosition ==
                                               Offset(
                                                 x.toDouble(),
                                                 y.toDouble(),
@@ -141,10 +146,7 @@ class SpriteView extends StatelessWidget {
                       final cubit = context.read<SpriteCubit>();
                       final value = await SpriteSizeDialog.show(context);
                       if (value != null) {
-                        cubit.setSize(
-                          value.dx.toInt(),
-                          value.dy.toInt(),
-                        );
+                        cubit.setSize(value.dx.toInt(), value.dy.toInt());
                       }
                     },
                     tooltip: l10n.spriteSizeTitle,
@@ -168,9 +170,7 @@ class SpriteView extends StatelessWidget {
                       context.read<ToolsCubit>().toogleGrid();
                     },
                     tooltip: l10n.toogleGrid,
-                    icon: Icon(
-                      gridActive ? Icons.grid_on : Icons.grid_off,
-                    ),
+                    icon: Icon(gridActive ? Icons.grid_on : Icons.grid_off),
                   ),
                   IconButton(
                     key: const Key('flip_vertically_key'),
@@ -223,7 +223,9 @@ class SpriteView extends StatelessWidget {
                   IconButton(
                     key: const Key('import_from_clipboard_key'),
                     onPressed: () {
-                      context.read<SpriteCubit>().importFromClipboard();
+                      unawaited(
+                        context.read<SpriteCubit>().importFromClipboard(),
+                      );
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text(l10n.importSuccess)),
                       );
@@ -236,10 +238,10 @@ class SpriteView extends StatelessWidget {
                     onPressed: () async {
                       final messenger = ScaffoldMessenger.of(context);
                       await context.read<SpriteCubit>().exportToImage(
-                            pixelSize: pixelSize,
-                            palette: palette,
-                            backgroundColor: configState.backgroundColor,
-                          );
+                        pixelSize: pixelSize,
+                        palette: palette,
+                        backgroundColor: configState.backgroundColor,
+                      );
                       messenger.showSnackBar(
                         SnackBar(content: Text(l10n.spriteExported)),
                       );
@@ -250,7 +252,7 @@ class SpriteView extends StatelessWidget {
                   IconButton(
                     key: const Key('config_key'),
                     onPressed: () {
-                      ConfigDialog.show(context);
+                      unawaited(ConfigDialog.show(context));
                     },
                     tooltip: l10n.configurations,
                     icon: const Icon(Icons.settings),
@@ -273,12 +275,10 @@ class SpriteView extends StatelessWidget {
                           context.read<ToolsCubit>().setColor(i);
                         },
                         child: ColoredBox(
-                          color: configState.colors[i].withOpacity(
-                            toolsState.currentColor == i ? .2 : 1,
+                          color: configState.colors[i].withValues(
+                            alpha: toolsState.currentColor == i ? .2 : 1,
                           ),
-                          child: const SizedBox.square(
-                            dimension: 16,
-                          ),
+                          child: const SizedBox.square(dimension: 16),
                         ),
                       ),
                   ],
@@ -294,49 +294,53 @@ class SpriteView extends StatelessWidget {
                 children: [
                   IconButton(
                     key: const Key('brush_key'),
-                    onPressed: tool == SpriteTool.brush
-                        ? null
-                        : () {
-                            context
-                                .read<ToolsCubit>()
-                                .selectTool(SpriteTool.brush);
-                          },
+                    onPressed:
+                        tool == SpriteTool.brush
+                            ? null
+                            : () {
+                              context.read<ToolsCubit>().selectTool(
+                                SpriteTool.brush,
+                              );
+                            },
                     tooltip: l10n.brush,
                     icon: const Icon(Icons.brush),
                   ),
                   IconButton(
                     key: const Key('eraser_key'),
-                    onPressed: tool == SpriteTool.eraser
-                        ? null
-                        : () {
-                            context
-                                .read<ToolsCubit>()
-                                .selectTool(SpriteTool.eraser);
-                          },
+                    onPressed:
+                        tool == SpriteTool.eraser
+                            ? null
+                            : () {
+                              context.read<ToolsCubit>().selectTool(
+                                SpriteTool.eraser,
+                              );
+                            },
                     tooltip: l10n.eraser,
                     icon: const Icon(Icons.rectangle),
                   ),
                   IconButton(
                     key: const Key('bucket_key'),
-                    onPressed: tool == SpriteTool.bucket
-                        ? null
-                        : () {
-                            context
-                                .read<ToolsCubit>()
-                                .selectTool(SpriteTool.bucket);
-                          },
+                    onPressed:
+                        tool == SpriteTool.bucket
+                            ? null
+                            : () {
+                              context.read<ToolsCubit>().selectTool(
+                                SpriteTool.bucket,
+                              );
+                            },
                     tooltip: l10n.bucket,
                     icon: const Icon(Icons.egg_sharp),
                   ),
                   IconButton(
                     key: const Key('bucket_eraser_key'),
-                    onPressed: tool == SpriteTool.bucketEraser
-                        ? null
-                        : () {
-                            context
-                                .read<ToolsCubit>()
-                                .selectTool(SpriteTool.bucketEraser);
-                          },
+                    onPressed:
+                        tool == SpriteTool.bucketEraser
+                            ? null
+                            : () {
+                              context.read<ToolsCubit>().selectTool(
+                                SpriteTool.bucketEraser,
+                              );
+                            },
                     tooltip: l10n.bucketEraser,
                     icon: const Icon(Icons.egg_outlined),
                   ),

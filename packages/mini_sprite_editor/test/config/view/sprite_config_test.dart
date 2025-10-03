@@ -1,3 +1,4 @@
+// Ignoring for tests
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bloc_test/bloc_test.dart';
@@ -31,18 +32,10 @@ extension TestWidgetText on WidgetTester {
     await pumpApp(
       MultiBlocProvider(
         providers: [
-          BlocProvider<SpriteCubit>.value(
-            value: spriteCubit,
-          ),
-          BlocProvider<ToolsCubit>.value(
-            value: toolsCubit,
-          ),
-          BlocProvider<ConfigCubit>.value(
-            value: configCubit,
-          ),
-          BlocProvider<LibraryCubit>.value(
-            value: libraryCubit,
-          ),
+          BlocProvider<SpriteCubit>.value(value: spriteCubit),
+          BlocProvider<ToolsCubit>.value(value: toolsCubit),
+          BlocProvider<ConfigCubit>.value(value: configCubit),
+          BlocProvider<LibraryCubit>.value(value: libraryCubit),
         ],
         child: const SpriteView(),
       ),
@@ -72,7 +65,7 @@ void main() async {
       libraryCubit = _MockLibraryCubit();
     });
 
-    void _mockState({
+    void mockState({
       required SpriteState spriteState,
       required ToolsState toolsState,
       required ConfigState configState,
@@ -103,7 +96,7 @@ void main() async {
 
     group('config', () {
       testWidgets('opens the config dialog', (tester) async {
-        _mockState(
+        mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
@@ -124,7 +117,7 @@ void main() async {
       });
 
       testWidgets('can close the config dialog', (tester) async {
-        _mockState(
+        mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
@@ -148,7 +141,7 @@ void main() async {
       });
 
       testWidgets('can change to system', (tester) async {
-        _mockState(
+        mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial().copyWith(
@@ -173,7 +166,7 @@ void main() async {
       });
 
       testWidgets('can change to light', (tester) async {
-        _mockState(
+        mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
@@ -196,7 +189,7 @@ void main() async {
       });
 
       testWidgets('can change to dark', (tester) async {
-        _mockState(
+        mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: ConfigState.initial(),
@@ -220,7 +213,7 @@ void main() async {
 
       testWidgets('can change add a color', (tester) async {
         const state = ConfigState.initial();
-        _mockState(
+        mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: state,
@@ -251,12 +244,10 @@ void main() async {
 
       testWidgets('can change a color', (tester) async {
         const state = ConfigState.initial();
-        _mockState(
+        mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
-          configState: state.copyWith(
-            colors: const [Colors.red, Colors.green],
-          ),
+          configState: state.copyWith(colors: const [Colors.red, Colors.green]),
           libraryState: LibraryState.initial(),
         );
 
@@ -279,14 +270,12 @@ void main() async {
         await tester.pumpAndSettle();
         await tester.idle();
 
-        verify(
-          () => configCubit.setColor(0, captureAny()),
-        ).called(1);
+        verify(() => configCubit.setColor(0, captureAny())).called(1);
       });
 
       testWidgets('can change the background color', (tester) async {
         const state = ConfigState.initial();
-        _mockState(
+        mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
           configState: state,

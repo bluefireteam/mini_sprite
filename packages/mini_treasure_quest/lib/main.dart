@@ -17,12 +17,10 @@ ThemeData _buildTheme(Brightness brightness) {
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.red,
-      background: Colors.black,
-      onBackground: Colors.black,
       surface: Colors.black87,
       onSurface: Colors.black87,
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: Colors.black,
       elevation: 2,
       shape: Border.all(

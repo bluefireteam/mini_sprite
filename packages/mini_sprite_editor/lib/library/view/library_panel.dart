@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame/widgets.dart';
 import 'package:flame_mini_sprite/flame_mini_sprite.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +58,7 @@ class _LibraryPanelState extends State<LibraryPanel> {
     return BlocListener<SpriteCubit, SpriteState>(
       listenWhen: (previous, current) => previous.pixels != current.pixels,
       listener: (context, state) {
-        _onSpriteChange(state.pixels);
+        unawaited(_onSpriteChange(state.pixels));
       },
       child: Card(
         child: Column(
@@ -102,7 +104,9 @@ class _LibraryPanelState extends State<LibraryPanel> {
                   IconButton(
                     key: const Key('import_library_from_clipboard_key'),
                     onPressed: () {
-                      context.read<LibraryCubit>().importFromClipboard();
+                      unawaited(
+                        context.read<LibraryCubit>().importFromClipboard(),
+                      );
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text(l10n.importSuccess)),
                       );
@@ -187,10 +191,7 @@ class _LibraryEntryState extends State<_LibraryEntry> {
         final cubit = context.read<LibraryCubit>();
         final newName = await RenameDialog.show(context, widget.spriteKey);
         if (newName != null) {
-          cubit.rename(
-            widget.spriteKey,
-            newName,
-          );
+          cubit.rename(widget.spriteKey, newName);
         }
       },
       child: Column(
@@ -203,9 +204,10 @@ class _LibraryEntryState extends State<_LibraryEntry> {
               border: Border(
                 bottom: BorderSide(
                   width: 2,
-                  color: widget.selected
-                      ? Theme.of(context).buttonTheme.colorScheme!.primary
-                      : Colors.transparent,
+                  color:
+                      widget.selected
+                          ? Theme.of(context).buttonTheme.colorScheme!.primary
+                          : Colors.transparent,
                 ),
               ),
             ),

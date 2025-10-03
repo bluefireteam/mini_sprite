@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_sprite_editor/config/config.dart';
-import 'package:mini_sprite_editor/hub/hub.dart';
 import 'package:mini_sprite_editor/library/library.dart';
 import 'package:mini_sprite_editor/map/map.dart';
 import 'package:mini_sprite_editor/sprite/cubit/tools_cubit.dart';
@@ -27,8 +26,6 @@ class _MockConfigCubit extends Mock implements ConfigCubit {}
 
 class _MockLibraryCubit extends Mock implements LibraryCubit {}
 
-class _MockHubCubit extends MockCubit<HubState> implements HubCubit {}
-
 extension TestWidgetText on WidgetTester {
   Future<void> pumpTest({
     required SpriteCubit spriteCubit,
@@ -37,41 +34,20 @@ extension TestWidgetText on WidgetTester {
     required LibraryCubit libraryCubit,
     required WorkspaceCubit workspaceCubit,
     required MapCubit mapCubit,
-    required HubCubit hubCubit,
     List<Color>? colors,
     MiniSprite? sprite,
   }) async {
     await pumpApp(
       MultiBlocProvider(
         providers: [
-          BlocProvider<SpriteCubit>.value(
-            value: spriteCubit,
-          ),
-          BlocProvider<ToolsCubit>.value(
-            value: toolsCubit,
-          ),
-          BlocProvider<ConfigCubit>.value(
-            value: configCubit,
-          ),
-          BlocProvider<LibraryCubit>.value(
-            value: libraryCubit,
-          ),
-          BlocProvider<WorkspaceCubit>.value(
-            value: workspaceCubit,
-          ),
-          BlocProvider<MapCubit>.value(
-            value: mapCubit,
-          ),
-          BlocProvider<HubCubit>.value(
-            value: hubCubit,
-          ),
+          BlocProvider<SpriteCubit>.value(value: spriteCubit),
+          BlocProvider<ToolsCubit>.value(value: toolsCubit),
+          BlocProvider<ConfigCubit>.value(value: configCubit),
+          BlocProvider<LibraryCubit>.value(value: libraryCubit),
+          BlocProvider<WorkspaceCubit>.value(value: workspaceCubit),
+          BlocProvider<MapCubit>.value(value: mapCubit),
         ],
-        child: Scaffold(
-          body: WorkspaceView(
-            colorList: colors,
-            sprite: sprite,
-          ),
-        ),
+        child: Scaffold(body: WorkspaceView(colorList: colors, sprite: sprite)),
       ),
     );
   }
@@ -85,7 +61,6 @@ void main() {
     late LibraryCubit libraryCubit;
     late WorkspaceCubit workspaceCubit;
     late MapCubit mapCubit;
-    late HubCubit hubCubit;
 
     setUpAll(() {
       registerFallbackValue(SpriteTool.brush);
@@ -100,11 +75,9 @@ void main() {
       libraryCubit = _MockLibraryCubit();
       workspaceCubit = _MockWorkspaceCubit();
       mapCubit = _MockMapCubit();
-      hubCubit = _MockHubCubit();
-      when(hubCubit.load).thenAnswer((_) async {});
     });
 
-    void _mockState({
+    void mockState({
       required SpriteState spriteState,
       required ToolsState toolsState,
       required ConfigState configState,
@@ -142,19 +115,10 @@ void main() {
         Stream.fromIterable([mapState]),
         initialState: mapState,
       );
-      const hubState = HubState(
-        entries: [],
-        status: HubStateStatus.loaded,
-      );
-      whenListen(
-        hubCubit,
-        Stream.fromIterable([hubState]),
-        initialState: hubState,
-      );
     }
 
     testWidgets('renders', (tester) async {
-      _mockState(
+      mockState(
         spriteState: SpriteState.initial(),
         toolsState: const ToolsState.initial(),
         configState: const ConfigState.initial(),
@@ -170,71 +134,61 @@ void main() {
         libraryCubit: libraryCubit,
         workspaceCubit: workspaceCubit,
         mapCubit: mapCubit,
-        hubCubit: hubCubit,
       );
 
       expect(find.byType(WorkspaceView), findsOneWidget);
     });
 
-    testWidgets(
-      'set the colors when receiving a list of colors',
-      (tester) async {
-        _mockState(
-          spriteState: SpriteState.initial(),
-          toolsState: const ToolsState.initial(),
-          configState: const ConfigState.initial(),
-          libraryState: const LibraryState.initial(),
-          workspaceState: const WorkspaceState.initial(),
-          mapState: const MapState.initial(),
-        );
+    testWidgets('set the colors when receiving a list of colors', (
+      tester,
+    ) async {
+      mockState(
+        spriteState: SpriteState.initial(),
+        toolsState: const ToolsState.initial(),
+        configState: const ConfigState.initial(),
+        libraryState: const LibraryState.initial(),
+        workspaceState: const WorkspaceState.initial(),
+        mapState: const MapState.initial(),
+      );
 
-        await tester.pumpTest(
-          spriteCubit: spriteCubit,
-          toolsCubit: toolsCubit,
-          configCubit: configCubit,
-          libraryCubit: libraryCubit,
-          workspaceCubit: workspaceCubit,
-          mapCubit: mapCubit,
-          hubCubit: hubCubit,
-          colors: [Colors.red, Colors.blue],
-        );
+      await tester.pumpTest(
+        spriteCubit: spriteCubit,
+        toolsCubit: toolsCubit,
+        configCubit: configCubit,
+        libraryCubit: libraryCubit,
+        workspaceCubit: workspaceCubit,
+        mapCubit: mapCubit,
+        colors: [Colors.red, Colors.blue],
+      );
 
-        verify(() => configCubit.setColors([Colors.red, Colors.blue]))
-            .called(1);
-      },
-    );
+      verify(() => configCubit.setColors([Colors.red, Colors.blue])).called(1);
+    });
 
-    testWidgets(
-      'set the sprite when receiving one',
-      (tester) async {
-        _mockState(
-          spriteState: SpriteState.initial(),
-          toolsState: const ToolsState.initial(),
-          configState: const ConfigState.initial(),
-          libraryState: const LibraryState.initial(),
-          workspaceState: const WorkspaceState.initial(),
-          mapState: const MapState.initial(),
-        );
+    testWidgets('set the sprite when receiving one', (tester) async {
+      mockState(
+        spriteState: SpriteState.initial(),
+        toolsState: const ToolsState.initial(),
+        configState: const ConfigState.initial(),
+        libraryState: const LibraryState.initial(),
+        workspaceState: const WorkspaceState.initial(),
+        mapState: const MapState.initial(),
+      );
 
-        const sprite = MiniSprite(
-          [
-            [1],
-            [0],
-          ],
-        );
-        await tester.pumpTest(
-          spriteCubit: spriteCubit,
-          toolsCubit: toolsCubit,
-          configCubit: configCubit,
-          libraryCubit: libraryCubit,
-          workspaceCubit: workspaceCubit,
-          mapCubit: mapCubit,
-          hubCubit: hubCubit,
-          sprite: sprite,
-        );
+      const sprite = MiniSprite([
+        [1],
+        [0],
+      ]);
+      await tester.pumpTest(
+        spriteCubit: spriteCubit,
+        toolsCubit: toolsCubit,
+        configCubit: configCubit,
+        libraryCubit: libraryCubit,
+        workspaceCubit: workspaceCubit,
+        mapCubit: mapCubit,
+        sprite: sprite,
+      );
 
-        verify(() => spriteCubit.setSprite(sprite.pixels)).called(1);
-      },
-    );
+      verify(() => spriteCubit.setSprite(sprite.pixels)).called(1);
+    });
   });
 }

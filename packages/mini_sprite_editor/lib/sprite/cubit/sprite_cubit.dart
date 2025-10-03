@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
@@ -15,9 +16,9 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
   SpriteCubit({
     Future<void> Function(ClipboardData)? setClipboardData,
     Future<ClipboardData?> Function(String)? getClipboardData,
-  })  : _setClipboardData = setClipboardData ?? Clipboard.setData,
-        _getClipboardData = getClipboardData ?? Clipboard.getData,
-        super(SpriteState.initial());
+  }) : _setClipboardData = setClipboardData ?? Clipboard.setData,
+       _getClipboardData = getClipboardData ?? Clipboard.getData,
+       super(SpriteState.initial());
 
   final Future<void> Function(ClipboardData) _setClipboardData;
   final Future<ClipboardData?> Function(String) _getClipboardData;
@@ -27,7 +28,7 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
   void copyToClipboard() {
     final sprite = MiniSprite(state.pixels);
     final data = sprite.toDataString();
-    _setClipboardData(ClipboardData(text: data));
+    unawaited(_setClipboardData(ClipboardData(text: data)));
   }
 
   void setSprite(List<List<int>> pixels) {
@@ -50,8 +51,8 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
     final data = await sprite.image.toByteData(format: ImageByteFormat.png);
 
     const fileName = 'sprite.png';
-    final path = await getSavePath(suggestedName: fileName);
-    if (path == null) {
+    final location = await getSaveLocation(suggestedName: fileName);
+    if (location == null) {
       // Operation was canceled by the user.
       return;
     }
@@ -63,7 +64,7 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
       mimeType: mimeType,
       name: fileName,
     );
-    await imageFile.saveTo(path);
+    await imageFile.saveTo(location.path);
   }
 
   Future<void> importFromClipboard() async {
@@ -179,22 +180,18 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
         if (toolActive) {
           _setPixel(selectedColor);
         }
-        break;
       case SpriteTool.eraser:
         if (toolActive) {
           _setPixel(-1);
         }
-        break;
       case SpriteTool.bucket:
         if (toolActive) {
           _floodFill(selectedColor);
         }
-        break;
       case SpriteTool.bucketEraser:
         if (toolActive) {
           _floodFill(-1);
         }
-        break;
     }
   }
 
@@ -229,9 +226,7 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
   }
 
   void setSize(int x, int y) {
-    final newPixels = [
-      ...List.generate(y, (i) => List.generate(x, (j) => -1)),
-    ];
+    final newPixels = [...List.generate(y, (i) => List.generate(x, (j) => -1))];
 
     for (var y = 0; y < state.pixels.length; y++) {
       for (var x = 0; x < state.pixels[y].length; x++) {

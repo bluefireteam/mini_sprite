@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
 
 class NewPropertyDialog extends StatefulWidget {
-  const NewPropertyDialog({
-    super.key,
-    this.name,
-    this.value,
-  });
+  const NewPropertyDialog({super.key, this.name, this.value});
 
   final String? name;
   final String? value;
@@ -61,9 +57,7 @@ class _NewPropertyDialogState extends State<NewPropertyDialog> {
               child: TextField(
                 autofocus: true,
                 key: const Key('new_property_name_field'),
-                decoration: InputDecoration(
-                  label: Text(l10n.name),
-                ),
+                decoration: InputDecoration(label: Text(l10n.name)),
                 textAlign: TextAlign.center,
                 controller: _nameController,
                 enabled: _nameController.text.isEmpty,
@@ -74,9 +68,7 @@ class _NewPropertyDialogState extends State<NewPropertyDialog> {
               child: TextField(
                 autofocus: true,
                 key: const Key('new_property_value_field'),
-                decoration: InputDecoration(
-                  label: Text(l10n.value),
-                ),
+                decoration: InputDecoration(label: Text(l10n.value)),
                 textAlign: TextAlign.center,
                 controller: _valueController,
               ),
@@ -87,7 +79,7 @@ class _NewPropertyDialogState extends State<NewPropertyDialog> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop(null);
+                    Navigator.of(context).pop();
                   },
                   child: Text(l10n.cancel),
                 ),
@@ -98,9 +90,9 @@ class _NewPropertyDialogState extends State<NewPropertyDialog> {
                       _valueController.text.isEmpty
                           ? null
                           : MapEntry(
-                              _nameController.text,
-                              _valueController.text,
-                            ),
+                            _nameController.text,
+                            _valueController.text,
+                          ),
                     );
                   },
                   child: Text(l10n.confirm),

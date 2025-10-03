@@ -27,9 +27,7 @@ class ConfirmDialog extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(width: 8),
-            Text(
-              l10n.confirmationMessage,
-            ),
+            Text(l10n.confirmationMessage),
             const SizedBox(height: 32),
             Column(
               children: [

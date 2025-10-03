@@ -9,13 +9,7 @@ class WorkspaceCubit extends Cubit<WorkspaceState> {
   void openPanel(WorkspacePanel panel) {
     if (!state.panels.contains(panel)) {
       emit(
-        state.copyWith(
-          panels: [
-            ...state.panels,
-            panel,
-          ],
-          activePanel: panel,
-        ),
+        state.copyWith(panels: [...state.panels, panel], activePanel: panel),
       );
     } else {
       emit(state.copyWith(activePanel: panel));
@@ -32,10 +26,6 @@ class WorkspaceCubit extends Cubit<WorkspaceState> {
   }
 
   void setMode(WorkspaceMode mode) {
-    emit(
-      state.copyWith(
-        mode: mode,
-      ),
-    );
+    emit(state.copyWith(mode: mode));
   }
 }

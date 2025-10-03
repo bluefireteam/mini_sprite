@@ -19,7 +19,7 @@ class RedoIntent extends Intent {
 }
 
 class PageShortcuts extends StatelessWidget {
-  const PageShortcuts({super.key, required this.child});
+  const PageShortcuts({required this.child, super.key});
 
   final Widget child;
 
@@ -68,10 +68,7 @@ class PageShortcuts extends StatelessWidget {
             },
           ),
         },
-        child: Focus(
-          autofocus: true,
-          child: child,
-        ),
+        child: Focus(autofocus: true, child: child),
       ),
     );
   }

@@ -1,3 +1,4 @@
+// Ignoring for tests
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter_test/flutter_test.dart';
@@ -7,21 +8,13 @@ import 'package:mini_sprite_editor/library/library.dart';
 void main() {
   group('LibraryState', () {
     test('can be instantiated', () {
-      expect(
-        LibraryState(
-          sprites: const {},
-          selected: '',
-        ),
-        isNotNull,
-      );
+      expect(LibraryState(sprites: const {}, selected: ''), isNotNull);
     });
 
     test('supports equality', () {
       expect(
         LibraryState(sprites: const {}, selected: ''),
-        equals(
-          LibraryState(sprites: const {}, selected: ''),
-        ),
+        equals(LibraryState(sprites: const {}, selected: '')),
       );
 
       expect(
@@ -99,15 +92,8 @@ void main() {
       );
 
       expect(
-        LibraryState.initial().copyWith(
-          selected: 'player',
-        ),
-        equals(
-          LibraryState(
-            sprites: const {},
-            selected: 'player',
-          ),
-        ),
+        LibraryState.initial().copyWith(selected: 'player'),
+        equals(LibraryState(sprites: const {}, selected: 'player')),
       );
     });
   });

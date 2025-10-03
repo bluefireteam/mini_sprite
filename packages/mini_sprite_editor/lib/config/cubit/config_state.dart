@@ -9,12 +9,12 @@ class ConfigState extends Equatable {
   });
 
   const ConfigState.initial()
-      : this(
-          themeMode: ThemeMode.system,
-          colors: const [Colors.black, Colors.white],
-          backgroundColor: Colors.transparent,
-          mapGridSize: 16,
-        );
+    : this(
+        themeMode: ThemeMode.system,
+        colors: const [Colors.black, Colors.white],
+        backgroundColor: Colors.transparent,
+        mapGridSize: 16,
+      );
 
   final ThemeMode themeMode;
   final List<Color> colors;
@@ -36,10 +36,5 @@ class ConfigState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        themeMode,
-        colors,
-        backgroundColor,
-        mapGridSize,
-      ];
+  List<Object?> get props => [themeMode, colors, backgroundColor, mapGridSize];
 }

@@ -8,11 +8,11 @@ class MapState extends Equatable {
   });
 
   const MapState.initial()
-      : this(
-          objects: const {},
-          selectedObject: const MapPosition(-1, -1),
-          mapSize: const Size(10, 10),
-        );
+    : this(
+        objects: const {},
+        selectedObject: const MapPosition(-1, -1),
+        mapSize: const Size(10, 10),
+      );
 
   final Map<MapPosition, Map<String, dynamic>> objects;
   final MapPosition selectedObject;

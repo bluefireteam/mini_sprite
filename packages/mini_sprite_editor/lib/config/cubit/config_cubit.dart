@@ -31,9 +31,7 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
 
   void removeColor(int index) {
     emit(
-      state.copyWith(
-        colors: List<Color>.from(state.colors)..removeAt(index),
-      ),
+      state.copyWith(colors: List<Color>.from(state.colors)..removeAt(index)),
     );
   }
 
@@ -72,8 +70,8 @@ class ConfigCubit extends HydratedCubit<ConfigState> {
   Map<String, dynamic>? toJson(ConfigState state) {
     return <String, dynamic>{
       'theme_mode': state.themeMode.name,
-      'colors': state.colors.map((e) => e.value).toList(),
-      'background_color': state.backgroundColor.value,
+      'colors': state.colors.map((e) => e.toARGB32()).toList(),
+      'background_color': state.backgroundColor.toARGB32(),
       'map_grid_size': state.mapGridSize,
     };
   }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flame/components.dart';
@@ -10,12 +11,8 @@ import 'package:mini_sprite_editor/library/library.dart';
 import 'package:mini_sprite_editor/map/map.dart';
 
 class TileComponent extends PositionComponent
-    with HasPaint, HasGameRef<MapBoardGame>, TapCallbacks {
-  TileComponent({
-    super.position,
-    super.size,
-    required this.mapPosition,
-  });
+    with HasPaint, HasGameReference<MapBoardGame>, TapCallbacks {
+  TileComponent({required this.mapPosition, super.position, super.size});
 
   final MapPosition mapPosition;
 
@@ -28,14 +25,15 @@ class TileComponent extends PositionComponent
 
   @override
   Future<void> onLoad() async {
-    paint = Paint()
-      ..color = const Color(0xFFFFFFFF)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
+    paint =
+        Paint()
+          ..color = const Color(0xFFFFFFFF)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1;
 
-    _selectedPaint = Paint()..color = gameRef.primaryColor.withOpacity(0.4);
+    _selectedPaint = Paint()..color = game.primaryColor.withValues(alpha: 0.4);
 
-    _hasDataPaint = Paint()..color = gameRef.primaryColor.withOpacity(0.8);
+    _hasDataPaint = Paint()..color = game.primaryColor.withValues(alpha: 0.8);
 
     await addAll([
       FlameBlocListener<MapCubit, MapState>(
@@ -65,7 +63,7 @@ class TileComponent extends PositionComponent
       FlameBlocListener<LibraryCubit, LibraryState>(
         listenWhen: (previous, current) {
           final myKey =
-              gameRef.mapCubit.state.objects[mapPosition]?['sprite'] as String?;
+              game.mapCubit.state.objects[mapPosition]?['sprite'] as String?;
           return previous.sprites[myKey] != current.sprites[myKey];
         },
         onNewState: (_) => _updateSprite(),
@@ -76,10 +74,8 @@ class TileComponent extends PositionComponent
         },
         onNewState: (state) {
           size = Vector2.all(state.mapGridSize.toDouble());
-          position = Vector2(
-                mapPosition.x.toDouble(),
-                mapPosition.y.toDouble(),
-              ) *
+          position =
+              Vector2(mapPosition.x.toDouble(), mapPosition.y.toDouble()) *
               state.mapGridSize.toDouble();
         },
       ),
@@ -87,18 +83,20 @@ class TileComponent extends PositionComponent
   }
 
   void _updateSprite() {
-    final object = gameRef.mapCubit.state.objects[mapPosition];
+    final object = game.mapCubit.state.objects[mapPosition];
     final spriteId = object?['sprite'] as String?;
-    final miniSprite = gameRef.libraryCubit.state.sprites[spriteId];
+    final miniSprite = game.libraryCubit.state.sprites[spriteId];
     if (miniSprite != null) {
       // TODO(erickzanardo): cache this somehow.
-      miniSprite
-          .toSprite(
-            pixelSize: 1,
-            palette: gameRef.configCubit.state.colors,
-            backgroundColor: gameRef.configCubit.state.backgroundColor,
-          )
-          .then((value) => _sprite = value);
+      unawaited(
+        miniSprite
+            .toSprite(
+              pixelSize: 1,
+              palette: game.configCubit.state.colors,
+              backgroundColor: game.configCubit.state.backgroundColor,
+            )
+            .then((value) => _sprite = value),
+      );
     } else {
       _sprite = null;
       _hasData = object?.isNotEmpty ?? false;
@@ -107,28 +105,20 @@ class TileComponent extends PositionComponent
 
   @override
   void onTapUp(TapUpEvent event) {
-    final library = gameRef.libraryCubit.state;
-    final tool = gameRef.mapToolCubit.state.tool;
+    final library = game.libraryCubit.state;
+    final tool = game.mapToolCubit.state.tool;
 
     switch (tool) {
       case MapTool.none:
-        gameRef.mapCubit.setSelected(mapPosition);
-        break;
+        game.mapCubit.setSelected(mapPosition);
       case MapTool.brush:
-        gameRef.mapCubit.addObject(
+        game.mapCubit.addObject(
           mapPosition.x,
           mapPosition.y,
-          <String, dynamic>{
-            'sprite': library.selected,
-          },
+          <String, dynamic>{'sprite': library.selected},
         );
-        break;
       case MapTool.eraser:
-        gameRef.mapCubit.removeObject(
-          mapPosition.x,
-          mapPosition.y,
-        );
-        break;
+        game.mapCubit.removeObject(mapPosition.x, mapPosition.y);
     }
     event.handled = true;
   }
@@ -143,7 +133,7 @@ class TileComponent extends PositionComponent
     if (_selected) {
       canvas.drawRect(size.toRect(), _selectedPaint);
     }
-    if (gameRef.mapToolCubit.state.gridActive) {
+    if (game.mapToolCubit.state.gridActive) {
       canvas.drawRect(size.toRect(), paint);
     }
   }

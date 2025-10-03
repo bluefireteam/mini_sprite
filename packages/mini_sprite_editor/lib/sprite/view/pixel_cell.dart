@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class PixelCell extends StatelessWidget {
   const PixelCell({
-    super.key,
     required this.color,
     required this.hovered,
     required this.pixelSize,
     required this.hasBorder,
+    super.key,
   });
 
   final bool hovered;
@@ -20,7 +20,7 @@ class PixelCell extends StatelessWidget {
       width: pixelSize.toDouble(),
       height: pixelSize.toDouble(),
       decoration: BoxDecoration(
-        color: hovered ? color.withOpacity(.2) : color,
+        color: hovered ? color.withValues(alpha: .2) : color,
         border: Border.all(
           color: hasBorder ? Colors.black : Colors.transparent,
         ),

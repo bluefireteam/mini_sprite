@@ -1,3 +1,4 @@
+// Ignoring for tests
 // ignore_for_file: one_member_abstracts, prefer_const_constructors
 
 import 'package:bloc_test/bloc_test.dart';
@@ -26,10 +27,7 @@ void main() {
     });
 
     test('can be instantiated', () {
-      expect(
-        SpriteCubit(),
-        isNotNull,
-      );
+      expect(SpriteCubit(), isNotNull);
     });
 
     test(
@@ -152,14 +150,12 @@ void main() {
         'emits the updated pixels when there is data',
         build: () => SpriteCubit(getClipboardData: stub.getClipboardData),
         setUp: () {
-          when(() => stub.getClipboardData('text/plain')).thenAnswer(
-            (_) async => ClipboardData(text: sprite.toDataString()),
-          );
+          when(
+            () => stub.getClipboardData('text/plain'),
+          ).thenAnswer((_) async => ClipboardData(text: sprite.toDataString()));
         },
         act: (cubit) => cubit.importFromClipboard(),
-        expect: () => [
-          SpriteState.initial().copyWith(pixels: sprite.pixels),
-        ],
+        expect: () => [SpriteState.initial().copyWith(pixels: sprite.pixels)],
       );
     });
 
@@ -168,9 +164,12 @@ void main() {
       build: SpriteCubit.new,
       seed: () => SpriteState.initial().copyWith(cursorPosition: Offset.zero),
       act: (cubit) => cubit.cursorLeft(),
-      expect: () => [
-        SpriteState.initial().copyWith(cursorPosition: const Offset(-1, -1)),
-      ],
+      expect:
+          () => [
+            SpriteState.initial().copyWith(
+              cursorPosition: const Offset(-1, -1),
+            ),
+          ],
     );
 
     group('cursorHover', () {
@@ -185,27 +184,27 @@ void main() {
         'change cursor position on cursorHover',
         build: SpriteCubit.new,
         seed: () => state,
-        act: (cubit) => cubit.cursorHover(
-          const Offset(30, 30),
-          25,
-          SpriteTool.brush,
-          1,
-        ),
-        expect: () => [
-          state.copyWith(cursorPosition: const Offset(1, 1)),
-        ],
+        act:
+            (cubit) => cubit.cursorHover(
+              const Offset(30, 30),
+              25,
+              SpriteTool.brush,
+              1,
+            ),
+        expect: () => [state.copyWith(cursorPosition: const Offset(1, 1))],
       );
 
       blocTest<SpriteCubit, SpriteState>(
         "doesn't change the position when the position is the same",
         build: SpriteCubit.new,
         seed: () => state.copyWith(cursorPosition: const Offset(1, 1)),
-        act: (cubit) => cubit.cursorHover(
-          const Offset(30, 30),
-          25,
-          SpriteTool.brush,
-          1,
-        ),
+        act:
+            (cubit) => cubit.cursorHover(
+              const Offset(30, 30),
+              25,
+              SpriteTool.brush,
+              1,
+            ),
         expect: () => <SpriteState>[],
       );
     });
@@ -222,17 +221,10 @@ void main() {
         'change cursor position on cursorDown and active the tool',
         build: SpriteCubit.new,
         seed: () => state,
-        act: (cubit) => cubit.cursorDown(
-          const Offset(30, 30),
-          25,
-          SpriteTool.brush,
-          1,
-        ),
-        expect: () => [
-          state.copyWith(
-            cursorPosition: const Offset(1, 1),
-          ),
-        ],
+        act:
+            (cubit) =>
+                cubit.cursorDown(const Offset(30, 30), 25, SpriteTool.brush, 1),
+        expect: () => [state.copyWith(cursorPosition: const Offset(1, 1))],
       );
     });
 
@@ -272,54 +264,57 @@ void main() {
           'paints the board',
           build: SpriteCubit.new,
           seed: () => emptyState,
-          act: (cubit) => cubit
-            ..cursorDown(Offset.zero, 25, SpriteTool.brush, 1)
-            ..cursorHover(const Offset(30, 0), 25, SpriteTool.brush, 1)
-            ..cursorHover(const Offset(60, 0), 25, SpriteTool.brush, 1)
-            ..cursorUp(SpriteTool.brush, 1),
-          expect: () => [
-            emptyState.copyWith(cursorPosition: Offset.zero),
-            emptyState.copyWith(
-              cursorPosition: Offset.zero,
-              pixels: [
-                [1, -1, -1],
-                [-1, -1, -1],
-                [-1, -1, -1],
+          act:
+              (cubit) =>
+                  cubit
+                    ..cursorDown(Offset.zero, 25, SpriteTool.brush, 1)
+                    ..cursorHover(const Offset(30, 0), 25, SpriteTool.brush, 1)
+                    ..cursorHover(const Offset(60, 0), 25, SpriteTool.brush, 1)
+                    ..cursorUp(SpriteTool.brush, 1),
+          expect:
+              () => [
+                emptyState.copyWith(cursorPosition: Offset.zero),
+                emptyState.copyWith(
+                  cursorPosition: Offset.zero,
+                  pixels: [
+                    [1, -1, -1],
+                    [-1, -1, -1],
+                    [-1, -1, -1],
+                  ],
+                ),
+                emptyState.copyWith(
+                  cursorPosition: const Offset(1, 0),
+                  pixels: [
+                    [1, -1, -1],
+                    [-1, -1, -1],
+                    [-1, -1, -1],
+                  ],
+                ),
+                emptyState.copyWith(
+                  cursorPosition: const Offset(1, 0),
+                  pixels: [
+                    [1, 1, -1],
+                    [-1, -1, -1],
+                    [-1, -1, -1],
+                  ],
+                ),
+                emptyState.copyWith(
+                  cursorPosition: const Offset(2, 0),
+                  pixels: [
+                    [1, 1, -1],
+                    [-1, -1, -1],
+                    [-1, -1, -1],
+                  ],
+                ),
+                emptyState.copyWith(
+                  cursorPosition: const Offset(2, 0),
+                  pixels: [
+                    [1, 1, 1],
+                    [-1, -1, -1],
+                    [-1, -1, -1],
+                  ],
+                ),
               ],
-            ),
-            emptyState.copyWith(
-              cursorPosition: const Offset(1, 0),
-              pixels: [
-                [1, -1, -1],
-                [-1, -1, -1],
-                [-1, -1, -1],
-              ],
-            ),
-            emptyState.copyWith(
-              cursorPosition: const Offset(1, 0),
-              pixels: [
-                [1, 1, -1],
-                [-1, -1, -1],
-                [-1, -1, -1],
-              ],
-            ),
-            emptyState.copyWith(
-              cursorPosition: const Offset(2, 0),
-              pixels: [
-                [1, 1, -1],
-                [-1, -1, -1],
-                [-1, -1, -1],
-              ],
-            ),
-            emptyState.copyWith(
-              cursorPosition: const Offset(2, 0),
-              pixels: [
-                [1, 1, 1],
-                [-1, -1, -1],
-                [-1, -1, -1],
-              ],
-            ),
-          ],
         );
       });
 
@@ -328,56 +323,57 @@ void main() {
           'clears the board',
           build: SpriteCubit.new,
           seed: () => filledState,
-          act: (cubit) => cubit
-            ..cursorDown(Offset.zero, 25, SpriteTool.eraser, 0)
-            ..cursorHover(const Offset(30, 0), 25, SpriteTool.eraser, 0)
-            ..cursorHover(const Offset(60, 0), 25, SpriteTool.eraser, 0)
-            ..cursorUp(SpriteTool.eraser, 0),
-          expect: () => [
-            filledState.copyWith(
-              cursorPosition: Offset.zero,
-            ),
-            filledState.copyWith(
-              cursorPosition: Offset.zero,
-              pixels: [
-                [-1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
+          act:
+              (cubit) =>
+                  cubit
+                    ..cursorDown(Offset.zero, 25, SpriteTool.eraser, 0)
+                    ..cursorHover(const Offset(30, 0), 25, SpriteTool.eraser, 0)
+                    ..cursorHover(const Offset(60, 0), 25, SpriteTool.eraser, 0)
+                    ..cursorUp(SpriteTool.eraser, 0),
+          expect:
+              () => [
+                filledState.copyWith(cursorPosition: Offset.zero),
+                filledState.copyWith(
+                  cursorPosition: Offset.zero,
+                  pixels: [
+                    [-1, 1, 1],
+                    [1, 1, 1],
+                    [1, 1, 1],
+                  ],
+                ),
+                filledState.copyWith(
+                  cursorPosition: const Offset(1, 0),
+                  pixels: [
+                    [-1, 1, 1],
+                    [1, 1, 1],
+                    [1, 1, 1],
+                  ],
+                ),
+                filledState.copyWith(
+                  cursorPosition: const Offset(1, 0),
+                  pixels: [
+                    [-1, -1, 1],
+                    [1, 1, 1],
+                    [1, 1, 1],
+                  ],
+                ),
+                filledState.copyWith(
+                  cursorPosition: const Offset(2, 0),
+                  pixels: [
+                    [-1, -1, 1],
+                    [1, 1, 1],
+                    [1, 1, 1],
+                  ],
+                ),
+                filledState.copyWith(
+                  cursorPosition: const Offset(2, 0),
+                  pixels: [
+                    [-1, -1, -1],
+                    [1, 1, 1],
+                    [1, 1, 1],
+                  ],
+                ),
               ],
-            ),
-            filledState.copyWith(
-              cursorPosition: const Offset(1, 0),
-              pixels: [
-                [-1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-              ],
-            ),
-            filledState.copyWith(
-              cursorPosition: const Offset(1, 0),
-              pixels: [
-                [-1, -1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-              ],
-            ),
-            filledState.copyWith(
-              cursorPosition: const Offset(2, 0),
-              pixels: [
-                [-1, -1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-              ],
-            ),
-            filledState.copyWith(
-              cursorPosition: const Offset(2, 0),
-              pixels: [
-                [-1, -1, -1],
-                [1, 1, 1],
-                [1, 1, 1],
-              ],
-            ),
-          ],
         );
       });
 
@@ -386,21 +382,14 @@ void main() {
           'fills the board',
           seed: () => emptyState,
           build: SpriteCubit.new,
-          act: (cubit) => cubit
-            ..cursorDown(
-              Offset.zero,
-              25,
-              SpriteTool.bucket,
-              1,
-            ),
-          expect: () => [
-            emptyState.copyWith(
-              cursorPosition: Offset.zero,
-            ),
-            filledState.copyWith(
-              cursorPosition: Offset.zero,
-            ),
-          ],
+          act:
+              (cubit) =>
+                  cubit..cursorDown(Offset.zero, 25, SpriteTool.bucket, 1),
+          expect:
+              () => [
+                emptyState.copyWith(cursorPosition: Offset.zero),
+                filledState.copyWith(cursorPosition: Offset.zero),
+              ],
         );
       });
 
@@ -409,21 +398,15 @@ void main() {
           'clears the board',
           build: SpriteCubit.new,
           seed: () => filledState,
-          act: (cubit) => cubit
-            ..cursorDown(
-              Offset.zero,
-              25,
-              SpriteTool.bucketEraser,
-              0,
-            ),
-          expect: () => [
-            filledState.copyWith(
-              cursorPosition: Offset.zero,
-            ),
-            emptyState.copyWith(
-              cursorPosition: Offset.zero,
-            ),
-          ],
+          act:
+              (cubit) =>
+                  cubit
+                    ..cursorDown(Offset.zero, 25, SpriteTool.bucketEraser, 0),
+          expect:
+              () => [
+                filledState.copyWith(cursorPosition: Offset.zero),
+                emptyState.copyWith(cursorPosition: Offset.zero),
+              ],
         );
       });
     });
@@ -433,72 +416,79 @@ void main() {
         'resizes the sprite',
         build: SpriteCubit.new,
         act: (cubit) => cubit..setSize(2, 2),
-        expect: () => [
-          SpriteState.initial().copyWith(
-            pixels: [
-              [-1, -1],
-              [-1, -1],
+        expect:
+            () => [
+              SpriteState.initial().copyWith(
+                pixels: [
+                  [-1, -1],
+                  [-1, -1],
+                ],
+              ),
             ],
-          ),
-        ],
       );
 
       blocTest<SpriteCubit, SpriteState>(
         'resizes the sprite keep any data possible',
         build: SpriteCubit.new,
-        seed: () => SpriteState.initial().copyWith(
-          pixels: [
-            [1],
-            [0],
-          ],
-        ),
+        seed:
+            () => SpriteState.initial().copyWith(
+              pixels: [
+                [1],
+                [0],
+              ],
+            ),
         act: (cubit) => cubit..setSize(2, 2),
-        expect: () => [
-          SpriteState.initial().copyWith(
-            pixels: [
-              [1, -1],
-              [0, -1],
+        expect:
+            () => [
+              SpriteState.initial().copyWith(
+                pixels: [
+                  [1, -1],
+                  [0, -1],
+                ],
+              ),
             ],
-          ),
-        ],
       );
     });
 
     blocTest<SpriteCubit, SpriteState>(
       'clears the sprite',
       build: SpriteCubit.new,
-      seed: () => SpriteState.initial().copyWith(
-        pixels: [
-          [1],
-          [1],
-        ],
-      ),
+      seed:
+          () => SpriteState.initial().copyWith(
+            pixels: [
+              [1],
+              [1],
+            ],
+          ),
       act: (cubit) => cubit.clearSprite(),
-      expect: () => [
-        SpriteState.initial().copyWith(
-          pixels: [
-            [-1],
-            [-1],
+      expect:
+          () => [
+            SpriteState.initial().copyWith(
+              pixels: [
+                [-1],
+                [-1],
+              ],
+            ),
           ],
-        ),
-      ],
     );
 
     blocTest<SpriteCubit, SpriteState>(
       'sets the sprite',
       build: SpriteCubit.new,
-      act: (cubit) => cubit.setSprite([
-        [0],
-        [0],
-      ]),
-      expect: () => [
-        SpriteState.initial().copyWith(
-          pixels: [
+      act:
+          (cubit) => cubit.setSprite([
             [0],
             [0],
+          ]),
+      expect:
+          () => [
+            SpriteState.initial().copyWith(
+              pixels: [
+                [0],
+                [0],
+              ],
+            ),
           ],
-        ),
-      ],
     );
 
     test('shouldReplay is 1 when pixels are different', () {

@@ -106,7 +106,7 @@ class MiniMap extends Equatable {
   List<Object?> get props => [objects, _width, _height];
 }
 
-/// {@macro map_position}
+/// {@template map_position}
 /// A [MapPosition] is a class that represents a position in a game map.
 /// {@endtemplate}
 class MapPosition extends Equatable {

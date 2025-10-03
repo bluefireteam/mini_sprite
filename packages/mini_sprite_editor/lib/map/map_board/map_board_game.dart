@@ -42,15 +42,11 @@ class MapBoardGame extends FlameGame with PanDetector {
     await world.add(
       FlameMultiBlocProvider(
         providers: [
-          FlameBlocProvider<ConfigCubit, ConfigState>.value(
-            value: configCubit,
-          ),
+          FlameBlocProvider<ConfigCubit, ConfigState>.value(value: configCubit),
           FlameBlocProvider<LibraryCubit, LibraryState>.value(
             value: libraryCubit,
           ),
-          FlameBlocProvider<MapCubit, MapState>.value(
-            value: mapCubit,
-          ),
+          FlameBlocProvider<MapCubit, MapState>.value(value: mapCubit),
           FlameBlocProvider<MapToolCubit, MapToolState>.value(
             value: mapToolCubit,
           ),
@@ -65,12 +61,12 @@ class MapBoardGame extends FlameGame with PanDetector {
             },
           ),
           FlameBlocListener<MapCubit, MapState>(
-            listenWhen: (previous, current) =>
-                previous.mapSize != current.mapSize,
+            listenWhen:
+                (previous, current) => previous.mapSize != current.mapSize,
             onNewState: (state) {
-              descendants()
-                  .whereType<TileComponent>()
-                  .forEach((e) => e.removeFromParent());
+              descendants().whereType<TileComponent>().forEach(
+                (e) => e.removeFromParent(),
+              );
               createTiles();
               center();
             },
@@ -99,10 +95,7 @@ class MapBoardGame extends FlameGame with PanDetector {
     for (var y = 0; y < mapSize.height; y++) {
       for (var x = 0; x < mapSize.width; x++) {
         final tile = TileComponent(
-          position: Vector2(
-            x * tileSize.toDouble(),
-            y * tileSize.toDouble(),
-          ),
+          position: Vector2(x * tileSize.toDouble(), y * tileSize.toDouble()),
           mapPosition: MapPosition(x, y),
           size: Vector2(tileSize.toDouble(), tileSize.toDouble()),
         );
@@ -111,7 +104,7 @@ class MapBoardGame extends FlameGame with PanDetector {
       }
     }
 
-    board.addAll(tiles);
+    unawaited(board.addAll(tiles));
   }
 
   void center() {

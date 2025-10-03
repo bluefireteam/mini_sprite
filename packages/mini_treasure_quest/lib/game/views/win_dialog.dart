@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mini_treasure_quest/game/stages.dart';
 import 'package:mini_treasure_quest/game/views/game_view.dart';
 import 'package:mini_treasure_quest/stages/stages.dart';
 
 class WinDialog extends StatelessWidget {
-  const WinDialog({super.key, required this.stage});
+  const WinDialog({required this.stage, super.key});
 
   final int stage;
 
@@ -28,8 +30,10 @@ class WinDialog extends StatelessWidget {
                 ElevatedButton(
                   autofocus: stage + 1 == stages.length,
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      StagesPage.route(),
+                    unawaited(
+                      Navigator.of(context).pushReplacement(
+                        StagesPage.route(),
+                      ),
                     );
                   },
                   child: const Text('Stages'),
@@ -38,8 +42,10 @@ class WinDialog extends StatelessWidget {
                   ElevatedButton(
                     autofocus: true,
                     onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                        GamePage.route(stage + 1),
+                      unawaited(
+                        Navigator.of(context).pushReplacement(
+                          GamePage.route(stage + 1),
+                        ),
                       );
                     },
                     child: const Text('Next'),

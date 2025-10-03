@@ -1,6 +1,1 @@
-enum SpriteTool {
-  brush,
-  eraser,
-  bucket,
-  bucketEraser,
-}
+enum SpriteTool { brush, eraser, bucket, bucketEraser }

@@ -65,9 +65,10 @@ class _Tab extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: selected
-                    ? Theme.of(context).buttonTheme.colorScheme!.primary
-                    : Colors.transparent,
+                color:
+                    selected
+                        ? Theme.of(context).buttonTheme.colorScheme!.primary
+                        : Colors.transparent,
               ),
             ),
           ),

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/input.dart';
-import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_forge2d/flame_forge2d.dart' hide Vector2;
 import 'package:flutter/material.dart';
 import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_treasure_quest/game/entities/entities.dart';
@@ -44,11 +44,13 @@ class MiniTreasureQuest extends Forge2DGame with HasKeyboardHandlerComponents {
 
   void win() {
     world.children.whereType<Treasure>().first.removeFromParent();
-    showDialog<void>(
-      context: buildContext!,
-      builder: (context) {
-        return WinDialog(stage: stage);
-      },
+    unawaited(
+      showDialog<void>(
+        context: buildContext!,
+        builder: (context) {
+          return WinDialog(stage: stage);
+        },
+      ),
     );
   }
 }

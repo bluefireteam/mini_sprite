@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_treasure_quest/assets.dart';
@@ -47,7 +49,9 @@ class TitleView extends StatelessWidget {
             ElevatedButton(
               autofocus: true,
               onPressed: () {
-                Navigator.of(context).push(StagesPage.route());
+                unawaited(
+                  Navigator.of(context).push(StagesPage.route()),
+                );
               },
               child: const Text('Play'),
             ),

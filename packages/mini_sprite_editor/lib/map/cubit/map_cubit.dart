@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
@@ -9,20 +11,21 @@ class MapCubit extends Cubit<MapState> {
   MapCubit({
     Future<void> Function(ClipboardData)? setClipboardData,
     Future<ClipboardData?> Function(String)? getClipboardData,
-  })  : _setClipboardData = setClipboardData ?? Clipboard.setData,
-        _getClipboardData = getClipboardData ?? Clipboard.getData,
-        super(const MapState.initial());
+  }) : _setClipboardData = setClipboardData ?? Clipboard.setData,
+       _getClipboardData = getClipboardData ?? Clipboard.getData,
+       super(const MapState.initial());
 
   final Future<void> Function(ClipboardData) _setClipboardData;
   final Future<ClipboardData?> Function(String) _getClipboardData;
 
   void copyToClipboard() {
-    final data = MiniMap(
-      objects: state.objects,
-      width: state.mapSize.width.toInt(),
-      height: state.mapSize.height.toInt(),
-    ).toDataString();
-    _setClipboardData(ClipboardData(text: data));
+    final data =
+        MiniMap(
+          objects: state.objects,
+          width: state.mapSize.width.toInt(),
+          height: state.mapSize.height.toInt(),
+        ).toDataString();
+    unawaited(_setClipboardData(ClipboardData(text: data)));
   }
 
   Future<void> importFromClipboard() async {
@@ -40,56 +43,25 @@ class MapCubit extends Cubit<MapState> {
       addObject(x, y, data);
     } else {
       final objData = state.objects[MapPosition(x, y)]!;
-      final newData = <String, dynamic>{
-        ...objData,
-        ...data,
-      };
+      final newData = <String, dynamic>{...objData, ...data};
 
-      emit(
-        state.copyWith(
-          objects: {
-            ...state.objects,
-            position: newData,
-          },
-        ),
-      );
+      emit(state.copyWith(objects: {...state.objects, position: newData}));
     }
   }
 
   void addObject(int x, int y, Map<String, dynamic> data) {
-    emit(
-      state.copyWith(
-        objects: {
-          ...state.objects,
-          MapPosition(x, y): data,
-        },
-      ),
-    );
+    emit(state.copyWith(objects: {...state.objects, MapPosition(x, y): data}));
   }
 
   void removeObject(int x, int y) {
     final newObjects = Map.fromEntries(
-      state.objects.entries.where(
-        (entry) =>
-            entry.key !=
-            MapPosition(
-              x,
-              y,
-            ),
-      ),
+      state.objects.entries.where((entry) => entry.key != MapPosition(x, y)),
     );
     emit(state.copyWith(objects: newObjects));
   }
 
   void setSize(int x, int y) {
-    emit(
-      state.copyWith(
-        mapSize: Size(
-          x.toDouble(),
-          y.toDouble(),
-        ),
-      ),
-    );
+    emit(state.copyWith(mapSize: Size(x.toDouble(), y.toDouble())));
   }
 
   void clearMap() {
@@ -113,14 +85,7 @@ class MapCubit extends Cubit<MapState> {
         ),
       };
 
-      emit(
-        state.copyWith(
-          objects: {
-            ...state.objects,
-            selected: data,
-          },
-        ),
-      );
+      emit(state.copyWith(objects: {...state.objects, selected: data}));
     }
   }
 }
