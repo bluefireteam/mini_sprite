@@ -1,9 +1,9 @@
 import 'package:flame/components.dart';
-import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_forge2d/flame_forge2d.dart' as forge;
 import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
-class Tile extends BodyComponent<MiniTreasureQuest> {
+class Tile extends forge.BodyComponent<MiniTreasureQuest> {
   Tile({
     required this.initialPosition,
     required this.sprite,
@@ -26,16 +26,19 @@ class Tile extends BodyComponent<MiniTreasureQuest> {
   }
 
   @override
-  Body createBody() {
+  forge.Body createBody() {
     renderBody = false;
-    final bodyDef = BodyDef(
+    final bodyDef = forge.BodyDef(
       userData: this,
-      type: BodyType.kinematic,
-    )..position = initialPosition;
+      type: forge.BodyType.kinematic,
+    )..position = forge.Vector2(
+        initialPosition.x,
+        initialPosition.y,
+      );
 
     return world.createBody(bodyDef)
       ..createFixtureFromShape(
-        PolygonShape()
+        forge.PolygonShape()
           ..setAsBoxXY(
             (tileSize / 2) * 0.8,
             (tileSize / 2) * 0.8,

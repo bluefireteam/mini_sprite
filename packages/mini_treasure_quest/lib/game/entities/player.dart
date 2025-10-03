@@ -1,10 +1,10 @@
 import 'package:flame/components.dart';
-import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_forge2d/flame_forge2d.dart' as forge;
 import 'package:flutter/services.dart';
 import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
-class Player extends BodyComponent<MiniTreasureQuest> {
+class Player extends forge.BodyComponent<MiniTreasureQuest> {
   Player({
     required this.initialPosition,
   });
@@ -43,16 +43,16 @@ class Player extends BodyComponent<MiniTreasureQuest> {
     );
   }
 
-  bool _jump(_) {
+  bool _jump(Set<LogicalKeyboardKey> pressedKeys) {
     if (body.linearVelocity.y == 0) {
-      body.applyLinearImpulse(Vector2(0, -jumpForce));
+      body.applyLinearImpulse(forge.Vector2(0, -jumpForce));
     }
     return true;
   }
 
-  bool _startMovingLeft(_) {
+  bool _startMovingLeft(Set<LogicalKeyboardKey> pressedKeys) {
     if (body.linearVelocity.x > -speed) {
-      body.applyLinearImpulse(Vector2(-speed, 0));
+      body.applyLinearImpulse(forge.Vector2(-speed, 0));
     }
     if (!sprite.isFlippedHorizontally) {
       sprite.flipHorizontally();
@@ -60,9 +60,9 @@ class Player extends BodyComponent<MiniTreasureQuest> {
     return true;
   }
 
-  bool _startMovingRight(_) {
+  bool _startMovingRight(Set<LogicalKeyboardKey> pressedKeys) {
     if (body.linearVelocity.x < speed) {
-      body.applyLinearImpulse(Vector2(speed, 0));
+      body.applyLinearImpulse(forge.Vector2(speed, 0));
     }
     if (sprite.isFlippedHorizontally) {
       sprite.flipHorizontally();
@@ -70,22 +70,22 @@ class Player extends BodyComponent<MiniTreasureQuest> {
     return true;
   }
 
-  bool _stopMoving(_) {
-    body.applyLinearImpulse(Vector2(-body.linearVelocity.x, 0));
+  bool _stopMoving(Set<LogicalKeyboardKey> pressedKeys) {
+    body.applyLinearImpulse(forge.Vector2(-body.linearVelocity.x, 0));
     return true;
   }
 
   @override
-  Body createBody() {
+  forge.Body createBody() {
     renderBody = false;
-    final bodyDef = BodyDef(
+    final bodyDef = forge.BodyDef(
       userData: this,
-      type: BodyType.dynamic,
-    )..position = initialPosition;
+      type: forge.BodyType.dynamic,
+    )..position = forge.Vector2(initialPosition.x, initialPosition.y);
 
     return world.createBody(bodyDef)
       ..createFixtureFromShape(
-        PolygonShape()..setAsBoxXY(tileSize / 2, tileSize / 2),
+        forge.PolygonShape()..setAsBoxXY(tileSize / 2, tileSize / 2),
       );
   }
 }

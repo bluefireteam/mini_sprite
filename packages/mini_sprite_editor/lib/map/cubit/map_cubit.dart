@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +25,7 @@ class MapCubit extends Cubit<MapState> {
           width: state.mapSize.width.toInt(),
           height: state.mapSize.height.toInt(),
         ).toDataString();
-    _setClipboardData(ClipboardData(text: data));
+    unawaited(_setClipboardData(ClipboardData(text: data)));
   }
 
   Future<void> importFromClipboard() async {

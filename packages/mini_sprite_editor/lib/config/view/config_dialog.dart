@@ -291,7 +291,7 @@ class _ColorTile extends StatelessWidget {
 }
 
 class _ColorButton extends StatelessWidget {
-  const _ColorButton({super.key, required this.color, required this.onPressed});
+  const _ColorButton({required this.color, required this.onPressed, super.key});
 
   final Color color;
   final VoidCallback onPressed;

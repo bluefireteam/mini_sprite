@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_sprite_editor/l10n/l10n.dart';
 
 class RenameDialog extends StatefulWidget {
-  const RenameDialog({super.key, required this.name});
+  const RenameDialog({required this.name, super.key});
 
   final String name;
 

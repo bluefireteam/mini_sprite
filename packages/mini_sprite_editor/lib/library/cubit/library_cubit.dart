@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
@@ -100,6 +102,6 @@ class LibraryCubit extends Cubit<LibraryState> {
   void copyToClipboard() {
     final library = MiniLibrary(state.sprites);
     final data = library.toDataString();
-    _setClipboardData(ClipboardData(text: data));
+    unawaited(_setClipboardData(ClipboardData(text: data)));
   }
 }

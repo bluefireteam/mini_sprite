@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class PixelCell extends StatelessWidget {
   const PixelCell({
-    super.key,
     required this.color,
     required this.hovered,
     required this.pixelSize,
     required this.hasBorder,
+    super.key,
   });
 
   final bool hovered;

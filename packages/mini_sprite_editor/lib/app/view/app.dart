@@ -55,7 +55,7 @@ class App extends StatelessWidget {
                   if (spriteRaw != null) {
                     try {
                       sprite = MiniSprite.fromDataString(spriteRaw);
-                    } catch (_) {
+                    } on Exception catch (_) {
                       // ignore on invalid sprite data
                     }
                   }

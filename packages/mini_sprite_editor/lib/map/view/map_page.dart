@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -85,7 +87,7 @@ class MapView extends StatelessWidget {
                 IconButton(
                   key: const Key('import_from_clipboard_key'),
                   onPressed: () {
-                    context.read<MapCubit>().importFromClipboard();
+                    unawaited(context.read<MapCubit>().importFromClipboard());
                     ScaffoldMessenger.of(
                       context,
                     ).showSnackBar(SnackBar(content: Text(l10n.importSuccess)));
@@ -96,7 +98,7 @@ class MapView extends StatelessWidget {
                 IconButton(
                   key: const Key('config_key'),
                   onPressed: () {
-                    ConfigDialog.show(context);
+                    unawaited(ConfigDialog.show(context));
                   },
                   tooltip: l10n.configurations,
                   icon: const Icon(Icons.settings),

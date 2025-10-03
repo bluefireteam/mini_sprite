@@ -1,11 +1,11 @@
 import 'package:flame/components.dart';
-import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_forge2d/flame_forge2d.dart' as forge;
 import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/game/entities/entities.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
-class Treasure extends BodyComponent<MiniTreasureQuest>
-    with ContactCallbacks, HasGameRef<MiniTreasureQuest> {
+class Treasure extends forge.BodyComponent<MiniTreasureQuest>
+    with forge.ContactCallbacks {
   Treasure({required this.initialPosition});
 
   final Vector2 initialPosition;
@@ -24,19 +24,19 @@ class Treasure extends BodyComponent<MiniTreasureQuest>
   }
 
   @override
-  Body createBody() {
+  forge.Body createBody() {
     renderBody = false;
 
-    final bodyDef = BodyDef(
+    final bodyDef = forge.BodyDef(
       userData: this,
-      type: BodyType.kinematic,
-    )..position = initialPosition;
+      type: forge.BodyType.kinematic,
+    )..position = forge.Vector2(initialPosition.x, initialPosition.y);
 
     final body = world.createBody(bodyDef);
 
     body
         .createFixtureFromShape(
-          PolygonShape()
+          forge.PolygonShape()
             ..setAsBoxXY(
               tileSize / 2,
               tileSize / 2,
@@ -48,9 +48,9 @@ class Treasure extends BodyComponent<MiniTreasureQuest>
   }
 
   @override
-  void beginContact(Object other, Contact contact) {
+  void beginContact(Object other, forge.Contact contact) {
     if (other is Player) {
-      gameRef.win();
+      game.win();
     }
   }
 }

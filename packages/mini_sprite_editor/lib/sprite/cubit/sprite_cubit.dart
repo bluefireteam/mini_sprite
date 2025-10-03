@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
@@ -27,7 +28,7 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
   void copyToClipboard() {
     final sprite = MiniSprite(state.pixels);
     final data = sprite.toDataString();
-    _setClipboardData(ClipboardData(text: data));
+    unawaited(_setClipboardData(ClipboardData(text: data)));
   }
 
   void setSprite(List<List<int>> pixels) {
@@ -179,22 +180,18 @@ class SpriteCubit extends ReplayCubit<SpriteState> {
         if (toolActive) {
           _setPixel(selectedColor);
         }
-        break;
       case SpriteTool.eraser:
         if (toolActive) {
           _setPixel(-1);
         }
-        break;
       case SpriteTool.bucket:
         if (toolActive) {
           _floodFill(selectedColor);
         }
-        break;
       case SpriteTool.bucketEraser:
         if (toolActive) {
           _floodFill(-1);
         }
-        break;
     }
   }
 

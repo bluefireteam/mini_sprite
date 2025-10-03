@@ -7,7 +7,7 @@ import 'package:mini_sprite_editor/config/cubit/config_cubit.dart';
 import 'package:mini_sprite_editor/map/map.dart';
 
 class BackgroundComponent extends PositionComponent
-    with HasPaint, HasGameRef<MapBoardGame> {
+    with HasPaint, HasGameReference<MapBoardGame> {
   BackgroundComponent();
 
   @override
@@ -35,7 +35,7 @@ class BackgroundComponent extends PositionComponent
       ),
     ]);
 
-    _setColor(gameRef.configCubit.state.backgroundColor);
+    _setColor(game.configCubit.state.backgroundColor);
     _setSize();
   }
 
@@ -44,8 +44,8 @@ class BackgroundComponent extends PositionComponent
   }
 
   void _setSize() {
-    final mapUnitSize = gameRef.mapCubit.state.mapSize.toVector2();
-    final gridSize = gameRef.configCubit.state.mapGridSize.toDouble();
+    final mapUnitSize = game.mapCubit.state.mapSize.toVector2();
+    final gridSize = game.configCubit.state.mapGridSize.toDouble();
 
     size = mapUnitSize * gridSize;
   }

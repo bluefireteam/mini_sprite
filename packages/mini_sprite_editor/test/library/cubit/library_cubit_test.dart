@@ -1,3 +1,4 @@
+// Ignoring for tests
 // ignore_for_file: prefer_const_constructors, one_member_abstracts
 
 import 'package:bloc_test/bloc_test.dart';

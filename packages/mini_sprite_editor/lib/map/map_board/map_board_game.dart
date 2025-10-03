@@ -104,7 +104,7 @@ class MapBoardGame extends FlameGame with PanDetector {
       }
     }
 
-    board.addAll(tiles);
+    unawaited(board.addAll(tiles));
   }
 
   void center() {

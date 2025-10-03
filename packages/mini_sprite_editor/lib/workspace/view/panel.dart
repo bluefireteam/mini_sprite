@@ -6,7 +6,9 @@ import 'package:mini_sprite_editor/sprite/sprite.dart';
 import 'package:mini_sprite_editor/workspace/workspace.dart';
 
 class Panel extends StatefulWidget {
-  const Panel({super.key, required this.panel, required this.isActive});
+  const Panel({
+    required this.panel, required this.isActive, super.key,
+  });
 
   final WorkspacePanel panel;
   final bool isActive;
