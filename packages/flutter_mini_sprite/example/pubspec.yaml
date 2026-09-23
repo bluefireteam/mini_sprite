@@ -1,4 +1,5 @@
 name: flutter_mini_sprite_example
+resolution: workspace
 description: Example app for flutter_mini_sprite
 
 publish_to: 'none'
@@ -6,7 +7,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: ">=3.9.0 <4.0.0"
 
 dependencies:
   dashbook: ^0.1.10

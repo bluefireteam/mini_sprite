@@ -29,9 +29,7 @@ class GameView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GameWidget(
-        game: MiniTreasureQuest(stage: stage),
-      ),
+      body: GameWidget(game: MiniTreasureQuest(stage: stage)),
     );
   }
 }

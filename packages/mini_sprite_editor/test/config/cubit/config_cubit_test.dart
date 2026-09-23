@@ -24,44 +24,39 @@ void main() async {
       act: (cubit) {
         cubit.setThemeMode(ThemeMode.light);
       },
-      expect:
-          () => [
-            const ConfigState.initial().copyWith(themeMode: ThemeMode.light),
-          ],
+      expect: () => [
+        const ConfigState.initial().copyWith(themeMode: ThemeMode.light),
+      ],
     );
 
     blocTest<ConfigCubit, ConfigState>(
       'setColor',
       build: ConfigCubit.new,
-      seed:
-          () => const ConfigState.initial().copyWith(
-            colors: [Colors.white, Colors.transparent],
-          ),
+      seed: () => const ConfigState.initial().copyWith(
+        colors: [Colors.white, Colors.transparent],
+      ),
       act: (cubit) {
         cubit.setColor(1, Colors.red);
       },
-      expect:
-          () => [
-            const ConfigState.initial().copyWith(
-              colors: [Colors.white, Colors.red],
-            ),
-          ],
+      expect: () => [
+        const ConfigState.initial().copyWith(
+          colors: [Colors.white, Colors.red],
+        ),
+      ],
     );
 
     blocTest<ConfigCubit, ConfigState>(
       'removeColor',
       build: ConfigCubit.new,
-      seed:
-          () => const ConfigState.initial().copyWith(
-            colors: [Colors.white, Colors.transparent],
-          ),
+      seed: () => const ConfigState.initial().copyWith(
+        colors: [Colors.white, Colors.transparent],
+      ),
       act: (cubit) {
         cubit.removeColor(1);
       },
-      expect:
-          () => [
-            const ConfigState.initial().copyWith(colors: [Colors.white]),
-          ],
+      expect: () => [
+        const ConfigState.initial().copyWith(colors: [Colors.white]),
+      ],
     );
 
     blocTest<ConfigCubit, ConfigState>(
@@ -70,10 +65,9 @@ void main() async {
       act: (cubit) {
         cubit.setBackgroundColor(Colors.red);
       },
-      expect:
-          () => [
-            const ConfigState.initial().copyWith(backgroundColor: Colors.red),
-          ],
+      expect: () => [
+        const ConfigState.initial().copyWith(backgroundColor: Colors.red),
+      ],
     );
 
     blocTest<ConfigCubit, ConfigState>(

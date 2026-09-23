@@ -89,9 +89,8 @@ class SpriteView extends StatelessWidget {
                           );
                         },
                         child: BlocListener<LibraryCubit, LibraryState>(
-                          listenWhen:
-                              (previous, current) =>
-                                  previous.selected != current.selected,
+                          listenWhen: (previous, current) =>
+                              previous.selected != current.selected,
                           listener: (context, state) {
                             context.read<SpriteCubit>().setSprite(
                               state.sprites[state.selected]!.pixels,
@@ -110,10 +109,9 @@ class SpriteView extends StatelessWidget {
                                       for (var x = 0; x < pixels[y].length; x++)
                                         PixelCell(
                                           pixelSize: pixelSize,
-                                          color:
-                                              pixels[y][x] >= 0
-                                                  ? palette[pixels[y][x]]
-                                                  : configState.backgroundColor,
+                                          color: pixels[y][x] >= 0
+                                              ? palette[pixels[y][x]]
+                                              : configState.backgroundColor,
                                           hasBorder: gridActive,
                                           hovered:
                                               cursorPosition ==
@@ -167,11 +165,11 @@ class SpriteView extends StatelessWidget {
                     icon: const Icon(Icons.delete),
                   ),
                   IconButton(
-                    key: const Key('toogle_grid_key'),
+                    key: const Key('toggle_grid_key'),
                     onPressed: () async {
-                      context.read<ToolsCubit>().toogleGrid();
+                      context.read<ToolsCubit>().toggleGrid();
                     },
-                    tooltip: l10n.toogleGrid,
+                    tooltip: l10n.toggleGrid,
                     icon: Icon(gridActive ? Icons.grid_on : Icons.grid_off),
                   ),
                   IconButton(
@@ -261,8 +259,8 @@ class SpriteView extends StatelessWidget {
 
                         final scaffoldMessenger = ScaffoldMessenger.of(context);
 
-                        final imageService =
-                            context.read<ImageImporterService>();
+                        final imageService = context
+                            .read<ImageImporterService>();
                         final result = await imageService.importImage();
                         if (result != null) {
                           final (pixels, colors) = result;
@@ -340,53 +338,49 @@ class SpriteView extends StatelessWidget {
                 children: [
                   IconButton(
                     key: const Key('brush_key'),
-                    onPressed:
-                        tool == SpriteTool.brush
-                            ? null
-                            : () {
-                              context.read<ToolsCubit>().selectTool(
-                                SpriteTool.brush,
-                              );
-                            },
+                    onPressed: tool == SpriteTool.brush
+                        ? null
+                        : () {
+                            context.read<ToolsCubit>().selectTool(
+                              SpriteTool.brush,
+                            );
+                          },
                     tooltip: l10n.brush,
                     icon: const Icon(Icons.brush),
                   ),
                   IconButton(
                     key: const Key('eraser_key'),
-                    onPressed:
-                        tool == SpriteTool.eraser
-                            ? null
-                            : () {
-                              context.read<ToolsCubit>().selectTool(
-                                SpriteTool.eraser,
-                              );
-                            },
+                    onPressed: tool == SpriteTool.eraser
+                        ? null
+                        : () {
+                            context.read<ToolsCubit>().selectTool(
+                              SpriteTool.eraser,
+                            );
+                          },
                     tooltip: l10n.eraser,
                     icon: const Icon(Icons.rectangle),
                   ),
                   IconButton(
                     key: const Key('bucket_key'),
-                    onPressed:
-                        tool == SpriteTool.bucket
-                            ? null
-                            : () {
-                              context.read<ToolsCubit>().selectTool(
-                                SpriteTool.bucket,
-                              );
-                            },
+                    onPressed: tool == SpriteTool.bucket
+                        ? null
+                        : () {
+                            context.read<ToolsCubit>().selectTool(
+                              SpriteTool.bucket,
+                            );
+                          },
                     tooltip: l10n.bucket,
                     icon: const Icon(Icons.egg_sharp),
                   ),
                   IconButton(
                     key: const Key('bucket_eraser_key'),
-                    onPressed:
-                        tool == SpriteTool.bucketEraser
-                            ? null
-                            : () {
-                              context.read<ToolsCubit>().selectTool(
-                                SpriteTool.bucketEraser,
-                              );
-                            },
+                    onPressed: tool == SpriteTool.bucketEraser
+                        ? null
+                        : () {
+                            context.read<ToolsCubit>().selectTool(
+                              SpriteTool.bucketEraser,
+                            );
+                          },
                     tooltip: l10n.bucketEraser,
                     icon: const Icon(Icons.egg_outlined),
                   ),

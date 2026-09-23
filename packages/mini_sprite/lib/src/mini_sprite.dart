@@ -13,7 +13,7 @@ class MiniSprite extends Equatable {
   ///
   /// Creates an empty sprite with the given width and height.
   MiniSprite.empty(int width, int height)
-      : pixels = List.generate(height, (_) => List.generate(width, (_) => -1));
+    : pixels = List.generate(height, (_) => List.generate(width, (_) => -1));
 
   /// {@macro mini_sprite}
   ///
@@ -25,28 +25,24 @@ class MiniSprite extends Equatable {
     final height = int.parse(size[0]);
     final width = int.parse(size[1]);
 
-    final flatten = blocks.map((rawBlock) {
-      final blockSplit = rawBlock.split(',');
+    final flatten = blocks
+        .map((rawBlock) {
+          final blockSplit = rawBlock.split(',');
 
-      final count = int.parse(blockSplit[0]);
-      final value = int.parse(blockSplit[1]);
+          final count = int.parse(blockSplit[0]);
+          final value = int.parse(blockSplit[1]);
 
-      return List.filled(count, value);
-    }).fold<List<int>>(List<int>.empty(), (value, list) {
-      return [
-        ...value,
-        ...list,
-      ];
-    });
+          return List.filled(count, value);
+        })
+        .fold<List<int>>(List<int>.empty(), (value, list) {
+          return [...value, ...list];
+        });
 
     final pixels = List.generate(
       height,
-      (_) => List.generate(
-        width,
-        (_) {
-          return flatten.removeAt(0);
-        },
-      ),
+      (_) => List.generate(width, (_) {
+        return flatten.removeAt(0);
+      }),
     );
 
     return MiniSprite(pixels);

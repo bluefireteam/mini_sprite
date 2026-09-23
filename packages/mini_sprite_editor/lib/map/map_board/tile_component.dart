@@ -25,11 +25,10 @@ class TileComponent extends PositionComponent
 
   @override
   Future<void> onLoad() async {
-    paint =
-        Paint()
-          ..color = const Color(0xFFFFFFFF)
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 1;
+    paint = Paint()
+      ..color = const Color(0xFFFFFFFF)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
 
     _selectedPaint = Paint()..color = game.primaryColor.withValues(alpha: 0.4);
 

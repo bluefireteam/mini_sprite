@@ -8,12 +8,9 @@ import 'package:equatable/equatable.dart';
 /// {@endtemplate}
 class MiniMap extends Equatable {
   /// {@macro mini_map}
-  const MiniMap({
-    required this.objects,
-    int? width,
-    int? height,
-  })  : _width = width,
-        _height = height;
+  const MiniMap({required this.objects, int? width, int? height})
+    : _width = width,
+      _height = height;
 
   /// {@macro mini_map}
   ///
@@ -62,10 +59,7 @@ class MiniMap extends Equatable {
       _width ??
       objects.keys.fold<int>(
             0,
-            (previousValue, element) => max(
-              previousValue,
-              element.x,
-            ),
+            (previousValue, element) => max(previousValue, element.x),
           ) +
           1;
 
@@ -75,10 +69,7 @@ class MiniMap extends Equatable {
       _height ??
       objects.keys.fold<int>(
             0,
-            (previousValue, element) => max(
-              previousValue,
-              element.y,
-            ),
+            (previousValue, element) => max(previousValue, element.y),
           ) +
           1;
 
@@ -88,11 +79,7 @@ class MiniMap extends Equatable {
       final x = entry.key.x;
       final y = entry.key.y;
       final data = entry.value;
-      return {
-        'x': x,
-        'y': y,
-        'data': data,
-      };
+      return {'x': x, 'y': y, 'data': data};
     }).toList();
 
     return jsonEncode({

@@ -1,0 +1,2 @@
+# actual english words (or common abbreviations) missing from CSpell
+unfill # the opposite of fill, used for the editor's unfill tool

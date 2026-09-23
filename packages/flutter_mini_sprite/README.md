@@ -10,11 +10,12 @@ Provides Widgets to render mini sprites into Flutter
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 
-# How to use it
+
+## How to use it
 
 Add flutter mini sprite to the project's pubspec:
 
-```
+```shell
 dart pub add flutter_mini_sprite
 ```
 

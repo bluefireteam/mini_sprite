@@ -19,7 +19,7 @@ class ToolsCubit extends Cubit<ToolsState> {
     emit(state.copyWith(tool: tool));
   }
 
-  void toogleGrid() {
+  void toggleGrid() {
     emit(state.copyWith(gridActive: !state.gridActive));
   }
 

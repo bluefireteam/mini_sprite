@@ -14,52 +14,39 @@ void main() {
   const palette = [Colors.white, Colors.black];
 
   group('MiniSpriteComponent', () {
-    testGolden(
-      'when no size is specified, pixel size is one',
-      (game) async {
-        final miniSprite = MiniSprite.fromDataString(raw);
-        await game.world.ensureAdd(
-          MiniSpriteComponent(
-            miniSprite: miniSprite,
-            palette: palette,
-          ),
-        );
-      },
-      goldenFile: 'goldens/mini_sprite_component_no_size.png',
-    );
+    testGolden('when no size is specified, pixel size is one', (game) async {
+      final miniSprite = MiniSprite.fromDataString(raw);
+      await game.world.ensureAdd(
+        MiniSpriteComponent(miniSprite: miniSprite, palette: palette),
+      );
+    }, goldenFile: 'goldens/mini_sprite_component_no_size.png');
 
-    testGolden(
-      'correctly calculates the pixel size given the size',
-      (game) async {
-        final miniSprite = MiniSprite.fromDataString(raw);
-        await game.world.ensureAdd(
-          MiniSpriteComponent(
-            miniSprite: miniSprite,
-            size: Vector2.all(150),
-            palette: palette,
-          ),
-        );
-      },
-      goldenFile: 'goldens/mini_sprite_component_with_size.png',
-    );
+    testGolden('correctly calculates the pixel size given the size', (
+      game,
+    ) async {
+      final miniSprite = MiniSprite.fromDataString(raw);
+      await game.world.ensureAdd(
+        MiniSpriteComponent(
+          miniSprite: miniSprite,
+          size: Vector2.all(150),
+          palette: palette,
+        ),
+      );
+    }, goldenFile: 'goldens/mini_sprite_component_with_size.png');
 
-    testGolden(
-      'updates the pixel size when the size changes',
-      (game) async {
-        final miniSprite = MiniSprite.fromDataString(raw);
-        late MiniSpriteComponent component;
+    testGolden('updates the pixel size when the size changes', (game) async {
+      final miniSprite = MiniSprite.fromDataString(raw);
+      late MiniSpriteComponent component;
 
-        await game.world.ensureAdd(
-          component = MiniSpriteComponent(
-            miniSprite: miniSprite,
-            size: Vector2.all(150),
-            palette: palette,
-          ),
-        );
+      await game.world.ensureAdd(
+        component = MiniSpriteComponent(
+          miniSprite: miniSprite,
+          size: Vector2.all(150),
+          palette: palette,
+        ),
+      );
 
-        component.size = Vector2.all(50);
-      },
-      goldenFile: 'goldens/mini_sprite_component_update_size.png',
-    );
+      component.size = Vector2.all(50);
+    }, goldenFile: 'goldens/mini_sprite_component_update_size.png');
   });
 }

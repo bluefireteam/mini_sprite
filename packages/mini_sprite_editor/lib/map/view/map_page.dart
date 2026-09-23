@@ -66,11 +66,11 @@ class MapView extends StatelessWidget {
                   icon: const Icon(Icons.delete),
                 ),
                 IconButton(
-                  key: const Key('toogle_grid_key'),
+                  key: const Key('toggle_grid_key'),
                   onPressed: () async {
-                    context.read<MapToolCubit>().toogleGrid();
+                    context.read<MapToolCubit>().toggleGrid();
                   },
-                  tooltip: l10n.toogleGrid,
+                  tooltip: l10n.toggleGrid,
                   icon: Icon(gridActive ? Icons.grid_on : Icons.grid_off),
                 ),
                 IconButton(
@@ -141,40 +141,37 @@ class MapView extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       key: const Key('map_cursor_key'),
-                                      onPressed:
-                                          tool == MapTool.none
-                                              ? null
-                                              : () {
-                                                context
-                                                    .read<MapToolCubit>()
-                                                    .selectTool(MapTool.none);
-                                              },
+                                      onPressed: tool == MapTool.none
+                                          ? null
+                                          : () {
+                                              context
+                                                  .read<MapToolCubit>()
+                                                  .selectTool(MapTool.none);
+                                            },
                                       tooltip: l10n.cursor,
                                       icon: const Icon(Icons.mouse),
                                     ),
                                     IconButton(
                                       key: const Key('map_brush_key'),
-                                      onPressed:
-                                          tool == MapTool.brush
-                                              ? null
-                                              : () {
-                                                context
-                                                    .read<MapToolCubit>()
-                                                    .selectTool(MapTool.brush);
-                                              },
+                                      onPressed: tool == MapTool.brush
+                                          ? null
+                                          : () {
+                                              context
+                                                  .read<MapToolCubit>()
+                                                  .selectTool(MapTool.brush);
+                                            },
                                       tooltip: l10n.brush,
                                       icon: const Icon(Icons.brush),
                                     ),
                                     IconButton(
                                       key: const Key('map_eraser_key'),
-                                      onPressed:
-                                          tool == MapTool.eraser
-                                              ? null
-                                              : () {
-                                                context
-                                                    .read<MapToolCubit>()
-                                                    .selectTool(MapTool.eraser);
-                                              },
+                                      onPressed: tool == MapTool.eraser
+                                          ? null
+                                          : () {
+                                              context
+                                                  .read<MapToolCubit>()
+                                                  .selectTool(MapTool.eraser);
+                                            },
                                       tooltip: l10n.eraser,
                                       icon: const Icon(Icons.rectangle),
                                     ),

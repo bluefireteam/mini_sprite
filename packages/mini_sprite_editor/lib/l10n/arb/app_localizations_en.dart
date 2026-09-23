@@ -72,7 +72,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clearSprite => 'Clear sprite';
 
   @override
-  String get toogleGrid => 'Toogle grid';
+  String get toggleGrid => 'Toggle grid';
 
   @override
   String get configurations => 'Configurations';
@@ -141,7 +141,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get removeProperty => 'Remove property';
 
   @override
-  String get newPropery => 'New property';
+  String get newProperty => 'New property';
 
   @override
   String get name => 'Name';

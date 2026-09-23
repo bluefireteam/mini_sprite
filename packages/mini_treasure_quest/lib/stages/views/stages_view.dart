@@ -6,9 +6,7 @@ class StagesPage extends StatelessWidget {
   const StagesPage({super.key});
 
   static Route<void> route() {
-    return MaterialPageRoute(
-      builder: (_) => const StagesPage(),
-    );
+    return MaterialPageRoute(builder: (_) => const StagesPage());
   }
 
   @override

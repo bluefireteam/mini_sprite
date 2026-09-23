@@ -79,8 +79,9 @@ class LibraryCubit extends Cubit<LibraryState> {
     emit(
       state.copyWith(
         sprites: newSprites,
-        selected:
-            state.selected == key ? state.sprites.keys.last : state.selected,
+        selected: state.selected == key
+            ? state.sprites.keys.last
+            : state.selected,
       ),
     );
   }

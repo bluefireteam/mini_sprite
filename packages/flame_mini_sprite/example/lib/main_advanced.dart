@@ -28,19 +28,16 @@ class MyGame extends FlameGame {
         sprite: sprite,
         anchor: Anchor.center,
         children: [
-          SequenceEffect(
-            [
-              ScaleEffect.to(
-                Vector2.all(4),
-                CurvedEffectController(4, Curves.easeIn),
-              ),
-              ScaleEffect.to(
-                Vector2.all(1),
-                CurvedEffectController(4, Curves.easeOut),
-              ),
-            ],
-            infinite: true,
-          ),
+          SequenceEffect([
+            ScaleEffect.to(
+              Vector2.all(4),
+              CurvedEffectController(4, Curves.easeIn),
+            ),
+            ScaleEffect.to(
+              Vector2.all(1),
+              CurvedEffectController(4, Curves.easeOut),
+            ),
+          ], infinite: true),
         ],
       ),
     );
@@ -53,19 +50,16 @@ class MyGame extends FlameGame {
         palette: [const Color(0xFFFFFFFF)],
         anchor: Anchor.center,
         children: [
-          SequenceEffect(
-            [
-              ScaleEffect.to(
-                Vector2.all(4),
-                CurvedEffectController(4, Curves.easeIn),
-              ),
-              ScaleEffect.to(
-                Vector2.all(1),
-                CurvedEffectController(4, Curves.easeOut),
-              ),
-            ],
-            infinite: true,
-          ),
+          SequenceEffect([
+            ScaleEffect.to(
+              Vector2.all(4),
+              CurvedEffectController(4, Curves.easeIn),
+            ),
+            ScaleEffect.to(
+              Vector2.all(1),
+              CurvedEffectController(4, Curves.easeOut),
+            ),
+          ], infinite: true),
         ],
       ),
     );

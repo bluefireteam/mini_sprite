@@ -754,7 +754,7 @@ void main() async {
         verifyNever(spriteCubit.clearSprite);
       });
 
-      testWidgets('toogles the grid', (tester) async {
+      testWidgets('toggles the grid', (tester) async {
         mockState(
           spriteState: SpriteState.initial(),
           toolsState: ToolsState.initial(),
@@ -768,10 +768,10 @@ void main() async {
           libraryCubit: libraryCubit,
         );
 
-        await tester.tap(find.byKey(const Key('toogle_grid_key')));
+        await tester.tap(find.byKey(const Key('toggle_grid_key')));
         await tester.pumpAndSettle();
 
-        verify(toolsCubit.toogleGrid).called(1);
+        verify(toolsCubit.toggleGrid).called(1);
       });
 
       group('tools shortcuts', () {

@@ -41,7 +41,7 @@ void main() {
       );
     });
 
-    test('copyWith returns a new isntance with the field updated', () {
+    test('copyWith returns a new instance with the field updated', () {
       expect(
         SpriteState(pixels: const [], cursorPosition: Offset.zero).copyWith(
           pixels: [

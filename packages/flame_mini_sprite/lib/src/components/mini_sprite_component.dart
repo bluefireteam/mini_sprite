@@ -43,9 +43,7 @@ class MiniSpriteComponent extends PositionComponent {
           ),
     ];
 
-    _palette = [
-      for (final color in palette) Paint()..color = color,
-    ];
+    _palette = [for (final color in palette) Paint()..color = color];
   }
 
   /// The [MiniSprite] to render.

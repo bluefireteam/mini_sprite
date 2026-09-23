@@ -14,8 +14,9 @@ extension FlameMiniSpriteX on MiniSprite {
     final recorder = PictureRecorder();
     final canvas = Canvas(recorder);
 
-    final _paintPalette =
-        palette.map((color) => Paint()..color = color).toList();
+    final _paintPalette = palette
+        .map((color) => Paint()..color = color)
+        .toList();
 
     final w = pixels[0].length * pixelSize.toInt();
     final h = pixels.length * pixelSize.toInt();

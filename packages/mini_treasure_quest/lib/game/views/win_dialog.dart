@@ -28,9 +28,7 @@ class WinDialog extends StatelessWidget {
                 ElevatedButton(
                   autofocus: stage + 1 == stages.length,
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      StagesPage.route(),
-                    );
+                    Navigator.of(context).pushReplacement(StagesPage.route());
                   },
                   child: const Text('Stages'),
                 ),
@@ -38,9 +36,9 @@ class WinDialog extends StatelessWidget {
                   ElevatedButton(
                     autofocus: true,
                     onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                        GamePage.route(stage + 1),
-                      );
+                      Navigator.of(
+                        context,
+                      ).pushReplacement(GamePage.route(stage + 1));
                     },
                     child: const Text('Next'),
                   ),

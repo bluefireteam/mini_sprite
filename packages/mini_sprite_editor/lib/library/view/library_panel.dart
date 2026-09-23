@@ -204,10 +204,9 @@ class _LibraryEntryState extends State<_LibraryEntry> {
               border: Border(
                 bottom: BorderSide(
                   width: 2,
-                  color:
-                      widget.selected
-                          ? Theme.of(context).buttonTheme.colorScheme!.primary
-                          : Colors.transparent,
+                  color: widget.selected
+                      ? Theme.of(context).buttonTheme.colorScheme!.primary
+                      : Colors.transparent,
                 ),
               ),
             ),

@@ -36,11 +36,7 @@ class Treasure extends forge.BodyComponent<MiniTreasureQuest>
 
     body
         .createFixtureFromShape(
-          forge.PolygonShape()
-            ..setAsBoxXY(
-              tileSize / 2,
-              tileSize / 2,
-            ),
+          forge.PolygonShape()..setAsBoxXY(tileSize / 2, tileSize / 2),
         )
         .setSensor(true);
 

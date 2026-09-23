@@ -25,10 +25,7 @@ class MiniLibrary extends Equatable {
       final name = blocks.first;
       final data = blocks.last;
 
-      return {
-        ...map,
-        name: MiniSprite.fromDataString(data),
-      };
+      return {...map, name: MiniSprite.fromDataString(data)};
     });
 
     return MiniLibrary(sprites);
@@ -36,9 +33,11 @@ class MiniLibrary extends Equatable {
 
   /// Returns this as a data string.
   String toDataString() {
-    return sprites.entries.map((entry) {
-      return '${entry.key}|${entry.value.toDataString()}';
-    }).join('\n');
+    return sprites.entries
+        .map((entry) {
+          return '${entry.key}|${entry.value.toDataString()}';
+        })
+        .join('\n');
   }
 
   /// The library of sprites.

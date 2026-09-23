@@ -32,10 +32,10 @@ class _SpriteSizeDialogState extends State<SpriteSizeDialog> {
     super.initState();
 
     final state = context.read<SpriteCubit>().state;
-    _widthController =
-        TextEditingController()..text = state.pixels[0].length.toString();
-    _heightController =
-        TextEditingController()..text = state.pixels.length.toString();
+    _widthController = TextEditingController()
+      ..text = state.pixels[0].length.toString();
+    _heightController = TextEditingController()
+      ..text = state.pixels.length.toString();
   }
 
   @override
