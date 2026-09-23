@@ -12,73 +12,55 @@ void main() {
     const raw =
         '16,16;20,-1;1,0;7,-1;1,0;8,-1;7,0;8,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;1,-1;2,0;1,-1;2,0;1,-1;1,0;6,-1;1,0;9,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;9,-1;1,0;6,-1;9,0;51,-1';
 
-    testGolden(
-      'renders correctly',
-      (game) async {
-        final miniSprite = MiniSprite.fromDataString(raw);
-        final sprite =
-            await miniSprite.toSprite(palette: palette, pixelSize: 4);
+    testGolden('renders correctly', (game) async {
+      final miniSprite = MiniSprite.fromDataString(raw);
+      final sprite = await miniSprite.toSprite(palette: palette, pixelSize: 4);
 
-        await game.world
-            .ensureAdd(SpriteComponent(sprite: sprite, anchor: Anchor.center));
-      },
-      goldenFile: 'goldens/flame_mini_sprite.png',
-    );
+      await game.world.ensureAdd(
+        SpriteComponent(sprite: sprite, anchor: Anchor.center),
+      );
+    }, goldenFile: 'goldens/flame_mini_sprite.png');
 
-    testGolden(
-      'renders correctly when a background color is used',
-      (game) async {
-        final miniSprite = MiniSprite.fromDataString(raw);
-        final sprite = await miniSprite.toSprite(
-          palette: palette,
-          pixelSize: 4,
-          backgroundColor: Colors.blue,
-        );
+    testGolden('renders correctly when a background color is used', (
+      game,
+    ) async {
+      final miniSprite = MiniSprite.fromDataString(raw);
+      final sprite = await miniSprite.toSprite(
+        palette: palette,
+        pixelSize: 4,
+        backgroundColor: Colors.blue,
+      );
 
-        await game.world
-            .ensureAdd(SpriteComponent(sprite: sprite, anchor: Anchor.center));
-      },
-      goldenFile: 'goldens/flame_mini_sprite_with_background_color.png',
-    );
+      await game.world.ensureAdd(
+        SpriteComponent(sprite: sprite, anchor: Anchor.center),
+      );
+    }, goldenFile: 'goldens/flame_mini_sprite_with_background_color.png');
   });
 
   group('FlameMiniLibraryX', () {
-    const raw =
-        '''flower|16,16;20,-1;1,0;7,-1;1,0;8,-1;7,0;8,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;1,-1;2,0;1,-1;2,0;1,-1;1,0;6,-1;1,0;9,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;9,-1;1,0;6,-1;9,0;51,-1
+    const raw = '''flower|16,16;20,-1;1,0;7,-1;1,0;8,-1;7,0;8,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;7,-1;1,0;1,-1;2,0;1,-1;2,0;1,-1;1,0;6,-1;1,0;9,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;2,-1;1,0;3,-1;1,0;2,-1;1,0;5,-1;1,0;9,-1;1,0;6,-1;9,0;51,-1
 ground|16,16;16,0;1,-1;15,0;224,-1''';
 
-    testGolden(
-      'renders correctly the ground',
-      (game) async {
-        final library = MiniLibrary.fromDataString(raw);
-        final sprites = await library.toSprites(
-          palette: palette,
-          pixelSize: 4,
-        );
+    testGolden('renders correctly the ground', (game) async {
+      final library = MiniLibrary.fromDataString(raw);
+      final sprites = await library.toSprites(palette: palette, pixelSize: 4);
 
-        final sprite = sprites['ground'];
+      final sprite = sprites['ground'];
 
-        await game.world
-            .ensureAdd(SpriteComponent(sprite: sprite, anchor: Anchor.center));
-      },
-      goldenFile: 'goldens/flame_mini_library_ground.png',
-    );
+      await game.world.ensureAdd(
+        SpriteComponent(sprite: sprite, anchor: Anchor.center),
+      );
+    }, goldenFile: 'goldens/flame_mini_library_ground.png');
 
-    testGolden(
-      'renders correctly the ground',
-      (game) async {
-        final library = MiniLibrary.fromDataString(raw);
-        final sprites = await library.toSprites(
-          palette: palette,
-          pixelSize: 4,
-        );
+    testGolden('renders correctly the ground', (game) async {
+      final library = MiniLibrary.fromDataString(raw);
+      final sprites = await library.toSprites(palette: palette, pixelSize: 4);
 
-        final sprite = sprites['flower'];
+      final sprite = sprites['flower'];
 
-        await game.world
-            .ensureAdd(SpriteComponent(sprite: sprite, anchor: Anchor.center));
-      },
-      goldenFile: 'goldens/flame_mini_library_flower.png',
-    );
+      await game.world.ensureAdd(
+        SpriteComponent(sprite: sprite, anchor: Anchor.center),
+      );
+    }, goldenFile: 'goldens/flame_mini_library_flower.png');
   });
 }

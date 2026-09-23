@@ -48,7 +48,7 @@ class _NewPropertyDialogState extends State<NewPropertyDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              l10n.newPropery,
+              l10n.newProperty,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(width: 8),
@@ -90,9 +90,9 @@ class _NewPropertyDialogState extends State<NewPropertyDialog> {
                       _valueController.text.isEmpty
                           ? null
                           : MapEntry(
-                            _nameController.text,
-                            _valueController.text,
-                          ),
+                              _nameController.text,
+                              _valueController.text,
+                            ),
                     );
                   },
                   child: Text(l10n.confirm),

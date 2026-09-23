@@ -19,12 +19,11 @@ class MapCubit extends Cubit<MapState> {
   final Future<ClipboardData?> Function(String) _getClipboardData;
 
   void copyToClipboard() {
-    final data =
-        MiniMap(
-          objects: state.objects,
-          width: state.mapSize.width.toInt(),
-          height: state.mapSize.height.toInt(),
-        ).toDataString();
+    final data = MiniMap(
+      objects: state.objects,
+      width: state.mapSize.width.toInt(),
+      height: state.mapSize.height.toInt(),
+    ).toDataString();
     unawaited(_setClipboardData(ClipboardData(text: data)));
   }
 

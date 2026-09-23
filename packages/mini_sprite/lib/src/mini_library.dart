@@ -8,15 +8,15 @@ import 'package:mini_sprite/mini_sprite.dart';
 /// {@endtemplate}
 class MiniLibrary extends Equatable {
   /// {@macro mini_library}
-  const MiniLibrary(this.sprites);
+  const new(this.sprites);
 
   /// {@macro mini_library}
-  MiniLibrary.empty() : sprites = {};
+  new empty() : sprites = {};
 
   /// {@macro mini_library}
   ///
   /// Returns a [MiniLibrary] from the serialized data.
-  factory MiniLibrary.fromDataString(String value) {
+  factory fromDataString(String value) {
     const lineSplitter = LineSplitter();
     final lines = lineSplitter.convert(value);
 
@@ -25,10 +25,7 @@ class MiniLibrary extends Equatable {
       final name = blocks.first;
       final data = blocks.last;
 
-      return {
-        ...map,
-        name: MiniSprite.fromDataString(data),
-      };
+      return {...map, name: MiniSprite.fromDataString(data)};
     });
 
     return MiniLibrary(sprites);
@@ -36,9 +33,11 @@ class MiniLibrary extends Equatable {
 
   /// Returns this as a data string.
   String toDataString() {
-    return sprites.entries.map((entry) {
-      return '${entry.key}|${entry.value.toDataString()}';
-    }).join('\n');
+    return sprites.entries
+        .map((entry) {
+          return '${entry.key}|${entry.value.toDataString()}';
+        })
+        .join('\n');
   }
 
   /// The library of sprites.

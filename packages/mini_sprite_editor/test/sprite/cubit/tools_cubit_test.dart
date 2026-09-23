@@ -40,9 +40,9 @@ void main() {
     );
 
     blocTest<ToolsCubit, ToolsState>(
-      'can toogle the grid',
+      'can toggle the grid',
       build: ToolsCubit.new,
-      act: (cubit) => cubit.toogleGrid(),
+      act: (cubit) => cubit.toggleGrid(),
       expect: () => [ToolsState.initial().copyWith(gridActive: false)],
     );
   });

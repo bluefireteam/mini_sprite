@@ -32,10 +32,10 @@ class _MapSizeDialogState extends State<MapSizeDialog> {
     super.initState();
 
     final state = context.read<MapCubit>().state;
-    _widthController =
-        TextEditingController()..text = state.mapSize.width.toInt().toString();
-    _heightController =
-        TextEditingController()..text = state.mapSize.height.toInt().toString();
+    _widthController = TextEditingController()
+      ..text = state.mapSize.width.toInt().toString();
+    _heightController = TextEditingController()
+      ..text = state.mapSize.height.toInt().toString();
   }
 
   @override

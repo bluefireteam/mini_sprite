@@ -6,7 +6,7 @@ part 'map_tool_state.dart';
 class MapToolCubit extends Cubit<MapToolState> {
   MapToolCubit() : super(const MapToolState.initial());
 
-  void toogleGrid() {
+  void toggleGrid() {
     emit(state.copyWith(gridActive: !state.gridActive));
   }
 

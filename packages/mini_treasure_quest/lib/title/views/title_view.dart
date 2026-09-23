@@ -4,12 +4,10 @@ import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/stages/stages.dart';
 
 class TitlePage extends StatelessWidget {
-  const TitlePage({super.key});
+  const new({super.key});
 
   static Route<void> route() {
-    return MaterialPageRoute(
-      builder: (_) => const TitlePage(),
-    );
+    return MaterialPageRoute(builder: (_) => const TitlePage());
   }
 
   @override
@@ -19,7 +17,7 @@ class TitlePage extends StatelessWidget {
 }
 
 class TitleView extends StatelessWidget {
-  const TitleView({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +31,7 @@ class TitleView extends StatelessWidget {
               height: 300,
               padding: const EdgeInsets.all(32),
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white,
-                  width: 4,
-                ),
+                border: Border.all(color: Colors.white, width: 4),
               ),
               child: SpriteWidget(
                 // TODO(erickzanardo): A MiniSpriteWidget is a good idea.

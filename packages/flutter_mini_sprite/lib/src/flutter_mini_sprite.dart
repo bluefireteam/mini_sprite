@@ -8,7 +8,7 @@ import 'package:mini_sprite/mini_sprite.dart';
 /// {@endtemplate}
 class MiniSpriteWidget extends StatelessWidget {
   /// {@macro mini_sprite_widget}
-  const MiniSpriteWidget({
+  const new({
     required this.sprite,
     this.pixelSize = 1,
     this.palette = const [Color(0xFFFFFFFF), Color(0xFF000000)],
@@ -40,7 +40,7 @@ class MiniSpriteWidget extends StatelessWidget {
 }
 
 class _MiniSpritePainter extends CustomPainter {
-  _MiniSpritePainter(this.sprite, this.pixelSize, this.palette);
+  new(this.sprite, this.pixelSize, this.palette);
 
   final MiniSprite sprite;
   final double pixelSize;

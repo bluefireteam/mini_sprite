@@ -47,7 +47,9 @@ extension TestWidgetText on WidgetTester {
           BlocProvider<WorkspaceCubit>.value(value: workspaceCubit),
           BlocProvider<MapCubit>.value(value: mapCubit),
         ],
-        child: Scaffold(body: WorkspaceView(colorList: colors, sprite: sprite)),
+        child: Scaffold(
+          body: WorkspaceView(colorList: colors, sprite: sprite),
+        ),
       ),
     );
   }

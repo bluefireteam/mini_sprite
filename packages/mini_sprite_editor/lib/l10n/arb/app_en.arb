@@ -54,7 +54,7 @@
     },
     "greaterThanZero": "Must be greater than zero",
     "@greaterThanZero": {
-        "description": "Error message for values that must be greated than zero."
+        "description": "Error message for values that must be greater than zero."
     },
     "confirm": "Confirm",
     "@confirm": {
@@ -84,9 +84,9 @@
     "@clearSprite": {
         "description": "Label for clearing the sprite"
     },
-    "toogleGrid": "Toogle grid",
-    "@toogleGrid": {
-        "description": "Label for the grid toogling"
+    "toggleGrid": "Toggle grid",
+    "@toggleGrid": {
+        "description": "Label for the grid toggling"
     },
     "configurations": "Configurations",
     "@configurations": {
@@ -176,8 +176,8 @@
     "@removeProperty": {
         "description": "Label for the remove property"
     },
-    "newPropery": "New property",
-    "@newPropery": {
+    "newProperty": "New property",
+    "@newProperty": {
         "description": "Label for the new property"
     },
     "name": "Name",

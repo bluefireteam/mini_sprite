@@ -30,56 +30,53 @@ class App extends StatelessWidget {
           BlocProvider<MapCubit>(create: (context) => MapCubit()),
         ],
         child: BlocBuilder<ConfigCubit, ConfigState>(
-          builder:
-              (context, state) => MaterialApp(
-                themeMode: state.themeMode,
-                theme: ThemeData(),
-                darkTheme: ThemeData.dark(),
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                ],
-                supportedLocales: AppLocalizations.supportedLocales,
-                onGenerateRoute: (settings) {
-                  final name = settings.name;
+          builder: (context, state) => MaterialApp(
+            themeMode: state.themeMode,
+            theme: ThemeData(),
+            darkTheme: ThemeData.dark(),
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            onGenerateRoute: (settings) {
+              final name = settings.name;
 
-                  if (name != null && name != '/') {
-                    final uri = Uri.parse(name);
-                    final colors = uri.queryParameters['colors'];
+              if (name != null && name != '/') {
+                final uri = Uri.parse(name);
+                final colors = uri.queryParameters['colors'];
 
-                    List<Color>? colorList;
-                    if (colors != null) {
-                      colorList =
-                          colors
-                              .split(',')
-                              .map(int.parse)
-                              .map(Color.new)
-                              .toList();
-                    }
+                List<Color>? colorList;
+                if (colors != null) {
+                  colorList = colors
+                      .split(',')
+                      .map(int.parse)
+                      .map(Color.new)
+                      .toList();
+                }
 
-                    final spriteRaw = uri.queryParameters['sprite'];
-                    MiniSprite? sprite;
-                    if (spriteRaw != null) {
-                      try {
-                        sprite = MiniSprite.fromDataString(spriteRaw);
-                      } on Exception catch (_) {
-                        // ignore on invalid sprite data
-                      }
-                    }
-                    return MaterialPageRoute(
-                      builder:
-                          (_) => WorkspaceView(
-                            colorList: colorList,
-                            sprite: sprite,
-                          ),
-                    );
+                final spriteRaw = uri.queryParameters['sprite'];
+                MiniSprite? sprite;
+                if (spriteRaw != null) {
+                  try {
+                    sprite = MiniSprite.fromDataString(spriteRaw);
+                  } on Exception catch (_) {
+                    // ignore on invalid sprite data
                   }
+                }
+                return MaterialPageRoute(
+                  builder: (_) => WorkspaceView(
+                    colorList: colorList,
+                    sprite: sprite,
+                  ),
+                );
+              }
 
-                  return MaterialPageRoute(
-                    builder: (_) => const WorkspaceView(),
-                  );
-                },
-              ),
+              return MaterialPageRoute(
+                builder: (_) => const WorkspaceView(),
+              );
+            },
+          ),
         ),
       ),
     );

@@ -172,7 +172,7 @@ abstract class AppLocalizations {
   /// **'Height'**
   String get height;
 
-  /// Error message for values that must be greated than zero.
+  /// Error message for values that must be greater than zero.
   ///
   /// In en, this message translates to:
   /// **'Must be greater than zero'**
@@ -220,11 +220,11 @@ abstract class AppLocalizations {
   /// **'Clear sprite'**
   String get clearSprite;
 
-  /// Label for the grid toogling
+  /// Label for the grid toggling
   ///
   /// In en, this message translates to:
-  /// **'Toogle grid'**
-  String get toogleGrid;
+  /// **'Toggle grid'**
+  String get toggleGrid;
 
   /// Label for configurations
   ///
@@ -362,7 +362,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'New property'**
-  String get newPropery;
+  String get newProperty;
 
   /// Label for the name
   ///

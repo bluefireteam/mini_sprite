@@ -6,7 +6,7 @@ import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
 class Treasure extends forge.BodyComponent<MiniTreasureQuest>
     with forge.ContactCallbacks {
-  Treasure({required this.initialPosition});
+  new({required this.initialPosition});
 
   final Vector2 initialPosition;
 
@@ -36,11 +36,7 @@ class Treasure extends forge.BodyComponent<MiniTreasureQuest>
 
     body
         .createFixtureFromShape(
-          forge.PolygonShape()
-            ..setAsBoxXY(
-              tileSize / 2,
-              tileSize / 2,
-            ),
+          forge.PolygonShape()..setAsBoxXY(tileSize / 2, tileSize / 2),
         )
         .setSensor(true);
 

@@ -3,24 +3,27 @@
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
 [![License: MIT][license_badge]][license_link]
 
-Library to act as a bridge betwenn Mini Sprite and Flame Engine
+Library to act as a bridge between Mini Sprite and Flame Engine
 
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 
-# How to use it
+
+## How to use it
 
 Add flame mini sprite to the project pubspec:
 
-```
+```shell
 dart pub add flame_mini_sprite
 ```
 
-## Helpers
 
-### MiniSprite.toSprite
+### Helpers
+
+
+#### MiniSprite.toSprite
 
 Convert a `MiniSprite` instance into a Flame `Sprite` instance:
 
@@ -32,7 +35,8 @@ final sprite = await miniSprite.toSprite(
 );
 ```
 
-### MiniLibrary.toSprites
+
+#### MiniLibrary.toSprites
 
 Convert a `MiniLibrary` instance into a map of Flame `Sprite` instances.
 

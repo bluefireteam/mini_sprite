@@ -5,9 +5,7 @@ import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
 class Player extends forge.BodyComponent<MiniTreasureQuest> {
-  Player({
-    required this.initialPosition,
-  });
+  new({required this.initialPosition});
 
   final Vector2 initialPosition;
 
@@ -78,14 +76,11 @@ class Player extends forge.BodyComponent<MiniTreasureQuest> {
   @override
   forge.Body createBody() {
     renderBody = false;
-    final bodyDef = forge.BodyDef(
-      userData: this,
-      type: forge.BodyType.dynamic,
-    )..position = forge.Vector2(initialPosition.x, initialPosition.y);
+    final bodyDef = forge.BodyDef(userData: this, type: forge.BodyType.dynamic)
+      ..position = forge.Vector2(initialPosition.x, initialPosition.y);
 
-    return world.createBody(bodyDef)
-      ..createFixtureFromShape(
-        forge.PolygonShape()..setAsBoxXY(tileSize / 2, tileSize / 2),
-      );
+    return world.createBody(bodyDef)..createFixtureFromShape(
+      forge.PolygonShape()..setAsBoxXY(tileSize / 2, tileSize / 2),
+    );
   }
 }

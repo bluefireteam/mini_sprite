@@ -1,7 +1,78 @@
-name: mini_sprite_workspace
+name: _
+repository: https://github.com/bluefireteam/mini_sprite
+workspace:
+  - packages/flame_mini_sprite
+  - packages/flame_mini_sprite/example
+  - packages/flutter_mini_sprite
+  - packages/flutter_mini_sprite/example
+  - packages/mini_sprite
+  - packages/mini_sprite_editor
+  - packages/mini_treasure_quest
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.13.0 <4.0.0"
 
 dev_dependencies:
-  melos: ^3.4.0
+  melos: ^8.1.0
+
+melos:
+  command:
+    version:
+      # Only allow versioning to happen on main branch.
+      branch: main
+      # Generates a link to a prefilled GitHub release creation page.
+      releaseUrl: true
+      includeCommitId: true
+      linkToCommits: true
+
+    bootstrap:
+      environment:
+        sdk: ">=3.13.0 <4.0.0"
+        flutter: ">=3.47.0"
+
+  scripts:
+    lint:all:
+      steps:
+        - melos analyze
+        - format
+      description: Run all static analysis checks.
+
+    format-check:
+      run: melos exec dart format . --set-exit-if-changed
+      description: Run `dart format` checks for all packages.
+
+    markdown-check:
+      run: markdownlint . --ignore-path .markdownlintignore --config .markdownlint.yaml
+      description: Runs the markdown linting check.
+
+    markdown-fix:
+      run: markdownlint . --fix --ignore-path .markdownlintignore --config .markdownlint.yaml
+      description: Fixes the markdown linting errors.
+
+    test:select:
+      run: melos exec -c 1 -- flutter test --reporter=json 2>&1 | dart run "$MELOS_ROOT_PATH/scripts/test_formatter.dart"
+      packageFilters:
+        dirExists: test
+      description: Run `flutter test` for selected packages.
+
+    coverage:
+      steps:
+        - melos exec -- flutter test --coverage
+        - melos exec -- genhtml coverage/lcov.info --output-directory=coverage/
+      packageFilters:
+        dirExists: test
+      description: Generate coverage for the selected package.
+
+    upgrade: melos exec flutter pub upgrade
+
+    editor-run:
+      run: melos exec -- flutter run -d chrome
+      packageFilters:
+        scope: mini_sprite_editor
+      description: Runs the Mini Sprite Editor in Chrome.
+
+    editor-build:
+      run: melos exec -- flutter build web --release --base-href /
+      packageFilters:
+        scope: mini_sprite_editor
+      description: Builds the Mini Sprite Editor for the web.

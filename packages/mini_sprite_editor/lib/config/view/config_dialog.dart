@@ -10,24 +10,23 @@ Future<Color?> _showColorPicker(Color color, BuildContext context) {
   Color? color0 = color;
   return showDialog<Color?>(
     context: context,
-    builder:
-        (context) => AlertDialog(
-          title: Text(context.l10n.chooseColor),
-          content: SingleChildScrollView(
-            child: ColorPicker(
-              pickerColor: color,
-              onColorChanged: (color) => color0 = color,
-            ),
-          ),
-          actions: <Widget>[
-            ElevatedButton(
-              child: Text(context.l10n.confirm),
-              onPressed: () {
-                Navigator.of(context).pop(color0);
-              },
-            ),
-          ],
+    builder: (context) => AlertDialog(
+      title: Text(context.l10n.chooseColor),
+      content: SingleChildScrollView(
+        child: ColorPicker(
+          pickerColor: color,
+          onColorChanged: (color) => color0 = color,
         ),
+      ),
+      actions: <Widget>[
+        ElevatedButton(
+          child: Text(context.l10n.confirm),
+          onPressed: () {
+            Navigator.of(context).pop(color0);
+          },
+        ),
+      ],
+    ),
   );
 }
 
@@ -56,9 +55,8 @@ class _ConfigDialogState extends State<ConfigDialog> {
   @override
   void initState() {
     super.initState();
-    _gridFieldController =
-        TextEditingController()
-          ..text = context.read<ConfigCubit>().state.mapGridSize.toString();
+    _gridFieldController = TextEditingController()
+      ..text = context.read<ConfigCubit>().state.mapGridSize.toString();
   }
 
   @override
@@ -243,8 +241,8 @@ class _ColorEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onLongPress: () async {
-        final confirmaiton = await ConfirmDialog.show(context);
-        if (confirmaiton ?? false) {
+        final confirmation = await ConfirmDialog.show(context);
+        if (confirmation ?? false) {
           onRemove();
         }
       },

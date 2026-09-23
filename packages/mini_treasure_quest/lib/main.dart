@@ -23,19 +23,14 @@ ThemeData _buildTheme(Brightness brightness) {
     cardTheme: CardThemeData(
       color: Colors.black,
       elevation: 2,
-      shape: Border.all(
-        color: Colors.white,
-        width: 4,
-      ),
+      shape: Border.all(color: Colors.white, width: 4),
     ),
   );
 
   return baseTheme.copyWith(
     primaryColor: Colors.white,
-    textTheme: GoogleFonts.pressStart2pTextTheme(baseTheme.textTheme).apply(
-      bodyColor: Colors.white,
-      displayColor: Colors.white,
-    ),
+    textTheme: GoogleFonts.pressStart2pTextTheme(baseTheme.textTheme)
+        .apply(bodyColor: Colors.white, displayColor: Colors.white),
   );
 }
 

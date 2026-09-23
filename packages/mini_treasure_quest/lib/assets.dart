@@ -5,7 +5,7 @@ import 'package:mini_sprite/mini_sprite.dart';
 import 'package:mini_treasure_quest/sprites.dart';
 
 class Assets {
-  Assets._();
+  new _();
 
   static final Assets _instance = Assets._();
 

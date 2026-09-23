@@ -61,8 +61,8 @@ class MapBoardGame extends FlameGame with PanDetector {
             },
           ),
           FlameBlocListener<MapCubit, MapState>(
-            listenWhen:
-                (previous, current) => previous.mapSize != current.mapSize,
+            listenWhen: (previous, current) =>
+                previous.mapSize != current.mapSize,
             onNewState: (state) {
               descendants().whereType<TileComponent>().forEach(
                 (e) => e.removeFromParent(),

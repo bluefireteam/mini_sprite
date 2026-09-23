@@ -11,11 +11,10 @@ class ObjectPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MapCubit, MapState>(
-      buildWhen:
-          (previous, current) =>
-              previous.selectedObject != current.selectedObject ||
-              previous.objects[previous.selectedObject] !=
-                  current.objects[current.selectedObject],
+      buildWhen: (previous, current) =>
+          previous.selectedObject != current.selectedObject ||
+          previous.objects[previous.selectedObject] !=
+              current.objects[current.selectedObject],
       builder: (context, state) {
         if (state.selectedObject == const MapPosition(-1, -1)) {
           return const SizedBox();
@@ -53,7 +52,7 @@ class ObjectPanel extends StatelessWidget {
                             );
                           }
                         },
-                        tooltip: l10n.newPropery,
+                        tooltip: l10n.newProperty,
                         icon: const Icon(Icons.add),
                       ),
                     ],

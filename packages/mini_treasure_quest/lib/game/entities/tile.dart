@@ -4,10 +4,7 @@ import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
 class Tile extends forge.BodyComponent<MiniTreasureQuest> {
-  Tile({
-    required this.initialPosition,
-    required this.sprite,
-  });
+  new({required this.initialPosition, required this.sprite});
 
   final Vector2 initialPosition;
   final String sprite;
@@ -31,18 +28,11 @@ class Tile extends forge.BodyComponent<MiniTreasureQuest> {
     final bodyDef = forge.BodyDef(
       userData: this,
       type: forge.BodyType.kinematic,
-    )..position = forge.Vector2(
-        initialPosition.x,
-        initialPosition.y,
-      );
+    )..position = forge.Vector2(initialPosition.x, initialPosition.y);
 
-    return world.createBody(bodyDef)
-      ..createFixtureFromShape(
-        forge.PolygonShape()
-          ..setAsBoxXY(
-            (tileSize / 2) * 0.8,
-            (tileSize / 2) * 0.8,
-          ),
-      );
+    return world.createBody(bodyDef)..createFixtureFromShape(
+      forge.PolygonShape()
+        ..setAsBoxXY((tileSize / 2) * 0.8, (tileSize / 2) * 0.8),
+    );
   }
 }
