@@ -9,7 +9,7 @@ on:
 
 
 env:
-  FLUTTER_MIN_VERSION: '3.35.0'
+  FLUTTER_MIN_VERSION: '3.47.0'
 
 jobs:
   # BEGIN LINTING STAGE
