@@ -263,7 +263,7 @@ packages:
       path: "../flame_mini_sprite"
       relative: true
     source: path
-    version: "0.0.2"
+    version: "0.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -482,7 +482,7 @@ packages:
       path: "../mini_sprite"
       relative: true
     source: path
-    version: "0.1.0"
+    version: "0.2.0"
   mocktail:
     dependency: "direct dev"
     description:

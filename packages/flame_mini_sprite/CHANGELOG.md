@@ -1,3 +1,7 @@
+## 0.1.0
+
+ - **FEAT**: Update to the latest Flutter version.
+
 ## 0.0.2
 
  - **FIX**: Removing gaps between pixels.

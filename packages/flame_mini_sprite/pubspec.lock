@@ -257,7 +257,7 @@ packages:
       path: "../mini_sprite"
       relative: true
     source: path
-    version: "0.1.0"
+    version: "0.2.0"
   node_preamble:
     dependency: transitive
     description:

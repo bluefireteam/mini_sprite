@@ -1,3 +1,7 @@
+## 0.2.0
+
+ - **FEAT**: Update to the latest Flutter version.
+
 ## 0.1.0
 
  - feat!: mini sprite now support multiple colors

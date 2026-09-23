@@ -13,7 +13,7 @@ dependencies:
   file_selector: ^1.1.0
   flame: ">=1.32.0 <1.38.0"
   flame_bloc: ^1.12.15
-  flame_mini_sprite: ^0.0.2
+  flame_mini_sprite: ^0.1.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
@@ -23,7 +23,7 @@ dependencies:
   hydrated_bloc: ^9.1.5
   image: ^4.5.4
   intl: ^0.20.2
-  mini_sprite: ^0.1.0
+  mini_sprite: ^0.2.0
   path_provider: ^2.0.11
   replay_bloc: ^0.2.7
 
