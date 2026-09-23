@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:mini_treasure_quest/game/stages.dart';
 import 'package:mini_treasure_quest/game/views/view.dart';
@@ -32,9 +30,7 @@ class StagesView extends StatelessWidget {
             for (var i = 0; i < stages.length; i++)
               ElevatedButton(
                 onPressed: () {
-                  unawaited(
-                    Navigator.of(context).push(GamePage.route(i)),
-                  );
+                  Navigator.of(context).push(GamePage.route(i));
                 },
                 autofocus: i == stages.length - 1,
                 child: SizedBox(
