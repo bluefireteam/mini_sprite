@@ -13,8 +13,8 @@ dependencies:
   dashbook: ^0.1.10
   flutter:
     sdk: flutter
-  flutter_mini_sprite: ^0.0.1+1
-  mini_sprite: ^0.1.0
+  flutter_mini_sprite: ^0.1.0
+  mini_sprite: ^0.2.0
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
