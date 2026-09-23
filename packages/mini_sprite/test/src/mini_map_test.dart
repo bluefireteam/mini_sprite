@@ -39,29 +39,26 @@ void main() {
         );
       });
 
-      test(
-        'fromDataString returns the correct instance with width and height',
-        () {
-          const data =
-              // Ignore for tests
-              // ignore: lines_longer_than_80_chars
-              '{"width":2,"height":2,"objects":[{"x": 0, "y": 0, "data": {"sprite": "player"}}]}';
-          final instance = MiniMap.fromDataString(data);
+      test('fromDataString parses the width and height', () {
+        const data =
+            // Ignore for tests
+            // ignore: lines_longer_than_80_chars
+            '{"width":2,"height":2,"objects":[{"x": 0, "y": 0, "data": {"sprite": "player"}}]}';
+        final instance = MiniMap.fromDataString(data);
 
-          expect(
-            instance,
-            MiniMap(
-              width: 2,
-              height: 2,
-              objects: {
-                const MapPosition(0, 0): const <String, dynamic>{
-                  'sprite': 'player',
-                },
+        expect(
+          instance,
+          MiniMap(
+            width: 2,
+            height: 2,
+            objects: {
+              const MapPosition(0, 0): const <String, dynamic>{
+                'sprite': 'player',
               },
-            ),
-          );
-        },
-      );
+            },
+          ),
+        );
+      });
     });
 
     test('toDataString returns the correct serialized data', () {

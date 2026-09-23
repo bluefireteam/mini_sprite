@@ -29,9 +29,8 @@ ThemeData _buildTheme(Brightness brightness) {
 
   return baseTheme.copyWith(
     primaryColor: Colors.white,
-    textTheme: GoogleFonts.pressStart2pTextTheme(
-      baseTheme.textTheme,
-    ).apply(bodyColor: Colors.white, displayColor: Colors.white),
+    textTheme: GoogleFonts.pressStart2pTextTheme(baseTheme.textTheme)
+        .apply(bodyColor: Colors.white, displayColor: Colors.white),
   );
 }
 

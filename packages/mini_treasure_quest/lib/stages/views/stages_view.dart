@@ -3,7 +3,7 @@ import 'package:mini_treasure_quest/game/stages.dart';
 import 'package:mini_treasure_quest/game/views/view.dart';
 
 class StagesPage extends StatelessWidget {
-  const StagesPage({super.key});
+  const new({super.key});
 
   static Route<void> route() {
     return MaterialPageRoute(builder: (_) => const StagesPage());
@@ -16,7 +16,7 @@ class StagesPage extends StatelessWidget {
 }
 
 class StagesView extends StatelessWidget {
-  const StagesView({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {

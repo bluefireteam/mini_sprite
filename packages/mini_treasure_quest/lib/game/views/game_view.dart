@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_treasure_quest/game/game.dart';
 
 class GamePage extends StatelessWidget {
-  const GamePage({required this.stage, super.key});
+  const new({required this.stage, super.key});
 
   final int stage;
 
@@ -22,7 +22,7 @@ class GamePage extends StatelessWidget {
 }
 
 class GameView extends StatelessWidget {
-  const GameView({required this.stage, super.key});
+  const new({required this.stage, super.key});
 
   final int stage;
 

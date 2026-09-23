@@ -8,14 +8,12 @@ import 'package:equatable/equatable.dart';
 /// {@endtemplate}
 class MiniMap extends Equatable {
   /// {@macro mini_map}
-  const MiniMap({required this.objects, int? width, int? height})
-    : _width = width,
-      _height = height;
+  const new({required this.objects, this._width, this._height});
 
   /// {@macro mini_map}
   ///
   /// Returns a new [MiniMap] parsed from the raw data.
-  factory MiniMap.fromDataString(String data) {
+  factory fromDataString(String data) {
     final dynamic dataRaw = jsonDecode(data);
 
     late Map<String, dynamic> objectsRaw;
@@ -98,7 +96,7 @@ class MiniMap extends Equatable {
 /// {@endtemplate}
 class MapPosition extends Equatable {
   /// {@macro map_position}
-  const MapPosition(this.x, this.y);
+  const new(this.x, this.y);
 
   /// The x position.
   final int x;

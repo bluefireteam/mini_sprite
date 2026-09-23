@@ -5,7 +5,7 @@ import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
 class Player extends forge.BodyComponent<MiniTreasureQuest> {
-  Player({required this.initialPosition});
+  new({required this.initialPosition});
 
   final Vector2 initialPosition;
 

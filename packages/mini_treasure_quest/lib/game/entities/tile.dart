@@ -4,7 +4,7 @@ import 'package:mini_treasure_quest/assets.dart';
 import 'package:mini_treasure_quest/mini_treasure_quest.dart';
 
 class Tile extends forge.BodyComponent<MiniTreasureQuest> {
-  Tile({required this.initialPosition, required this.sprite});
+  new({required this.initialPosition, required this.sprite});
 
   final Vector2 initialPosition;
   final String sprite;

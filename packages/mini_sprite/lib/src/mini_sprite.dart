@@ -7,18 +7,18 @@ import 'package:equatable/equatable.dart';
 /// {@endtemplate}
 class MiniSprite extends Equatable {
   /// {@macro mini_sprite}
-  const MiniSprite(this.pixels);
+  const new(this.pixels);
 
   /// {@macro mini_sprite}
   ///
   /// Creates an empty sprite with the given width and height.
-  MiniSprite.empty(int width, int height)
+  new empty(int width, int height)
     : pixels = List.generate(height, (_) => List.generate(width, (_) => -1));
 
   /// {@macro mini_sprite}
   ///
   /// Returns a [MiniSprite] from the serialized data.
-  factory MiniSprite.fromDataString(String value) {
+  factory fromDataString(String value) {
     final blocks = value.split(';');
 
     final size = blocks.removeAt(0).split(',');

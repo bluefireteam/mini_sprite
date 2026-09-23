@@ -4,7 +4,7 @@ import 'package:mini_treasure_quest/game/views/game_view.dart';
 import 'package:mini_treasure_quest/stages/stages.dart';
 
 class WinDialog extends StatelessWidget {
-  const WinDialog({required this.stage, super.key});
+  const new({required this.stage, super.key});
 
   final int stage;
 
@@ -36,9 +36,8 @@ class WinDialog extends StatelessWidget {
                   ElevatedButton(
                     autofocus: true,
                     onPressed: () {
-                      Navigator.of(
-                        context,
-                      ).pushReplacement(GamePage.route(stage + 1));
+                      Navigator.of(context)
+                          .pushReplacement(GamePage.route(stage + 1));
                     },
                     child: const Text('Next'),
                   ),

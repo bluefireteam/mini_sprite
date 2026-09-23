@@ -12,7 +12,7 @@ import 'package:mini_treasure_quest/game/views/view.dart';
 const double tileSize = 2;
 
 class MiniTreasureQuest extends Forge2DGame with HasKeyboardHandlerComponents {
-  MiniTreasureQuest({required this.stage});
+  new({required this.stage});
 
   final rng = Random(10);
 
